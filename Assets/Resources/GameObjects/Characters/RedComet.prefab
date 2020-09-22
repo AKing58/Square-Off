@@ -1547,7 +1547,7 @@ GameObject:
   - component: {fileID: 2693295183446170396}
   - component: {fileID: 7578307546556427711}
   m_Layer: 0
-  m_Name: BaseModel
+  m_Name: RedComet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1598,7 +1598,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3965796481882474990}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 6f5bc1939aba6004ba66702a9abac92b, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 831ac1d62eb249a4cb99aa4090181005, type: 3}
   m_Controller: {fileID: 9100000, guid: ae0310442e4b2c549ac0ca45196b43ea, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0

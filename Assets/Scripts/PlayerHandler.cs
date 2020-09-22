@@ -17,7 +17,7 @@ public class PlayerHandler : MonoBehaviour
         speed = 1.5f;
         anim = gameObject.GetComponent<Animator>();
 
-        SetActiveFrames("Armature|GrabActive", "setGrab", 0, 4);
+        SetActiveFrames("Grab", "setGrab", 15, 19);
 
         //AnimationEvent animEventGrabbing = new AnimationEvent();
         //animEventGrabbing.intParameter = 1;
@@ -51,10 +51,10 @@ public class PlayerHandler : MonoBehaviour
         {
             if (Input.GetKeyDown("z"))
             {
-                if ((anim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Idle")))
-                anim.SetTrigger("GrabStartParam");
+                if ((anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle")))
+                    anim.SetTrigger("GrabStartParam");
             }
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Idle"))
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             {
                 Vector3 targetVec = new Vector3();
                 if (Input.GetKey("up"))
@@ -132,9 +132,9 @@ public class PlayerHandler : MonoBehaviour
 
     public bool canBeGrabbed()
     {
-        return !(anim.GetCurrentAnimatorStateInfo(0).IsName("Armature|Grabbed")
-            || anim.GetCurrentAnimatorStateInfo(0).IsName("Armature|GetUp")
-            || anim.GetCurrentAnimatorStateInfo(0).IsName("Armature|GrabConnect"));
+        return !(anim.GetCurrentAnimatorStateInfo(0).IsName("Grabbed")
+            || anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp")
+            || anim.GetCurrentAnimatorStateInfo(0).IsName("GrabConnect"));
     }
 
     public void grabMe()

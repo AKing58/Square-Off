@@ -10,15 +10,15 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Characters.Add("Gief", Resources.Load<GameObject>("GameObjects/Characters/BaseModel"));
+        Characters.Add("RedComet", Resources.Load<GameObject>("GameObjects/Characters/RedComet"));
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        Players.Add(Instantiate(Characters["Gief"], new Vector3(2.5f ,0 ,0 ), Quaternion.identity));
+        Players.Add(Instantiate(Characters["RedComet"], new Vector3(2.5f ,0 ,0 ), Quaternion.identity));
         Players[0].GetComponent<PlayerHandler>().controllable = true;
-        Players.Add(Instantiate(Characters["Gief"], new Vector3(-2.5f, 0, 0), Quaternion.identity));
+        Players.Add(Instantiate(Characters["RedComet"], new Vector3(-2.5f, 0, 0), Quaternion.identity));
 
         foreach(GameObject player in Players)
         {
