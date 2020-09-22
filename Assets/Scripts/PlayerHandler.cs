@@ -14,38 +14,34 @@ public class PlayerHandler : MonoBehaviour
 
     void Start()
     {
-
-        
         speed = 1.5f;
-        AnimationClip animClip = null;
         anim = gameObject.GetComponent<Animator>();
 
-        AnimationEvent animEventGrabbing = new AnimationEvent();
-        animEventGrabbing.intParameter = 1;
-        animEventGrabbing.time = 0.0f;
-        animEventGrabbing.functionName = "setGrab";
+        SetActiveFrames("Armature|GrabActive", "setGrab", 0, 4);
 
-        AnimationEvent animEventGrabEnd = new AnimationEvent();
-        animEventGrabEnd.intParameter = 0;
-        animEventGrabEnd.time = 0.165f;
-        animEventGrabEnd.functionName = "setGrab";
+        //AnimationEvent animEventGrabbing = new AnimationEvent();
+        //animEventGrabbing.intParameter = 1;
+        //animEventGrabbing.time = 0.0f;
+        //animEventGrabbing.functionName = "setGrab";
 
-        foreach (AnimationClip tempClip in anim.runtimeAnimatorController.animationClips)
-        {
-            if (tempClip.name == "Armature|GrabActive")
-            {
-                animClip = tempClip;
-            }
-        }
+        //AnimationEvent animEventGrabEnd = new AnimationEvent();
+        //animEventGrabEnd.intParameter = 0;
+        //animEventGrabEnd.time = 0.165f;
+        //animEventGrabEnd.functionName = "setGrab";
 
-        if (animClip != null)
-        {
-            animClip.AddEvent(animEventGrabbing);
-            animClip.AddEvent(animEventGrabEnd);
-        }
-        
+        //foreach (AnimationClip tempClip in anim.runtimeAnimatorController.animationClips)
+        //{
+        //    if (tempClip.name == "Armature|GrabActive")
+        //    {
+        //        animClip = tempClip;
+        //    }
+        //}
 
-
+        //if (animClip != null)
+        //{
+        //    animClip.AddEvent(animEventGrabbing);
+        //    animClip.AddEvent(animEventGrabEnd);
+        //}
     }
 
     // Update is called once per frame
@@ -93,6 +89,35 @@ public class PlayerHandler : MonoBehaviour
                 }
             }
         }
+    }
+
+    protected void SetActiveFrames(string moveName, string moveFunction, int startTime, int endTime)
+    {
+        AnimationClip animClip = null;
+        foreach (AnimationClip tempClip in anim.runtimeAnimatorController.animationClips)
+        {
+            if (tempClip.name == moveName)
+            {
+                animClip = tempClip;
+            }
+        }
+        if (animClip == null)
+        {
+            Debug.LogError("Error: Could not find animation clip to bind active frames to");
+            return;
+        }
+        AnimationEvent animEventStart = new AnimationEvent();
+        animEventStart.intParameter = 1;
+        animEventStart.time = startTime * (1.0f / Constants.ANIMATION_FRAME_RATE);
+        animEventStart.functionName = moveFunction;
+
+        AnimationEvent animEventEnd = new AnimationEvent();
+        animEventEnd.intParameter = 0;
+        animEventEnd.time = endTime * (1.0f / Constants.ANIMATION_FRAME_RATE);
+        animEventEnd.functionName = moveFunction;
+
+        animClip.AddEvent(animEventStart);
+        animClip.AddEvent(animEventEnd);
     }
 
     public void setGrab(int value)
