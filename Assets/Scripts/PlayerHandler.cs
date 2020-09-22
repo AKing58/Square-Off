@@ -9,6 +9,9 @@ public class PlayerHandler : MonoBehaviour
     public float speed = 1.5f;
     public bool controllable = false;
 
+    [SerializeField]
+    public GameObject grabHitbox;
+
     void Start()
     {
 
@@ -85,8 +88,8 @@ public class PlayerHandler : MonoBehaviour
                 if (targetVec != new Vector3())
                 {
                     targetVec = targetVec.normalized;
-                    rotTowards(targetVec + transform.parent.position);
-                    transform.parent.Translate(targetVec.x * speed * Time.deltaTime, targetVec.y * speed * Time.deltaTime, targetVec.z * speed * Time.deltaTime, Space.World);
+                    rotTowards(targetVec + transform.position);
+                    transform.Translate(targetVec.x * speed * Time.deltaTime, targetVec.y * speed * Time.deltaTime, targetVec.z * speed * Time.deltaTime, Space.World);
                 }
             }
         }
@@ -94,8 +97,7 @@ public class PlayerHandler : MonoBehaviour
 
     public void setGrab(int value)
     {
-        Debug.Log("Setting grab: " + value);
-        transform.parent.Find("GrabHitbox").gameObject.GetComponent<BoxCollider>().enabled = value == 1;
+        grabHitbox.GetComponent<BoxCollider>().enabled = value == 1;
     }
 
     public void grabConnected()
@@ -117,10 +119,10 @@ public class PlayerHandler : MonoBehaviour
 
     public void rotTowards(Vector3 target)
     {
-        Vector3 targetDirection = target - transform.parent.position;
+        Vector3 targetDirection = target - transform.position;
         float singleStep = rotSpeed * Time.deltaTime;
 
-        Vector3 newDirection = Vector3.RotateTowards(transform.parent.forward, targetDirection, singleStep, 0.0f);
-        transform.parent.rotation = Quaternion.LookRotation(newDirection);
+        Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
+        transform.rotation = Quaternion.LookRotation(newDirection);
     }
 }

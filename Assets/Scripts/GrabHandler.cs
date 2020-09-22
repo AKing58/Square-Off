@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class GrabHandler : MonoBehaviour
 {
+    public GameObject parentGO;
     public float grabAnimDistance = 3.0f;
     private void Start()
     {
-        Physics.IgnoreCollision(GetComponent<Collider>(), transform.parent.GetComponent<Collider>());
+        Physics.IgnoreCollision(GetComponent<Collider>(), transform.GetComponent<Collider>());
     }
     private void OnTriggerEnter(Collider collider)
     {
-        PlayerHandler targetPH = collider.gameObject.transform.Find("BaseModel").GetComponent<PlayerHandler>();
-        PlayerHandler selfPH = transform.parent.Find("BaseModel").GetComponent<PlayerHandler>();
+        PlayerHandler targetPH = collider.gameObject.GetComponent<PlayerHandler>();
+        PlayerHandler selfPH = parentGO.GetComponent<PlayerHandler>();
         if (!targetPH.canBeGrabbed())
             return;
 
-        Vector3 grabLoc = Vector3.MoveTowards(targetPH.transform.parent.position, transform.position, 100.0f);
-        targetPH.transform.parent.position = new Vector3(grabLoc.x, targetPH.transform.parent.position.y, grabLoc.z);
-        targetPH.rotTowards(selfPH.gameObject.transform.position);
+        Vector3 grabLoc = Vector3.MoveTowards(targetPH.transform.position, transform.position, 100.0f);
+        targetPH.transform.position = new Vector3(grabLoc.x, targetPH.transform.position.y, grabLoc.z);
+        targetPH.rotTowards(selfPH.transform.position);
         targetPH.grabMe();
         selfPH.grabConnected();
     }
