@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -9,11 +10,36 @@ public class PlayerHandler : MonoBehaviour
     public float speed = 1.5f;
     public bool controllable = false;
 
+    public GameObject PlayerInfoPanel;
+    public string CharacterName;
+    public string PlayerName;
+
+    [SerializeField]
+    private float maxHealth;
+    public float MaxHealth
+    {
+        get { return maxHealth; }
+    }
+
+    [SerializeField]
+    private float health;
+    public float Health
+    {
+        get { return health; }
+        set 
+        { 
+            health = value;
+            PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().fillAmount = value / MaxHealth;
+            PlayerInfoPanel.transform.Find("HPBar/HPText").GetComponent<Text>().text = value + "/" + MaxHealth;
+        }
+    }
+
     [SerializeField]
     public GameObject grabHitbox;
 
     void Start()
-    {
+    { 
+
         speed = 1.5f;
         anim = gameObject.GetComponent<Animator>();
 
@@ -43,6 +69,15 @@ public class PlayerHandler : MonoBehaviour
         //    animClip.AddEvent(animEventGrabbing);
         //    animClip.AddEvent(animEventGrabEnd);
         //}
+    }
+
+    public void InitPlayer()
+    {
+        PlayerInfoPanel.transform.Find("PlayerName").GetComponent<Text>().text = PlayerName;
+        PlayerInfoPanel.transform.Find("CharacterName").GetComponent<Text>().text = CharacterName;
+
+        maxHealth = 100;
+        Health = MaxHealth;
     }
 
     // Update is called once per frame
@@ -154,11 +189,13 @@ public class PlayerHandler : MonoBehaviour
     public void grabMe()
     {
         anim.SetTrigger("GrabbedParam");
+        Health -= 10;
     }
 
     public void strikeMe()
     {
         anim.SetTrigger("StrikedFrontParam");
+        Health -= 5;
     }
 
     public void rotTowards(Vector3 target)
