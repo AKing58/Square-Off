@@ -20,18 +20,25 @@ public class GameManager : MonoBehaviour
     {
         Players.Add(Instantiate(Characters["RedComet"], new Vector3(-2.5f ,0 ,0 ), Quaternion.identity));
         Players[0].name = "Player1";
-        Players[0].GetComponent<PlayerHandler>().controllable = true;
-        Players[0].GetComponent<PlayerHandler>().PlayerInfoPanel = PlayerInfoPanels.transform.Find("Player1Panel").gameObject;
-        Players[0].GetComponent<PlayerHandler>().CharacterName = "Red Comet";
-        Players[0].GetComponent<PlayerHandler>().PlayerName = "Player 1";
-        Players[0].GetComponent<PlayerHandler>().InitPlayer();
+
+        PlayerHandler ph1 = Players[0].GetComponent<PlayerHandler>();
+
+        ph1.controllable = true;
+        ph1.PlayerInfoPanel = PlayerInfoPanels.transform.Find("Player1Panel").gameObject;
+        ph1.CharacterName = "Red Comet";
+        ph1.PlayerName = "Player 1";
+        ph1.InitPlayer();
+
 
         Players.Add(Instantiate(Characters["RedComet"], new Vector3(2.5f, 0, 0), Quaternion.identity));
         Players[1].name = "Player2";
-        Players[1].GetComponent<PlayerHandler>().PlayerInfoPanel = PlayerInfoPanels.transform.Find("Player2Panel").gameObject;
-        Players[1].GetComponent<PlayerHandler>().CharacterName = "Red Comet";
-        Players[1].GetComponent<PlayerHandler>().PlayerName = "Player 2";
-        Players[1].GetComponent<PlayerHandler>().InitPlayer();
+
+        PlayerHandler ph2 = Players[1].GetComponent<PlayerHandler>();
+
+        ph2.PlayerInfoPanel = PlayerInfoPanels.transform.Find("Player2Panel").gameObject;
+        ph2.CharacterName = "Red Comet";
+        ph2.PlayerName = "Player 2";
+        ph2.InitPlayer();
 
         foreach (GameObject player in Players)
         {

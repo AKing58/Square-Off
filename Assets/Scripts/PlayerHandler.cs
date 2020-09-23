@@ -39,36 +39,11 @@ public class PlayerHandler : MonoBehaviour
 
     void Start()
     { 
-
         speed = 1.5f;
         anim = gameObject.GetComponent<Animator>();
 
         SetActiveFrames("Grab", "GrabHitbox", 15, 19);
         SetActiveFrames("Rekka1", "Rekka1Hitbox", 15, 20);
-
-        //AnimationEvent animEventGrabbing = new AnimationEvent();
-        //animEventGrabbing.intParameter = 1;
-        //animEventGrabbing.time = 0.0f;
-        //animEventGrabbing.functionName = "setGrab";
-
-        //AnimationEvent animEventGrabEnd = new AnimationEvent();
-        //animEventGrabEnd.intParameter = 0;
-        //animEventGrabEnd.time = 0.165f;
-        //animEventGrabEnd.functionName = "setGrab";
-
-        //foreach (AnimationClip tempClip in anim.runtimeAnimatorController.animationClips)
-        //{
-        //    if (tempClip.name == "Armature|GrabActive")
-        //    {
-        //        animClip = tempClip;
-        //    }
-        //}
-
-        //if (animClip != null)
-        //{
-        //    animClip.AddEvent(animEventGrabbing);
-        //    animClip.AddEvent(animEventGrabEnd);
-        //}
     }
 
     public void InitPlayer()
