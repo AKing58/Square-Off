@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrabHandler : MonoBehaviour
+public class GrabHandler : HitBoxScript
 {
-    public GameObject parentGO;
-    public float grabAnimDistance = 3.0f;
-    private void Start()
-    {
-        Physics.IgnoreCollision(GetComponent<Collider>(), transform.GetComponent<Collider>());
-    }
-    private void OnTriggerEnter(Collider collider)
+    void OnTriggerEnter(Collider collider)
     {
         PlayerHandler targetPH = collider.gameObject.GetComponent<PlayerHandler>();
         PlayerHandler selfPH = parentGO.GetComponent<PlayerHandler>();

@@ -17,7 +17,8 @@ public class PlayerHandler : MonoBehaviour
         speed = 1.5f;
         anim = gameObject.GetComponent<Animator>();
 
-        SetActiveFrames("Grab", "setGrab", 15, 19);
+        SetActiveFrames("Grab", "GrabHitbox", 15, 19);
+        SetActiveFrames("Rekka1", "Rekka1Hitbox", 15, 20);
 
         //AnimationEvent animEventGrabbing = new AnimationEvent();
         //animEventGrabbing.intParameter = 1;
@@ -51,7 +52,11 @@ public class PlayerHandler : MonoBehaviour
         {
             if (Input.GetKeyDown("z"))
             {
-                if ((anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle")))
+                if ((anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1 0")))
+                    anim.SetTrigger("Rekka1Param");
+            }else if (Input.GetKeyDown("x"))
+            {
+                if ((anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1 0")))
                     anim.SetTrigger("GrabStartParam");
             }
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
@@ -91,7 +96,7 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
-    protected void SetActiveFrames(string moveName, string moveFunction, int startTime, int endTime)
+    protected void SetActiveFrames(string moveName, string hitboxName, int startTime, int endTime)
     {
         AnimationClip animClip = null;
         foreach (AnimationClip tempClip in anim.runtimeAnimatorController.animationClips)
@@ -109,20 +114,22 @@ public class PlayerHandler : MonoBehaviour
         AnimationEvent animEventStart = new AnimationEvent();
         animEventStart.intParameter = 1;
         animEventStart.time = startTime * (1.0f / Constants.ANIMATION_FRAME_RATE);
-        animEventStart.functionName = moveFunction;
+        animEventStart.stringParameter = hitboxName;
+        animEventStart.functionName = "setHitbox";
 
         AnimationEvent animEventEnd = new AnimationEvent();
         animEventEnd.intParameter = 0;
         animEventEnd.time = endTime * (1.0f / Constants.ANIMATION_FRAME_RATE);
-        animEventEnd.functionName = moveFunction;
+        animEventEnd.stringParameter = hitboxName;
+        animEventEnd.functionName = "setHitbox";
 
         animClip.AddEvent(animEventStart);
         animClip.AddEvent(animEventEnd);
     }
 
-    public void setGrab(int value)
+    public void setHitbox(AnimationEvent ae)
     {
-        grabHitbox.GetComponent<BoxCollider>().enabled = value == 1;
+        GameObject.Find("Hitboxes/" + ae.stringParameter).GetComponent<BoxCollider>().enabled = ae.intParameter == 1;
     }
 
     public void grabConnected()
@@ -137,9 +144,21 @@ public class PlayerHandler : MonoBehaviour
             || anim.GetCurrentAnimatorStateInfo(0).IsName("GrabConnect"));
     }
 
+    public bool canBeStriked()
+    {
+        return !(anim.GetCurrentAnimatorStateInfo(0).IsName("Grabbed")
+            || anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp")
+            || anim.GetCurrentAnimatorStateInfo(0).IsName("GrabConnect"));
+    }
+
     public void grabMe()
     {
         anim.SetTrigger("GrabbedParam");
+    }
+
+    public void strikeMe()
+    {
+        anim.SetTrigger("StrikedFrontParam");
     }
 
     public void rotTowards(Vector3 target)
