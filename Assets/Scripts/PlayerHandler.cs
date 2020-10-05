@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerHandler : MonoBehaviour
 {
     private Animator anim;
-    private float rotSpeed = 100.0f;
+    private float rotSpeed = 1000.0f;
     public float speed = 1.5f;
     public bool controllable = false;
 
@@ -39,7 +39,7 @@ public class PlayerHandler : MonoBehaviour
 
     void Start()
     { 
-        speed = 1.5f;
+        speed = 3f;
         anim = gameObject.GetComponent<Animator>();
 
         SetActiveFrames("Grab", "GrabHitbox", 15, 19);
