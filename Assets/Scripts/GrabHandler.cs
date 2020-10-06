@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GrabHandler : HitBoxScript
 {
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
         PlayerHandler targetPH = collider.gameObject.GetComponent<PlayerHandler>();
         PlayerHandler selfPH = parentGO.GetComponent<PlayerHandler>();

@@ -14,6 +14,10 @@ public class PlayerHandler : MonoBehaviour
     public string CharacterName;
     public string PlayerName;
 
+    public float LastTimeHit;
+
+    public float LastTimeStunned;
+
     [SerializeField]
     private float maxHealth;
     public float MaxHealth
@@ -29,10 +33,42 @@ public class PlayerHandler : MonoBehaviour
         set 
         { 
             health = value;
+            LastTimeHit = Time.time;
             PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().fillAmount = value / MaxHealth;
             PlayerInfoPanel.transform.Find("HPBar/HPText").GetComponent<Text>().text = value + "/" + MaxHealth;
+            if(LastTimeStunned != 0)
+            {
+                TurnStunOff();
+            }
         }
     }
+
+    [SerializeField]
+    private float maxStun;
+    public float MaxStun
+    {
+        get { return maxStun; }
+    }
+
+    [SerializeField]
+    private float stun;
+    public float Stun
+    {
+        get { return stun; }
+        set
+        {
+            stun = value;
+            transform.Find("WorldSpaceUI/Canvas/StunMeter").GetComponent<Image>().fillAmount = value / MaxStun;
+            if(stun >= maxStun)
+            {
+                print("stunned");
+                LastTimeStunned = Time.time;
+                anim.SetBool("StunnedParam", true);
+            }
+        }
+    }
+
+
 
     [SerializeField]
     public GameObject grabHitbox;
@@ -53,6 +89,10 @@ public class PlayerHandler : MonoBehaviour
 
         maxHealth = 100;
         Health = MaxHealth;
+        maxStun = 100;
+        Stun = 0;
+
+        LastTimeStunned = 0;
     }
 
     // Update is called once per frame
@@ -104,6 +144,24 @@ public class PlayerHandler : MonoBehaviour
                 }
             }
         }
+
+        //Stun Handling
+        if(Stun > 0 && Time.time > LastTimeHit + 5f && LastTimeStunned == 0)
+        {
+            Stun -= 0.05f;
+        }
+
+        if(LastTimeStunned != 0 && Time.time > LastTimeStunned + 3f)
+        {
+            TurnStunOff();
+        }
+    }
+
+    public void TurnStunOff()
+    {
+        LastTimeStunned = 0;
+        Stun = 0;
+        anim.SetBool("StunnedParam", false);
     }
 
     protected void SetActiveFrames(string moveName, string hitboxName, int startTime, int endTime)
@@ -158,19 +216,22 @@ public class PlayerHandler : MonoBehaviour
     {
         return !(anim.GetCurrentAnimatorStateInfo(0).IsName("Grabbed")
             || anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp")
-            || anim.GetCurrentAnimatorStateInfo(0).IsName("GrabConnect"));
+            || anim.GetCurrentAnimatorStateInfo(0).IsName("GrabConnect")
+            || anim.GetCurrentAnimatorStateInfo(0).IsName("StrikedFront"));
     }
 
     public void grabMe()
     {
         anim.SetTrigger("GrabbedParam");
         Health -= 10;
+        Stun += 20;
     }
 
     public void strikeMe()
     {
         anim.SetTrigger("StrikedFrontParam");
         Health -= 5;
+        Stun += 10;
     }
 
     public void rotTowards(Vector3 target)

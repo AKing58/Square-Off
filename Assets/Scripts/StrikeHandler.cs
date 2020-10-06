@@ -5,7 +5,7 @@ using UnityEngine;
 public class StrikeHandler : HitBoxScript
 {
     public string strikeDirection;
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
         PlayerHandler targetPH = collider.gameObject.GetComponent<PlayerHandler>();
         if (!targetPH.canBeStriked())
