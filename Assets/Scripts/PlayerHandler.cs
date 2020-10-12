@@ -87,6 +87,8 @@ public class PlayerHandler : MonoBehaviour
         SetActiveFrames("Rekka1", "Rekka1Hitbox", 15, 20);
     }
 
+   
+
     public void InitPlayer()
     {
         PlayerInfoPanel.transform.Find("PlayerName").GetComponent<Text>().text = PlayerName;
