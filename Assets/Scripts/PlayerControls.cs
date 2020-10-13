@@ -77,7 +77,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<DualShockGamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""PS4"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -143,7 +143,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<DualShockGamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""PS4"",
                     ""action"": ""A"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -176,7 +176,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<DualShockGamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""PS4"",
                     ""action"": ""B"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -198,7 +198,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""B"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -209,7 +209,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<DualShockGamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""PS4"",
                     ""action"": ""C"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -231,7 +231,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""C"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -264,7 +264,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<DualShockGamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""PS4"",
                     ""action"": ""D"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -290,6 +290,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             ""devices"": [
                 {
                     ""devicePath"": ""<HID::ZEROPLUS P4 Wired Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""PS4"",
+            ""bindingGroup"": ""PS4"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<DualShockGamepad>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -430,6 +441,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         {
             if (m_P4WiredGamepadSchemeIndex == -1) m_P4WiredGamepadSchemeIndex = asset.FindControlSchemeIndex("P4 Wired Gamepad");
             return asset.controlSchemes[m_P4WiredGamepadSchemeIndex];
+        }
+    }
+    private int m_PS4SchemeIndex = -1;
+    public InputControlScheme PS4Scheme
+    {
+        get
+        {
+            if (m_PS4SchemeIndex == -1) m_PS4SchemeIndex = asset.FindControlSchemeIndex("PS4");
+            return asset.controlSchemes[m_PS4SchemeIndex];
         }
     }
     public interface IGameplayActions
