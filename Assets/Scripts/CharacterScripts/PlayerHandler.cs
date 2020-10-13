@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerHandler : MonoBehaviour
@@ -16,9 +18,13 @@ public class PlayerHandler : MonoBehaviour
     public string PlayerName;
 
     public float LastTimeHit;
-
     public float LastTimeStunned;
 
+    private Vector2 movementInput;
+    private bool abilityAInput;
+    private bool abilityBInput;
+    private bool abilityCInput;
+    private bool abilityDInput;
     private Vector3 dodgeTargetLocation;
 
     [SerializeField]
@@ -77,7 +83,8 @@ public class PlayerHandler : MonoBehaviour
     public GameObject grabHitbox;
 
     void Start()
-    { 
+    {
+       
         speed = 3f;
         anim = gameObject.GetComponent<Animator>();
 
@@ -85,6 +92,7 @@ public class PlayerHandler : MonoBehaviour
 
         SetActiveFrames("Grab", "GrabHitbox", 15, 19);
         SetActiveFrames("Rekka1", "Rekka1Hitbox", 15, 20);
+
     }
 
     public void InitPlayer()
@@ -105,26 +113,30 @@ public class PlayerHandler : MonoBehaviour
     {
         if (controllable)
         {
-            if (Input.GetKeyDown("z"))
+            if (abilityAInput)
             {
                 //if (anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1 0"))
-                if (InValidAnim(new string[]{ "Walk", "Idle", "Rekka1", "Rekka1 0"})){
+                if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1", "Rekka1 0" }))
+                {
                     anim.SetTrigger("Rekka1Param");
                 }
-                
-            }else if (Input.GetKeyDown("x"))
+                //turn off the bool after processing
+                abilityAInput = false;
+            }
+            else if (abilityBInput)
             {
                 //if (anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1 0"))
                 if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1 0" }))
                 {
                     anim.SetTrigger("GrabStartParam");
                 }
-                
+                //turn off the bool after processing
+                abilityBInput = false;
             }
 
             Vector3 targetVec;
-            float h = Input.GetAxis("Horizontal");
-            float v = Input.GetAxis("Vertical");
+            float h = movementInput.x;
+            float v = movementInput.y;
             //if (Input.GetKey("up"))
             //{
             //    targetVec += new Vector3(0, 0, 1);
@@ -144,7 +156,7 @@ public class PlayerHandler : MonoBehaviour
             targetVec = new Vector3(h, 0, v);
             targetVec = targetVec.normalized;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (abilityDInput)
             {
                 if (targetVec == new Vector3())
                     dodgeTargetLocation = transform.position + transform.forward * dodgeForce;
@@ -153,6 +165,8 @@ public class PlayerHandler : MonoBehaviour
                     dodgeTargetLocation = transform.position + targetVec * dodgeForce;
                 }
                 Dodge(dodgeTargetLocation);
+                //turn off the bool after processing
+                abilityDInput = false;
             }
 
             if (InValidAnim(new string[] { "Walk", "Idle"}))
@@ -294,4 +308,15 @@ public class PlayerHandler : MonoBehaviour
         Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
         transform.rotation = Quaternion.LookRotation(newDirection);
     }
+
+    public void OnMove(InputAction.CallbackContext ctx) => movementInput = ctx.ReadValue<Vector2>();
+
+    public void OnA(InputAction.CallbackContext ctx) => abilityAInput = ctx.ReadValueAsButton();
+
+    public void OnB(InputAction.CallbackContext ctx) => abilityBInput = ctx.ReadValueAsButton();
+
+    public void OnC(InputAction.CallbackContext ctx) => abilityCInput = ctx.ReadValueAsButton();
+
+    public void OnD(InputAction.CallbackContext ctx) => abilityDInput = ctx.ReadValueAsButton();
+
 }
