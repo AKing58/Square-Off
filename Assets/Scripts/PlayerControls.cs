@@ -66,7 +66,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<HID::ZEROPLUS P4 Wired Gamepad>/hat"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""P4 Wired Gamepad"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -154,7 +154,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<HID::ZEROPLUS P4 Wired Gamepad>/trigger"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""P4 Wired Gamepad"",
                     ""action"": ""A"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -165,7 +165,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/z"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""A"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -187,7 +187,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<HID::ZEROPLUS P4 Wired Gamepad>/button4"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""P4 Wired Gamepad"",
                     ""action"": ""B"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -220,7 +220,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<HID::ZEROPLUS P4 Wired Gamepad>/button3"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""P4 Wired Gamepad"",
                     ""action"": ""C"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -238,30 +238,30 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1a9584ec-d224-4408-87a6-19eed34010d7"",
-                    ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""id"": ""239e6a56-6368-4112-937e-4498943f2005"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""D"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cc2028be-7d5c-4ff0-b800-f17a4caca179"",
+                    ""id"": ""3480c472-264f-4f94-a9f2-de734f7aa445"",
                     ""path"": ""<HID::ZEROPLUS P4 Wired Gamepad>/button2"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""P4 Wired Gamepad"",
                     ""action"": ""D"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""239e6a56-6368-4112-937e-4498943f2005"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""a39f29e2-15bb-4a9b-aea2-0aa3cdaf5032"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
