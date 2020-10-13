@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerHandler : MonoBehaviour
@@ -16,10 +18,12 @@ public class PlayerHandler : MonoBehaviour
     public string PlayerName;
 
     public float LastTimeHit;
-
     public float LastTimeStunned;
 
+    private Vector2 movementInput;
     private Vector3 dodgeTargetLocation;
+
+    private PlayerControls playerControls;
 
     [SerializeField]
     private float maxHealth;
@@ -76,6 +80,20 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField]
     public GameObject grabHitbox;
 
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
+
+    private void OnEnable() {
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
+    }
+
     void Start()
     { 
         speed = 3f;
@@ -85,9 +103,67 @@ public class PlayerHandler : MonoBehaviour
 
         SetActiveFrames("Grab", "GrabHitbox", 15, 19);
         SetActiveFrames("Rekka1", "Rekka1Hitbox", 15, 20);
+
+        playerControls.Gameplay.A.started += _ => abilityA();
+        playerControls.Gameplay.B.started += _ => abilityB();
+        playerControls.Gameplay.C.started += _ => abilityC();
+        playerControls.Gameplay.D.started += _ => abilityD();
     }
 
-   
+    /// <summary>
+    /// Punch
+    /// </summary>
+    private void abilityA() {
+        if (controllable) {
+            if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1", "Rekka1 0" }))
+            {
+                anim.SetTrigger("Rekka1Param");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Grab
+    /// </summary>
+    private void abilityB() 
+    {
+        if (controllable) {
+            if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1 0" }))
+            {
+                anim.SetTrigger("GrabStartParam");
+            }
+        }
+    
+    }
+
+    /// <summary>
+    /// Super Button
+    /// </summary>
+    private void abilityC()
+    {
+        if (controllable) { 
+            //place super animation code here
+        }
+    }
+
+    /// <summary>
+    /// Dodge button
+    /// </summary>
+    private void abilityD() 
+    {
+        if (controllable) 
+        {
+            Vector3 targetVec = new Vector3(movementInput.x, 0, movementInput.y);
+            targetVec = targetVec.normalized;
+            if (targetVec == new Vector3())
+                dodgeTargetLocation = transform.position + transform.forward * dodgeForce;
+            else
+            {
+                dodgeTargetLocation = transform.position + targetVec * dodgeForce;
+            }
+            Dodge(dodgeTargetLocation);
+        }
+    }
 
     public void InitPlayer()
     {
@@ -107,26 +183,26 @@ public class PlayerHandler : MonoBehaviour
     {
         if (controllable)
         {
-            if (Input.GetKeyDown("z"))
-            {
-                //if (anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1 0"))
-                if (InValidAnim(new string[]{ "Walk", "Idle", "Rekka1", "Rekka1 0"})){
-                    anim.SetTrigger("Rekka1Param");
-                }
+            //if (Input.GetKeyDown("z"))
+            //{
+            //    //if (anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1 0"))
+            //    if (InValidAnim(new string[]{ "Walk", "Idle", "Rekka1", "Rekka1 0"})){
+            //        anim.SetTrigger("Rekka1Param");
+            //    }
                 
-            }else if (Input.GetKeyDown("x"))
-            {
-                //if (anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1 0"))
-                if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1 0" }))
-                {
-                    anim.SetTrigger("GrabStartParam");
-                }
+            //}else if (Input.GetKeyDown("x"))
+            //{
+            //    //if (anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1 0"))
+            //    if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1 0" }))
+            //    {
+            //        anim.SetTrigger("GrabStartParam");
+            //    }
                 
-            }
+            //}
 
             Vector3 targetVec;
-            float h = Input.GetAxis("Horizontal");
-            float v = Input.GetAxis("Vertical");
+            float h = movementInput.x;
+            float v = movementInput.y;
             //if (Input.GetKey("up"))
             //{
             //    targetVec += new Vector3(0, 0, 1);
@@ -146,16 +222,16 @@ public class PlayerHandler : MonoBehaviour
             targetVec = new Vector3(h, 0, v);
             targetVec = targetVec.normalized;
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (targetVec == new Vector3())
-                    dodgeTargetLocation = transform.position + transform.forward * dodgeForce;
-                else
-                {
-                    dodgeTargetLocation = transform.position + targetVec * dodgeForce;
-                }
-                Dodge(dodgeTargetLocation);
-            }
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    if (targetVec == new Vector3())
+            //        dodgeTargetLocation = transform.position + transform.forward * dodgeForce;
+            //    else
+            //    {
+            //        dodgeTargetLocation = transform.position + targetVec * dodgeForce;
+            //    }
+            //    Dodge(dodgeTargetLocation);
+            //}
 
             if (InValidAnim(new string[] { "Walk", "Idle"}))
             {
@@ -296,4 +372,7 @@ public class PlayerHandler : MonoBehaviour
         Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
         transform.rotation = Quaternion.LookRotation(newDirection);
     }
+
+    public void OnMove(InputAction.CallbackContext ctx) => movementInput = ctx.ReadValue<Vector2>();
+
 }
