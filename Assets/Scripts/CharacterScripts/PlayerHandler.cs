@@ -191,13 +191,13 @@ public class PlayerHandler : MonoBehaviour
         GetComponent<Rigidbody>().AddForce(dir + transform.up*2f, ForceMode.VelocityChange);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawCube(dodgeTargetLocation, new Vector3(0.1f, 0.1f, 0.1f));
-        Gizmos.color = Color.red;
-        Gizmos.DrawCube(dodgeTargetLocation, new Vector3(0.1f, 0.1f, 0.1f));
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.blue;
+    //    Gizmos.DrawCube(dodgeTargetLocation, new Vector3(0.1f, 0.1f, 0.1f));
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawCube(dodgeTargetLocation, new Vector3(0.1f, 0.1f, 0.1f));
+    //}
 
     public void TurnStunOff()
     {
