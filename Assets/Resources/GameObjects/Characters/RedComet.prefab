@@ -2210,10 +2210,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6381576837777774748}
   - component: {fileID: 1040268318577459942}
-  - component: {fileID: 1331182575894544919}
   - component: {fileID: 7338787513810138561}
   - component: {fileID: 8577033992705598138}
   - component: {fileID: 8312161551135454354}
+  - component: {fileID: 5333886653732956822}
   m_Layer: 0
   m_Name: RedComet
   m_TagString: Untagged
@@ -2277,30 +2277,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1331182575894544919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6036014263987503654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6b1c905973929a4188bde62d86ef07e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1.5
-  controllable: 0
-  PlayerInfoPanel: {fileID: 0}
-  CharacterName: RedComet
-  PlayerName: 
-  LastTimeHit: 0
-  LastTimeStunned: 0
-  maxHealth: 100
-  health: 100
-  maxStun: 0
-  stun: 0
-  grabHitbox: {fileID: 0}
 --- !u!54 &7338787513810138561
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2359,7 +2335,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1331182575894544919}
+      - m_Target: {fileID: 5333886653732956822}
         m_TargetAssemblyTypeName: PlayerHandler, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -2375,7 +2351,7 @@ MonoBehaviour:
     m_ActionName: Gameplay/Move[/ZEROPLUS P4 Wired Gamepad/hat,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1331182575894544919}
+      - m_Target: {fileID: 5333886653732956822}
         m_TargetAssemblyTypeName: PlayerHandler, Assembly-CSharp
         m_MethodName: OnA
         m_Mode: 0
@@ -2391,7 +2367,7 @@ MonoBehaviour:
     m_ActionName: Gameplay/A[/ZEROPLUS P4 Wired Gamepad/trigger,/Keyboard/z]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1331182575894544919}
+      - m_Target: {fileID: 5333886653732956822}
         m_TargetAssemblyTypeName: PlayerHandler, Assembly-CSharp
         m_MethodName: OnB
         m_Mode: 0
@@ -2407,7 +2383,7 @@ MonoBehaviour:
     m_ActionName: Gameplay/B[/ZEROPLUS P4 Wired Gamepad/button4,/Keyboard/x]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1331182575894544919}
+      - m_Target: {fileID: 5333886653732956822}
         m_TargetAssemblyTypeName: PlayerHandler, Assembly-CSharp
         m_MethodName: OnC
         m_Mode: 0
@@ -2423,7 +2399,7 @@ MonoBehaviour:
     m_ActionName: Gameplay/C[/ZEROPLUS P4 Wired Gamepad/button3,/Keyboard/c]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1331182575894544919}
+      - m_Target: {fileID: 5333886653732956822}
         m_TargetAssemblyTypeName: PlayerHandler, Assembly-CSharp
         m_MethodName: OnD
         m_Mode: 0
@@ -2442,6 +2418,30 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &5333886653732956822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6036014263987503654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 800c99ec2651fe94cbabfc15381b01c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1.5
+  controllable: 0
+  PlayerInfoPanel: {fileID: 0}
+  CharacterName: 
+  PlayerName: 
+  LastTimeHit: 0
+  LastTimeStunned: 0
+  maxHealth: 0
+  health: 0
+  maxStun: 0
+  stun: 0
+  grabHitbox: {fileID: 0}
 --- !u!1 &6099179230649765403
 GameObject:
   m_ObjectHideFlags: 0

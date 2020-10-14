@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-	protected enum State { SPAWNEDIN, SLEEP, SEEK, ATTACK, RETREAT, DEAD }
+	protected enum State { SPAWNEDIN, SLEEP, SEEK, APPROACH, ATTACK, RETREAT, DEAD }
 
 	[SerializeField]
 	protected State curState = State.SLEEP;
@@ -14,7 +14,12 @@ public class StateMachine : MonoBehaviour
 	[SerializeField]
 	protected bool pauseAI = false;
 
+	[SerializeField]
 	protected PlayerHandler parent;
+	[SerializeField]
+	protected GameManager gmRef;
+	[SerializeField]
+	protected GameObject opponentRef;
 
 	//[SerializeField]
 	//protected Dictionary<string,string> states = new Dictionary<string,string>();

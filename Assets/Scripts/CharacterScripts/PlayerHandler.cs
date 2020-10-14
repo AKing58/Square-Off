@@ -7,11 +7,13 @@ using UnityEngine.UI;
 
 public class PlayerHandler : MonoBehaviour
 {
-    private Animator anim;
-    private float rotSpeed = 1000.0f;
+    protected Animator anim;
+    protected float rotSpeed = 1000.0f;
     public float speed = 1.5f;
-    private float dodgeForce = 20f;
+    protected float dodgeForce = 20f;
     public bool controllable = false;
+
+    protected Vector3 targetVec;
 
     public GameObject PlayerInfoPanel;
     public string CharacterName;
@@ -20,12 +22,61 @@ public class PlayerHandler : MonoBehaviour
     public float LastTimeHit;
     public float LastTimeStunned;
 
-    private Vector2 movementInput;
+    protected Vector2 movementInput;
+
     private bool abilityAInput;
     private bool abilityBInput;
     private bool abilityCInput;
     private bool abilityDInput;
-    private Vector3 dodgeTargetLocation;
+
+    protected bool AbilityAInput
+    {
+        get 
+        {
+            if (abilityAInput)
+            {
+                abilityAInput = false;
+                return true;
+            }
+            return abilityAInput;
+        }
+    }
+    protected bool AbilityBInput
+    {
+        get
+        {
+            if (abilityBInput)
+            {
+                abilityBInput = false;
+                return true;
+            }
+            return abilityBInput;
+        }
+    }
+    protected bool AbilityCInput
+    {
+        get
+        {
+            if (abilityCInput)
+            {
+                abilityCInput = false;
+                return true;
+            }
+            return abilityCInput;
+        }
+    }
+    protected bool AbilityDInput
+    {
+        get
+        {
+            if (abilityDInput)
+            {
+                abilityDInput = false;
+                return true;
+            }
+            return abilityDInput;
+        }
+    }
 
     [SerializeField]
     private float maxHealth;
@@ -82,17 +133,10 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField]
     public GameObject grabHitbox;
 
-    void Start()
+    protected void Start()
     {
-       
-        speed = 3f;
+        Debug.Log("PlayerHandler Start");
         anim = gameObject.GetComponent<Animator>();
-
-        dodgeTargetLocation = transform.position;
-
-        SetActiveFrames("Grab", "GrabHitbox", 15, 19);
-        SetActiveFrames("Rekka1", "Rekka1Hitbox", 15, 20);
-
     }
 
     public void InitPlayer()
@@ -109,86 +153,26 @@ public class PlayerHandler : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
-        if (controllable)
+        if (InValidAnim(new string[] { "Walk", "Idle" }))
         {
-            if (abilityAInput)
+            if (targetVec == new Vector3())
             {
-                //if (anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1 0"))
-                if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1", "Rekka1 0" }))
-                {
-                    anim.SetTrigger("Rekka1Param");
-                }
-                //turn off the bool after processing
-                abilityAInput = false;
+                anim.SetFloat("WalkParam", 0.0f);
             }
-            else if (abilityBInput)
+            else
             {
-                //if (anim.GetCurrentAnimatorStateInfo(0).IsName("Walk") || anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rekka1 0"))
-                if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1 0" }))
-                {
-                    anim.SetTrigger("GrabStartParam");
-                }
-                //turn off the bool after processing
-                abilityBInput = false;
+                anim.SetFloat("WalkParam", speed);
             }
-
-            Vector3 targetVec;
-            float h = movementInput.x;
-            float v = movementInput.y;
-            //if (Input.GetKey("up"))
-            //{
-            //    targetVec += new Vector3(0, 0, 1);
-            //}
-            //if (Input.GetKey("down"))
-            //{
-            //    targetVec += new Vector3(0, 0, -1);
-            //}
-            //if (Input.GetKey("left"))
-            //{
-            //    targetVec += new Vector3(-1, 0, 0);
-            //}
-            //if (Input.GetKey("right"))
-            //{
-            //    targetVec += new Vector3(1, 0, 0);
-            //}
-            targetVec = new Vector3(h, 0, v);
-            targetVec = targetVec.normalized;
-
-            if (abilityDInput)
+            if (targetVec != new Vector3())
             {
-                if (targetVec == new Vector3())
-                    dodgeTargetLocation = transform.position + transform.forward * dodgeForce;
-                else
-                {
-                    dodgeTargetLocation = transform.position + targetVec * dodgeForce;
-                }
-                Dodge(dodgeTargetLocation);
-                //turn off the bool after processing
-                abilityDInput = false;
-            }
-
-            if (InValidAnim(new string[] { "Walk", "Idle"}))
-            {
-                if (targetVec == new Vector3())
-                {
-                    anim.SetFloat("WalkParam", 0.0f);
-                }
-                else
-                {
-                    anim.SetFloat("WalkParam", speed);
-                }
-                if (targetVec != new Vector3())
-                {
-                    rotTowards(targetVec + transform.position);
-                    transform.Translate(targetVec.x * speed * Time.deltaTime, targetVec.y * speed * Time.deltaTime, targetVec.z * speed * Time.deltaTime, Space.World);
-                }
+                rotTowards(targetVec + transform.position);
+                transform.Translate(targetVec.x * speed * Time.deltaTime, targetVec.y * speed * Time.deltaTime, targetVec.z * speed * Time.deltaTime, Space.World);
             }
         }
-
         //Stun Handling
-        if(Stun > 0 && Time.time > LastTimeHit + 5f && LastTimeStunned == 0)
+        if (Stun > 0 && Time.time > LastTimeHit + 5f && LastTimeStunned == 0)
         {
             Stun -= 0.05f;
         }
@@ -199,11 +183,10 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
-    public void Dodge(Vector3 dir)
-    {
-        rotTowards(dir + transform.position);
-        GetComponent<Rigidbody>().AddForce(dir + transform.up*2f, ForceMode.VelocityChange);
-    }
+    virtual protected void HandleAbilityInputs() { }
+
+    virtual protected void HandleMovementInputs() { }
+
 
     //private void OnDrawGizmos()
     //{
@@ -273,17 +256,12 @@ public class PlayerHandler : MonoBehaviour
 
     public bool canBeGrabbed()
     {
-        return !(anim.GetCurrentAnimatorStateInfo(0).IsName("Grabbed")
-            || anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp")
-            || anim.GetCurrentAnimatorStateInfo(0).IsName("GrabConnect"));
+        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect"}));
     }
 
     public bool canBeStriked()
     {
-        return !(anim.GetCurrentAnimatorStateInfo(0).IsName("Grabbed")
-            || anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp")
-            || anim.GetCurrentAnimatorStateInfo(0).IsName("GrabConnect")
-            || anim.GetCurrentAnimatorStateInfo(0).IsName("StrikedFront"));
+        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "StrikedFront" }));
     }
 
     public void grabMe()
@@ -307,6 +285,22 @@ public class PlayerHandler : MonoBehaviour
 
         Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
         transform.rotation = Quaternion.LookRotation(newDirection);
+    }
+
+    virtual protected void AbilityA() { }
+    virtual protected void AbilityB() { }
+    virtual protected void AbilityC() { }
+    virtual protected void AbilityD() { }
+    virtual protected void Super() { }
+
+    public void ActivateInputA() { abilityAInput = true; }
+    public void ActivateInputB() { abilityBInput = true; }
+    public void ActivateInputC() { abilityCInput = true; }
+    public void ActivateInputD() { abilityDInput = true; }
+
+    public void setTargetVec(Vector3 target)
+    {
+        targetVec = target;
     }
 
     public void OnMove(InputAction.CallbackContext ctx) => movementInput = ctx.ReadValue<Vector2>();
