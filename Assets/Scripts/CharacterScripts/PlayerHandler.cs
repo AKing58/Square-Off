@@ -246,12 +246,13 @@ public class PlayerHandler : MonoBehaviour
 
     public void setHitbox(AnimationEvent ae)
     {
-        GameObject.Find("Hitboxes/" + ae.stringParameter).GetComponent<BoxCollider>().enabled = ae.intParameter == 1;
+        gameObject.transform.Find("Hitboxes/" + ae.stringParameter).GetComponent<BoxCollider>().enabled = ae.intParameter == 1;
     }
 
     public void grabConnected()
     {
         anim.SetTrigger("GrabConnectParam");
+        stopHitboxes();
     }
 
     public bool canBeGrabbed()
@@ -269,6 +270,7 @@ public class PlayerHandler : MonoBehaviour
         anim.SetTrigger("GrabbedParam");
         Health -= 10;
         Stun += 20;
+        stopHitboxes();
     }
 
     public void strikeMe()
@@ -276,6 +278,15 @@ public class PlayerHandler : MonoBehaviour
         anim.SetTrigger("StrikedFrontParam");
         Health -= 5;
         Stun += 10;
+        stopHitboxes();
+    }
+
+    public void stopHitboxes()
+    {
+        foreach (Transform t in gameObject.transform.Find("Hitboxes").transform)
+        {
+            t.gameObject.GetComponent<BoxCollider>().enabled = false;
+        }
     }
 
     public void rotTowards(Vector3 target)

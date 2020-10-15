@@ -7,6 +7,7 @@ public class StrikeHandler : HitBoxScript
     public string strikeDirection;
     void OnTriggerStay(Collider collider)
     {
+        Debug.Log(collider.name);
         PlayerHandler targetPH = collider.gameObject.GetComponent<PlayerHandler>();
         if (!targetPH.canBeStriked())
             return;

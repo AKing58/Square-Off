@@ -8,6 +8,7 @@ public class GrabHandler : HitBoxScript
     {
         PlayerHandler targetPH = collider.gameObject.GetComponent<PlayerHandler>();
         PlayerHandler selfPH = parentGO.GetComponent<PlayerHandler>();
+        Debug.Log(collider.name);
         if (!targetPH.canBeGrabbed())
             return;
 
