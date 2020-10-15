@@ -257,12 +257,12 @@ public class PlayerHandler : MonoBehaviour
 
     public bool canBeGrabbed()
     {
-        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect"}));
+        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "Dodge"}));
     }
 
     public bool canBeStriked()
     {
-        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "StrikedFront" }));
+        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "StrikedFront", "Dodge" }));
     }
 
     public void grabMe()

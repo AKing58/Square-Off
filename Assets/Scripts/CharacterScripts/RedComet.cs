@@ -72,14 +72,18 @@ public class RedComet : PlayerHandler
     }
     override protected void AbilityD() 
     {
-        if (targetVec == new Vector3())
-            dodgeTargetLocation = transform.position + transform.forward * dodgeForce;
-        else
+        if (InValidAnim(new string[] { "Walk", "Idle"}))
         {
-            dodgeTargetLocation = transform.position + targetVec * dodgeForce;
+            anim.SetTrigger("DodgeParam");
+            if (targetVec == new Vector3())
+                dodgeTargetLocation = transform.position + transform.forward * dodgeForce;
+            else
+            {
+                dodgeTargetLocation = transform.position + targetVec * dodgeForce;
+            }
+            rotTowards(dodgeTargetLocation + transform.position);
+            GetComponent<Rigidbody>().AddForce(dodgeTargetLocation + transform.up * 2f, ForceMode.VelocityChange);
         }
-        rotTowards(dodgeTargetLocation + transform.position);
-        GetComponent<Rigidbody>().AddForce(dodgeTargetLocation + transform.up * 2f, ForceMode.VelocityChange);
     }
 
     virtual protected void Super() { }
