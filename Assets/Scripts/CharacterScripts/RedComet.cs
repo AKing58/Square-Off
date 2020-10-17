@@ -14,6 +14,7 @@ public class RedComet : PlayerHandler
         speed = 3f;
         SetActiveFrames("Grab", "GrabHitbox", 15, 19);
         SetActiveFrames("Rekka1", "Rekka1Hitbox", 15, 20);
+        setupSuperEvent();
     }
 
     // Update is called once per frame
@@ -27,21 +28,39 @@ public class RedComet : PlayerHandler
         base.Update();
     }
 
+    private void setupSuperEvent()
+    {
+        AnimationClip animClip = null;
+        foreach (AnimationClip tempClip in anim.runtimeAnimatorController.animationClips)
+        {
+            if (tempClip.name == "SuperConnect")
+            {
+                animClip = tempClip;
+            }
+        }
+        if (animClip == null)
+        {
+            Debug.LogError("Error: Could not find animation clip to bind active frames to");
+            return;
+        }
+        AnimationEvent animEventStart = new AnimationEvent();
+        animEventStart.intParameter = 1;
+        animEventStart.time = 68 * (1.0f / Constants.ANIMATION_FRAME_RATE);
+        animEventStart.functionName = "SuperLaunchForce";
+
+        animClip.AddEvent(animEventStart);
+    }
+
     protected override void HandleAbilityInputs()
     {
         if (AbilityAInput)
-        {
             AbilityA();
-        }
         else if (AbilityBInput)
-        {
             AbilityB();
-        }
-
-        if (AbilityDInput)
-        {
+        else if (AbilityCInput)
+            AbilityC();
+        else if (AbilityDInput)
             AbilityD();
-        }
     }
     protected override void HandleMovementInputs()
     {
@@ -67,9 +86,15 @@ public class RedComet : PlayerHandler
         }
     }
     override protected void AbilityC() 
-    { 
-    
+    {
+        if (InValidAnim(new string[] { "Walk", "Idle" }))
+        {
+            print(gameObject.transform.Find("Hitboxes/GrabHitbox").name);
+            gameObject.transform.Find("Hitboxes/GrabHitbox").GetComponent<GrabHandler>().IsSuper = true;
+            anim.SetTrigger("SuperStartParam");
+        }
     }
+
     override protected void AbilityD() 
     {
         if (InValidAnim(new string[] { "Walk", "Idle"}))

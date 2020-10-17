@@ -152,6 +152,11 @@ public class PlayerHandler : MonoBehaviour
         LastTimeStunned = 0;
     }
 
+    public void SetAnimParam(string input)
+    {
+        anim.SetTrigger(input);
+    }
+
     // Update is called once per frame
     protected void Update()
     {
@@ -247,6 +252,12 @@ public class PlayerHandler : MonoBehaviour
     public void setHitbox(AnimationEvent ae)
     {
         gameObject.transform.Find("Hitboxes/" + ae.stringParameter).GetComponent<BoxCollider>().enabled = ae.intParameter == 1;
+    }
+
+    public void SuperLaunchForce()
+    {
+        GetComponent<Rigidbody>().AddForce(transform.up * 15f, ForceMode.VelocityChange);
+        transform.Find("GrabHitbox").transform.GetChild(0).GetComponent<PlayerHandler>().SuperLaunchForce();
     }
 
     public void grabConnected()
