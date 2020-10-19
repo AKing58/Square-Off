@@ -10,10 +10,14 @@ public class PlayerHandler : MonoBehaviour
     protected Animator anim;
     protected float rotSpeed = 1000.0f;
     public float speed = 1.5f;
+    public float gravMod = 2.5f;
     protected float dodgeForce = 20f;
     public bool controllable = false;
 
+    //Used for movement
     protected Vector3 targetVec;
+
+    protected Rigidbody rb;
 
     public GameObject PlayerInfoPanel;
     public string CharacterName;
@@ -96,6 +100,12 @@ public class PlayerHandler : MonoBehaviour
             LastTimeHit = Time.time;
             PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().fillAmount = value / MaxHealth;
             PlayerInfoPanel.transform.Find("HPBar/HPText").GetComponent<Text>().text = value + "/" + MaxHealth;
+            if(health <= 0)
+            {
+                anim.SetBool("DeadParam", true);
+                Stun = 0;
+                enableKinematics();
+            }
             if(LastTimeStunned != 0)
             {
                 TurnStunOff();
@@ -121,22 +131,16 @@ public class PlayerHandler : MonoBehaviour
             transform.Find("WorldSpaceUI/Canvas/StunMeter").GetComponent<Image>().fillAmount = value / MaxStun;
             if(stun >= maxStun)
             {
-                print("stunned");
-                LastTimeStunned = Time.time;
+                transform.Find("WorldSpaceUI/Canvas/StunMeter").GetComponent<Image>().color = new Color(150, 0, 0, (100f / 255f));
                 anim.SetBool("StunnedParam", true);
             }
         }
     }
 
-
-
-    [SerializeField]
-    public GameObject grabHitbox;
-
     protected void Start()
     {
-        Debug.Log("PlayerHandler Start");
-        anim = gameObject.GetComponent<Animator>();
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
     }
 
     public void InitPlayer()
@@ -150,11 +154,6 @@ public class PlayerHandler : MonoBehaviour
         Stun = 0;
 
         LastTimeStunned = 0;
-    }
-
-    public void SetAnimParam(string input)
-    {
-        anim.SetTrigger(input);
     }
 
     // Update is called once per frame
@@ -182,10 +181,44 @@ public class PlayerHandler : MonoBehaviour
             Stun -= 0.05f;
         }
 
+        if(InValidAnim("Stunned") && LastTimeStunned == 0)
+        {
+            LastTimeStunned = Time.time;
+        }
+
         if(LastTimeStunned != 0 && Time.time > LastTimeStunned + 3f)
         {
             TurnStunOff();
         }
+
+        if(rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y *(gravMod) * Time.deltaTime;
+        }
+    }
+
+    public void Launch(Vector3 dir, float force)
+    {
+        GetComponent<Rigidbody>().AddForce(dir * force, ForceMode.VelocityChange);
+        //transform.position = transform.positionVector3.up * 5f;
+    }
+
+    public void SetAnimParam(string input)
+    {
+        print(name + " has set " + input + "anim");
+        anim.SetTrigger(input);
+    }
+
+    private void enableKinematics()
+    {
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().detectCollisions = false;
+    }
+
+    private void disableKinematics()
+    {
+        GetComponent<Rigidbody>().isKinematic = false;
+        GetComponent<Rigidbody>().detectCollisions = true;
     }
 
     virtual protected void HandleAbilityInputs() { }
@@ -205,9 +238,16 @@ public class PlayerHandler : MonoBehaviour
     {
         LastTimeStunned = 0;
         Stun = 0;
+        transform.Find("WorldSpaceUI/Canvas/StunMeter").GetComponent<Image>().color = new Color(0, 150, 0, (100f/255f));
         anim.SetBool("StunnedParam", false);
     }
 
+    //Single Argument Overload
+    public bool InValidAnim(string arg)
+    {
+        return InValidAnim(new string[] { arg });
+    }
+    //Multi Argument
     public bool InValidAnim(string[] args)
     {
         bool output = false;
@@ -254,11 +294,7 @@ public class PlayerHandler : MonoBehaviour
         gameObject.transform.Find("Hitboxes/" + ae.stringParameter).GetComponent<BoxCollider>().enabled = ae.intParameter == 1;
     }
 
-    public void SuperLaunchForce()
-    {
-        GetComponent<Rigidbody>().AddForce(transform.up * 15f, ForceMode.VelocityChange);
-        transform.Find("GrabHitbox").transform.GetChild(0).GetComponent<PlayerHandler>().SuperLaunchForce();
-    }
+    
 
     public void grabConnected()
     {
@@ -268,19 +304,21 @@ public class PlayerHandler : MonoBehaviour
 
     public bool canBeGrabbed()
     {
-        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "Dodge"}));
+        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "Dodge", "SuperStart", "SuperConnect" }) &&
+            Health <= 0);
     }
 
     public bool canBeStriked()
     {
-        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "StrikedFront", "Dodge" }));
+        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "StrikedFront", "Dodge", "SuperStart", "SuperConnect", "SuperLanding", "SuperGrabbedFalling", "SuperGrabbedLanding"}) &&
+            Health <= 0);
     }
 
     public void grabMe()
     {
         anim.SetTrigger("GrabbedParam");
         Health -= 10;
-        Stun += 20;
+        Stun += 50;
         stopHitboxes();
     }
 
@@ -288,7 +326,7 @@ public class PlayerHandler : MonoBehaviour
     {
         anim.SetTrigger("StrikedFrontParam");
         Health -= 5;
-        Stun += 10;
+        Stun += 50;
         stopHitboxes();
     }
 

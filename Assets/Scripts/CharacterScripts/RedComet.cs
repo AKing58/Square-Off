@@ -9,7 +9,6 @@ public class RedComet : PlayerHandler
     new void Start()
     {
         base.Start();
-        Debug.Log("RedComet Start");
 
         speed = 3f;
         SetActiveFrames("Grab", "GrabHitbox", 15, 19);
@@ -46,9 +45,19 @@ public class RedComet : PlayerHandler
         AnimationEvent animEventStart = new AnimationEvent();
         animEventStart.intParameter = 1;
         animEventStart.time = 68 * (1.0f / Constants.ANIMATION_FRAME_RATE);
-        animEventStart.functionName = "SuperLaunchForce";
+        animEventStart.functionName = "SuperLaunch";
 
         animClip.AddEvent(animEventStart);
+    }
+
+    protected void SuperLaunch()
+    {
+        float launchForce = 15f;
+        print("launching " + transform.Find("Hitboxes/GrabHitbox").GetChild(0).name);
+        PlayerHandler opponent = transform.Find("Hitboxes/GrabHitbox").GetChild(0).GetComponent<PlayerHandler>();
+        Launch(transform.up, launchForce);
+        opponent.Launch(transform.up, launchForce);
+
     }
 
     protected override void HandleAbilityInputs()
@@ -89,8 +98,6 @@ public class RedComet : PlayerHandler
     {
         if (InValidAnim(new string[] { "Walk", "Idle" }))
         {
-            print(gameObject.transform.Find("Hitboxes/GrabHitbox").name);
-            gameObject.transform.Find("Hitboxes/GrabHitbox").GetComponent<GrabHandler>().IsSuper = true;
             anim.SetTrigger("SuperStartParam");
         }
     }
