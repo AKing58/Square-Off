@@ -17,14 +17,14 @@ public class RedComet : PlayerHandler
     }
 
     // Update is called once per frame
-    new void Update()
+    new void FixedUpdate()
     {
         HandleAbilityInputs();
         if (controllable)
         {
             HandleMovementInputs();
         }
-        base.Update();
+        base.FixedUpdate();
     }
 
     private void setupSuperEvent()

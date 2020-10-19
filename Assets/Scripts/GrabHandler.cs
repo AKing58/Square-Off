@@ -27,5 +27,6 @@ public class GrabHandler : HitBoxScript
             targetPH.grabMe();
         }
         selfPH.grabConnected();
+        GetComponent<BoxCollider>().enabled = false;
     }
 }

@@ -100,11 +100,12 @@ public class PlayerHandler : MonoBehaviour
             LastTimeHit = Time.time;
             PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().fillAmount = value / MaxHealth;
             PlayerInfoPanel.transform.Find("HPBar/HPText").GetComponent<Text>().text = value + "/" + MaxHealth;
-            if(health <= 0)
+            PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().color = DetermineBarColor(health, maxHealth, false, false);
+            if (health <= 0)
             {
                 anim.SetBool("DeadParam", true);
                 Stun = 0;
-                enableKinematics();
+                //enableKinematics();
             }
             if(LastTimeStunned != 0)
             {
@@ -129,11 +130,11 @@ public class PlayerHandler : MonoBehaviour
         {
             stun = value;
             transform.Find("WorldSpaceUI/Canvas/StunMeter").GetComponent<Image>().fillAmount = value / MaxStun;
-            if(stun >= maxStun)
+            if (stun >= maxStun)
             {
-                transform.Find("WorldSpaceUI/Canvas/StunMeter").GetComponent<Image>().color = new Color(150, 0, 0, (100f / 255f));
                 anim.SetBool("StunnedParam", true);
             }
+            transform.Find("WorldSpaceUI/Canvas/StunMeter").GetComponent<Image>().color = DetermineBarColor(stun, maxStun, true, true);
         }
     }
 
@@ -157,7 +158,7 @@ public class PlayerHandler : MonoBehaviour
     }
 
     // Update is called once per frame
-    protected void Update()
+    protected void FixedUpdate()
     {
         if (InValidAnim(new string[] { "Walk", "Idle" }))
         {
@@ -178,7 +179,7 @@ public class PlayerHandler : MonoBehaviour
         //Stun Handling
         if (Stun > 0 && Time.time > LastTimeHit + 5f && LastTimeStunned == 0)
         {
-            Stun -= 0.05f;
+            Stun -= 0.25f;
         }
 
         if(InValidAnim("Stunned") && LastTimeStunned == 0)
@@ -234,11 +235,59 @@ public class PlayerHandler : MonoBehaviour
     //    Gizmos.DrawCube(dodgeTargetLocation, new Vector3(0.1f, 0.1f, 0.1f));
     //}
 
+    /// <summary>
+    /// Returns a color based on the value and max value.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="maxValue"></param>
+    /// <param name="reversed">
+    /// false: returns value==maxValue as green
+    /// true: returns value==maxValue as red
+    /// </param>
+    /// <param name="partialTransparency"></param>
+    /// <returns></returns>
+    public Color DetermineBarColor(float value, float maxValue, bool reversed, bool partialTransparency)
+    {
+        float colval = value - (maxValue / 2);
+        if (reversed)
+            colval *= -1;
+        Color output;
+        if (colval >= 0)
+            output =  new Color(1 - colval / (maxValue / 2), 1, 0);
+        else
+            output =  new Color(1, 1 - Mathf.Abs(colval) / (maxValue / 2), 0);
+        if (partialTransparency)
+            output.a = 0.5f;
+        return output;
+        /*
+        float highMod = value / maxValue;
+        float lowMod = (1 - (value / maxValue));
+        Color output;
+        if(!reversed)
+            output = new Color(lowMod, highMod, 0f);
+        else
+            output = new Color(highMod, lowMod, 0f);
+        print(output);
+        if (partialTransparency)
+            output.a = 0.75f;
+        return output;
+        */
+    }
+
+    public Color test(float value, float maxValue, bool reversed, bool partialTransparency)
+    {
+        float colval = value - (maxValue / 2);
+        if(colval >= 0)
+            return new Color(value / maxValue, 1, 0);
+        else
+            return new Color(1, value / maxValue, 0);
+
+    }
+
     public void TurnStunOff()
     {
         LastTimeStunned = 0;
         Stun = 0;
-        transform.Find("WorldSpaceUI/Canvas/StunMeter").GetComponent<Image>().color = new Color(0, 150, 0, (100f/255f));
         anim.SetBool("StunnedParam", false);
     }
 
@@ -318,7 +367,7 @@ public class PlayerHandler : MonoBehaviour
     {
         anim.SetTrigger("GrabbedParam");
         Health -= 10;
-        Stun += 50;
+        Stun += 10;
         stopHitboxes();
     }
 
@@ -326,7 +375,7 @@ public class PlayerHandler : MonoBehaviour
     {
         anim.SetTrigger("StrikedFrontParam");
         Health -= 5;
-        Stun += 50;
+        Stun += 20;
         stopHitboxes();
     }
 
