@@ -9,39 +9,67 @@ public class RedComet : PlayerHandler
     new void Start()
     {
         base.Start();
-        Debug.Log("RedComet Start");
 
         speed = 3f;
         SetActiveFrames("Grab", "GrabHitbox", 15, 19);
         SetActiveFrames("Rekka1", "Rekka1Hitbox", 15, 20);
+        setupSuperEvent();
     }
 
     // Update is called once per frame
-    new void Update()
+    new void FixedUpdate()
     {
         HandleAbilityInputs();
         if (controllable)
         {
             HandleMovementInputs();
         }
-        base.Update();
+        base.FixedUpdate();
+    }
+
+    private void setupSuperEvent()
+    {
+        AnimationClip animClip = null;
+        foreach (AnimationClip tempClip in anim.runtimeAnimatorController.animationClips)
+        {
+            if (tempClip.name == "SuperConnect")
+            {
+                animClip = tempClip;
+            }
+        }
+        if (animClip == null)
+        {
+            Debug.LogError("Error: Could not find animation clip to bind active frames to");
+            return;
+        }
+        AnimationEvent animEventStart = new AnimationEvent();
+        animEventStart.intParameter = 1;
+        animEventStart.time = 68 * (1.0f / Constants.ANIMATION_FRAME_RATE);
+        animEventStart.functionName = "SuperLaunch";
+
+        animClip.AddEvent(animEventStart);
+    }
+
+    protected void SuperLaunch()
+    {
+        float launchForce = 15f;
+        print("launching " + transform.Find("Hitboxes/GrabHitbox").GetChild(0).name);
+        PlayerHandler opponent = transform.Find("Hitboxes/GrabHitbox").GetChild(0).GetComponent<PlayerHandler>();
+        Launch(transform.up, launchForce);
+        opponent.Launch(transform.up, launchForce);
+
     }
 
     protected override void HandleAbilityInputs()
     {
         if (AbilityAInput)
-        {
             AbilityA();
-        }
         else if (AbilityBInput)
-        {
             AbilityB();
-        }
-
-        if (AbilityDInput)
-        {
+        else if (AbilityCInput)
+            AbilityC();
+        else if (AbilityDInput)
             AbilityD();
-        }
     }
     protected override void HandleMovementInputs()
     {
@@ -67,9 +95,13 @@ public class RedComet : PlayerHandler
         }
     }
     override protected void AbilityC() 
-    { 
-    
+    {
+        if (InValidAnim(new string[] { "Walk", "Idle" }))
+        {
+            anim.SetTrigger("SuperStartParam");
+        }
     }
+
     override protected void AbilityD() 
     {
         if (InValidAnim(new string[] { "Walk", "Idle"}))
@@ -82,7 +114,7 @@ public class RedComet : PlayerHandler
                 dodgeTargetLocation = transform.position + targetVec * dodgeForce;
             }
             rotTowards(dodgeTargetLocation + transform.position);
-            GetComponent<Rigidbody>().AddForce(dodgeTargetLocation + transform.up * 2f, ForceMode.VelocityChange);
+            GetComponent<Rigidbody>().AddForce(dodgeTargetLocation + transform.up, ForceMode.VelocityChange);
         }
     }
 

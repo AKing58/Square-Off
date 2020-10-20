@@ -10,10 +10,14 @@ public class PlayerHandler : MonoBehaviour
     protected Animator anim;
     protected float rotSpeed = 1000.0f;
     public float speed = 1.5f;
+    public float gravMod = 2.5f;
     protected float dodgeForce = 20f;
     public bool controllable = false;
 
+    //Used for movement
     protected Vector3 targetVec;
+
+    protected Rigidbody rb;
 
     public GameObject PlayerInfoPanel;
     public string CharacterName;
@@ -96,6 +100,13 @@ public class PlayerHandler : MonoBehaviour
             LastTimeHit = Time.time;
             PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().fillAmount = value / MaxHealth;
             PlayerInfoPanel.transform.Find("HPBar/HPText").GetComponent<Text>().text = value + "/" + MaxHealth;
+            PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().color = DetermineBarColor(health, maxHealth, false, false);
+            if (health <= 0)
+            {
+                anim.SetBool("DeadParam", true);
+                Stun = 0;
+                //enableKinematics();
+            }
             if(LastTimeStunned != 0)
             {
                 TurnStunOff();
@@ -119,24 +130,18 @@ public class PlayerHandler : MonoBehaviour
         {
             stun = value;
             transform.Find("WorldSpaceUI/Canvas/StunMeter").GetComponent<Image>().fillAmount = value / MaxStun;
-            if(stun >= maxStun)
+            if (stun >= maxStun)
             {
-                print("stunned");
-                LastTimeStunned = Time.time;
                 anim.SetBool("StunnedParam", true);
             }
+            transform.Find("WorldSpaceUI/Canvas/StunMeter").GetComponent<Image>().color = DetermineBarColor(stun, maxStun, true, true);
         }
     }
 
-
-
-    [SerializeField]
-    public GameObject grabHitbox;
-
     protected void Start()
     {
-        Debug.Log("PlayerHandler Start");
-        anim = gameObject.GetComponent<Animator>();
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
     }
 
     public void InitPlayer()
@@ -153,7 +158,7 @@ public class PlayerHandler : MonoBehaviour
     }
 
     // Update is called once per frame
-    protected void Update()
+    protected void FixedUpdate()
     {
         if (InValidAnim(new string[] { "Walk", "Idle" }))
         {
@@ -174,13 +179,47 @@ public class PlayerHandler : MonoBehaviour
         //Stun Handling
         if (Stun > 0 && Time.time > LastTimeHit + 5f && LastTimeStunned == 0)
         {
-            Stun -= 0.05f;
+            Stun -= 0.25f;
+        }
+
+        if(InValidAnim("Stunned") && LastTimeStunned == 0)
+        {
+            LastTimeStunned = Time.time;
         }
 
         if(LastTimeStunned != 0 && Time.time > LastTimeStunned + 3f)
         {
             TurnStunOff();
         }
+
+        if(rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y *(gravMod) * Time.deltaTime;
+        }
+    }
+
+    public void Launch(Vector3 dir, float force)
+    {
+        GetComponent<Rigidbody>().AddForce(dir * force, ForceMode.VelocityChange);
+        //transform.position = transform.positionVector3.up * 5f;
+    }
+
+    public void SetAnimParam(string input)
+    {
+        print(name + " has set " + input + "anim");
+        anim.SetTrigger(input);
+    }
+
+    private void enableKinematics()
+    {
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().detectCollisions = false;
+    }
+
+    private void disableKinematics()
+    {
+        GetComponent<Rigidbody>().isKinematic = false;
+        GetComponent<Rigidbody>().detectCollisions = true;
     }
 
     virtual protected void HandleAbilityInputs() { }
@@ -196,6 +235,55 @@ public class PlayerHandler : MonoBehaviour
     //    Gizmos.DrawCube(dodgeTargetLocation, new Vector3(0.1f, 0.1f, 0.1f));
     //}
 
+    /// <summary>
+    /// Returns a color based on the value and max value.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="maxValue"></param>
+    /// <param name="reversed">
+    /// false: returns value==maxValue as green
+    /// true: returns value==maxValue as red
+    /// </param>
+    /// <param name="partialTransparency"></param>
+    /// <returns></returns>
+    public Color DetermineBarColor(float value, float maxValue, bool reversed, bool partialTransparency)
+    {
+        float colval = value - (maxValue / 2);
+        if (reversed)
+            colval *= -1;
+        Color output;
+        if (colval >= 0)
+            output =  new Color(1 - colval / (maxValue / 2), 1, 0);
+        else
+            output =  new Color(1, 1 - Mathf.Abs(colval) / (maxValue / 2), 0);
+        if (partialTransparency)
+            output.a = 0.5f;
+        return output;
+        /*
+        float highMod = value / maxValue;
+        float lowMod = (1 - (value / maxValue));
+        Color output;
+        if(!reversed)
+            output = new Color(lowMod, highMod, 0f);
+        else
+            output = new Color(highMod, lowMod, 0f);
+        print(output);
+        if (partialTransparency)
+            output.a = 0.75f;
+        return output;
+        */
+    }
+
+    public Color test(float value, float maxValue, bool reversed, bool partialTransparency)
+    {
+        float colval = value - (maxValue / 2);
+        if(colval >= 0)
+            return new Color(value / maxValue, 1, 0);
+        else
+            return new Color(1, value / maxValue, 0);
+
+    }
+
     public void TurnStunOff()
     {
         LastTimeStunned = 0;
@@ -203,6 +291,12 @@ public class PlayerHandler : MonoBehaviour
         anim.SetBool("StunnedParam", false);
     }
 
+    //Single Argument Overload
+    public bool InValidAnim(string arg)
+    {
+        return InValidAnim(new string[] { arg });
+    }
+    //Multi Argument
     public bool InValidAnim(string[] args)
     {
         bool output = false;
@@ -249,6 +343,8 @@ public class PlayerHandler : MonoBehaviour
         gameObject.transform.Find("Hitboxes/" + ae.stringParameter).GetComponent<BoxCollider>().enabled = ae.intParameter == 1;
     }
 
+    
+
     public void grabConnected()
     {
         anim.SetTrigger("GrabConnectParam");
@@ -257,19 +353,21 @@ public class PlayerHandler : MonoBehaviour
 
     public bool canBeGrabbed()
     {
-        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "Dodge"}));
+        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "Dodge", "SuperStart", "SuperConnect" }) &&
+            Health <= 0);
     }
 
     public bool canBeStriked()
     {
-        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "StrikedFront", "Dodge" }));
+        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "StrikedFront", "Dodge", "SuperStart", "SuperConnect", "SuperLanding", "SuperGrabbedFalling", "SuperGrabbedLanding"}) &&
+            Health <= 0);
     }
 
     public void grabMe()
     {
         anim.SetTrigger("GrabbedParam");
         Health -= 10;
-        Stun += 20;
+        Stun += 10;
         stopHitboxes();
     }
 
@@ -277,7 +375,7 @@ public class PlayerHandler : MonoBehaviour
     {
         anim.SetTrigger("StrikedFrontParam");
         Health -= 5;
-        Stun += 10;
+        Stun += 20;
         stopHitboxes();
     }
 

@@ -11,8 +11,8 @@ public class StrikeHandler : HitBoxScript
         PlayerHandler targetPH = collider.gameObject.GetComponent<PlayerHandler>();
         if (!targetPH.canBeStriked())
             return;
-
         //targetPH.rotTowards(selfPH.transform.position);
         targetPH.strikeMe();
+        GetComponent<BoxCollider>().enabled = false;
     }
 }
