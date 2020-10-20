@@ -28,7 +28,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""A"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""82c1fecf-e2d3-4881-b3d5-ce03ff4024d1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -36,7 +36,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""B"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""b9842106-eec7-4f3b-9a73-d28038675501"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -44,7 +44,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""C"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""7b0e4cee-da1c-4e74-8e93-627b94350598"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -52,7 +52,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""D"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""ea5a8277-72ed-411d-a26f-966dbff107b4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
