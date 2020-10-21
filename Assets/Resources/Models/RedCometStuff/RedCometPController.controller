@@ -80,7 +80,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Rekka1
-  m_Speed: 1
+  m_Speed: 1.25
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8766494026179681928}
@@ -269,7 +269,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SuperStart
-  m_Speed: 1
+  m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8254081744215512532}
@@ -369,7 +369,7 @@ AnimatorStateMachine:
     m_Position: {x: 290, y: 430, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 4864710720807989369}
-    m_Position: {x: 280, y: 300, z: 0}
+    m_Position: {x: 290, y: 300, z: 0}
   m_AnyStateTransitions:
   - {fileID: 4543995893115185518}
   - {fileID: -7627176665000448282}
