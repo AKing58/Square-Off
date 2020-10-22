@@ -120,6 +120,11 @@ public class GameManager : MonoBehaviour
         ph.InitPlayer();
     }
 
+    public void RestartScene()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+    }
+
     
 
     public List<PlayerHandler> ReturnPlayerCharacters()
