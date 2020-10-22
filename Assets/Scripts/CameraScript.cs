@@ -45,7 +45,8 @@ public class CameraScript : MonoBehaviour
         bool output = true;
         foreach(GameObject go in gm.Players)
         {
-            output = output && characterViewable(go);
+            if(!(go.GetComponent<PlayerHandler>().Health <= 0))
+                output = output && characterViewable(go);
         }
         return output;
     }

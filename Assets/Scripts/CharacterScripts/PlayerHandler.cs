@@ -96,14 +96,20 @@ public class PlayerHandler : MonoBehaviour
         get { return health; }
         set 
         { 
-            health = value;
+            health = Mathf.Clamp(value,0,100);
             LastTimeHit = Time.time;
             PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().fillAmount = value / MaxHealth;
             PlayerInfoPanel.transform.Find("HPBar/HPText").GetComponent<Text>().text = value + "/" + MaxHealth;
             PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().color = DetermineBarColor(health, maxHealth, false, false);
             if (health <= 0)
             {
-                anim.SetBool("DeadParam", true);
+                if (InValidAnim(new string[] { "Walk", "Idle", "Dodge" }))
+                {
+                    anim.CrossFade("LayOnGround", 0.25f, -1, 0, 0.5f);
+                }
+                    
+                else
+                    anim.SetBool("DeadParam", true);
                 Stun = 0;
                 //enableKinematics();
             }
@@ -353,14 +359,12 @@ public class PlayerHandler : MonoBehaviour
 
     public bool canBeGrabbed()
     {
-        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "Dodge", "SuperStart", "SuperConnect" }) &&
-            Health <= 0);
+        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "Dodge", "LayOnGround", "SuperStart", "SuperConnect" }));
     }
 
     public bool canBeStriked()
     {
-        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "StrikedFront", "Dodge", "SuperStart", "SuperConnect", "SuperLanding", "SuperGrabbedFalling", "SuperGrabbedLanding"}) &&
-            Health <= 0);
+        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "StrikedFront", "Dodge", "LayOnGround", "SuperStart", "SuperConnect", "SuperLanding", "SuperGrabbedFalling", "SuperGrabbedLanding"}));
     }
 
     public void grabMe()
