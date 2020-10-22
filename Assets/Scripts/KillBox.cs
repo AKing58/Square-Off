@@ -8,7 +8,7 @@ public class KillBox : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerHandler>())
         {
-            collision.gameObject.GetComponent<PlayerHandler>().Health = 0;
+            collision.gameObject.GetComponent<PlayerHandler>().StageKillMe();
         }
     }
 }

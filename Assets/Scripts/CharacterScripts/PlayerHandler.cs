@@ -103,13 +103,7 @@ public class PlayerHandler : MonoBehaviour
             PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().color = DetermineBarColor(health, maxHealth, false, false);
             if (health <= 0)
             {
-                if (InValidAnim(new string[] { "Walk", "Idle", "Dodge" }))
-                {
-                    anim.CrossFade("LayOnGround", 0.25f, -1, 0, 0.5f);
-                }
-                    
-                else
-                    anim.SetBool("DeadParam", true);
+                anim.SetBool("DeadParam", true);
                 Stun = 0;
                 //enableKinematics();
             }
@@ -265,29 +259,12 @@ public class PlayerHandler : MonoBehaviour
         if (partialTransparency)
             output.a = 0.5f;
         return output;
-        /*
-        float highMod = value / maxValue;
-        float lowMod = (1 - (value / maxValue));
-        Color output;
-        if(!reversed)
-            output = new Color(lowMod, highMod, 0f);
-        else
-            output = new Color(highMod, lowMod, 0f);
-        print(output);
-        if (partialTransparency)
-            output.a = 0.75f;
-        return output;
-        */
     }
 
-    public Color test(float value, float maxValue, bool reversed, bool partialTransparency)
+    public void StageKillMe()
     {
-        float colval = value - (maxValue / 2);
-        if(colval >= 0)
-            return new Color(value / maxValue, 1, 0);
-        else
-            return new Color(1, value / maxValue, 0);
-
+        Health = 0;
+        anim.CrossFade("LayOnGround", 1f, -1, 0, 0.5f);
     }
 
     public void TurnStunOff()
@@ -370,16 +347,16 @@ public class PlayerHandler : MonoBehaviour
     public void grabMe()
     {
         anim.SetTrigger("GrabbedParam");
-        Health -= 10;
-        Stun += 10;
+        Health -= 30;
+        Stun += 15;
         stopHitboxes();
     }
 
     public void strikeMe()
     {
         anim.SetTrigger("StrikedFrontParam");
-        Health -= 5;
-        Stun += 20;
+        Health -= 20;
+        Stun += 10;
         stopHitboxes();
     }
 
