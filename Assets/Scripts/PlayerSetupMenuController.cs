@@ -39,7 +39,17 @@ public class PlayerSetupMenuController : MonoBehaviour
     {
         if (!inputEnabled) { return; }
 
-        PlayerConfigurationManager.Instance.SetPlayerColor(PlayerIndex, color);
+        //PlayerConfigurationManager.Instance.SetPlayerColor(PlayerIndex, color);
+        readyPanel.SetActive(true);
+        readyButton.Select();
+        menuPanel.SetActive(false);
+    }
+
+    public void SetCharacter(int charIndex)
+    {
+        if (!inputEnabled) { return; }
+
+        PlayerConfigurationManager.Instance.SetPlayerCharacter(PlayerIndex, charIndex);
         readyPanel.SetActive(true);
         readyButton.Select();
         menuPanel.SetActive(false);

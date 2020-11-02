@@ -14,6 +14,12 @@ public class PlayerHandler : MonoBehaviour
     protected float dodgeForce = 20f;
     public bool controllable = false;
 
+    private PlayerConfiguration playerConfig;
+    //[SerializeField]
+    //private MeshRenderer playerMesh;
+
+    private PlayerControls controls;
+
     //Used for movement
     protected Vector3 targetVec;
 
@@ -138,13 +144,41 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        controls = new PlayerControls();
+    }
+
+    private void Input_onActionTriggered(InputAction.CallbackContext obj)
+    {
+        if (obj.action.name == controls.Gameplay.Move.name)
+        {
+            OnMove(obj);    
+        }
+        if (obj.action.name == controls.Gameplay.A.name) {
+            OnA(obj);
+        }
+        if (obj.action.name == controls.Gameplay.B.name)
+        {
+            OnB(obj);
+        }
+        if (obj.action.name == controls.Gameplay.C.name)
+        {
+            OnC(obj);
+        }
+        if (obj.action.name == controls.Gameplay.D.name)
+        {
+            OnD(obj);
+        }
+    }
+
     protected void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
-    public void InitPlayer()
+    public void InitPlayer(PlayerConfiguration pc)
     {
         PlayerInfoPanel.transform.Find("PlayerName").GetComponent<Text>().text = PlayerName;
         PlayerInfoPanel.transform.Find("CharacterName").GetComponent<Text>().text = CharacterName;
@@ -153,8 +187,11 @@ public class PlayerHandler : MonoBehaviour
         Health = MaxHealth;
         maxStun = 100;
         Stun = 0;
-
         LastTimeStunned = 0;
+
+        playerConfig = pc;
+        //playerMesh.material = pc.PlayerMaterial;
+        playerConfig.Input.onActionTriggered += Input_onActionTriggered;
     }
 
     // Update is called once per frame

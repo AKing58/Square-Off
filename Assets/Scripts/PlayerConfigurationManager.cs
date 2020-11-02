@@ -28,9 +28,19 @@ public class PlayerConfigurationManager : MonoBehaviour
         }
     }
 
-    public void SetPlayerColor(int index, Material color)
+    public List<PlayerConfiguration> GetPlayerConfigs()
     {
-        playerConfigs[index].PlayerMaterial = color;
+        return playerConfigs;
+    }
+
+    //public void SetPlayerColor(int index, Material color)
+    //{
+    //    playerConfigs[index].PlayerMaterial = color;
+    //}
+
+    public void SetPlayerCharacter(int index, int characterIndex)
+    {
+        playerConfigs[index].CharacterIndex = characterIndex;
     }
 
     public void ReadyPlayer(int index) {
@@ -67,5 +77,7 @@ public class PlayerConfiguration
     
     public bool IsReady { get; set; } // player is ready to move onto the next scene
 
-    public Material PlayerMaterial { get; set; }
+    public int CharacterIndex { get; set; }
+
+    //public Material PlayerMaterial { get; set; }
 }

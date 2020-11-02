@@ -80,7 +80,7 @@ public class RedComet : PlayerHandler
         targetVec.Normalize();
     }
 
-    override protected void AbilityA() 
+    override protected void AbilityA()
     {
         if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1", "Rekka1 0" }))
         {
