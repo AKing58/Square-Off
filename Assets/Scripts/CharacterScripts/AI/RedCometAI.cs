@@ -9,54 +9,54 @@ public class RedCometAI : StateMachine
 
 	public void InitializeAI(GameManager gmInput)
     {
-		SetState(State.SLEEP);
+		SetState(AIState.SLEEP);
 		parent = gameObject.GetComponent<PlayerHandler>();
 		gmRef = gmInput;
 	}
 
 
 	override protected void StateLogic() {
-		if (curState == State.SEEK)
+		if (curState == AIState.SEEK)
 			seekOpponent();
-		else if (curState == State.APPROACH)
+		else if (curState == AIState.APPROACH)
 			approach();
 	}
 
 
-	override protected State GetTransition() {
+	override protected AIState GetTransition() {
 		switch (curState)
         {
-			case State.SPAWNEDIN:
-				return State.SEEK;
-			case State.SLEEP:
+			case AIState.SPAWNEDIN:
+				return AIState.SEEK;
+			case AIState.SLEEP:
 				if (shouldAttack())
-					return State.ATTACK;
+					return AIState.ATTACK;
 				else if (shouldSeek())
-					return State.SEEK;
+					return AIState.SEEK;
 				else if (shouldApproach())
-					return State.APPROACH;
+					return AIState.APPROACH;
 				break;
-			case State.SEEK:
+			case AIState.SEEK:
 				if (shouldAttack())
-					return State.ATTACK;
+					return AIState.ATTACK;
 				else if (shouldApproach())
-					return State.APPROACH;
+					return AIState.APPROACH;
 				break;
-			case State.APPROACH:
+			case AIState.APPROACH:
 				if (shouldAttack())
-					return State.ATTACK;
+					return AIState.ATTACK;
 				else if (shouldSeek())
-					return State.SEEK;
+					return AIState.SEEK;
 				else if (shouldApproach())
 					break;
 				break;
-			case State.ATTACK:
+			case AIState.ATTACK:
 				if (hasAttacked())
-					return State.SLEEP;
+					return AIState.SLEEP;
 				break;
-			case State.RETREAT:
+			case AIState.RETREAT:
 				break;
-			case State.DEAD:
+			case AIState.DEAD:
 				pauseAI = true;
 				parent.setTargetVec(new Vector3());
 				break;
@@ -69,15 +69,15 @@ public class RedCometAI : StateMachine
 	}
 
 
-	override protected void EnterState(State newState, State oldState) {
+	override protected void EnterState(AIState newState, AIState oldState) {
 		switch (newState)
         {
-			case State.SLEEP:
+			case AIState.SLEEP:
 				break;
-			case State.SEEK:
+			case AIState.SEEK:
 				seekOpponent();
 				break;
-			case State.ATTACK:
+			case AIState.ATTACK:
 				attack();
 				break;
 			default:
@@ -86,7 +86,7 @@ public class RedCometAI : StateMachine
 	}
 		
 
-	override protected void ExitState(State oldState, State newState){
+	override protected void ExitState(AIState oldState, AIState newState){
 
     }
 

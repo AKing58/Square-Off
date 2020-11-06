@@ -9,10 +9,10 @@ public class StrikeHandler : HitBoxScript
     {
         Debug.Log(collider.name);
         PlayerHandler targetPH = collider.gameObject.GetComponent<PlayerHandler>();
-        if (!targetPH.canBeStriked())
+        if (!targetPH.CanBeStriked())
             return;
         //targetPH.rotTowards(selfPH.transform.position);
-        targetPH.strikeMe();
+        targetPH.StrikeMe();
         GetComponent<BoxCollider>().enabled = false;
     }
 }

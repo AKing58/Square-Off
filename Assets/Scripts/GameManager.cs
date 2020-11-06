@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
         ph.PlayerName = "Player 2";
         ph.InitPlayer();
 
-        Players[Players.Count - 1].GetComponent<PlayerHandler>().rotTowards(Vector3.zero);   
+        Players[Players.Count - 1].GetComponent<PlayerHandler>().RotTowards(Vector3.zero);   
     }
 
     public void spawnRedCometAI1()

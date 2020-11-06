@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using UnityEngine;
@@ -25,6 +26,17 @@ public class PlayerHandler : MonoBehaviour
 
     public float LastTimeHit;
     public float LastTimeStunned;
+
+    public bool GrabImmune;
+    public bool StrikeImmune;
+
+    public Dictionary<string, Move> MoveList = new Dictionary<string, Move>();
+    public Move CurrentMove;
+
+    protected TextAsset abilityJSON;
+    protected Abilities AbilityData;
+
+    public enum PlayerState { GRABINVULN, STRIKEINVULN, CANCELABLE }
 
     protected Vector2 movementInput;
 
@@ -143,7 +155,6 @@ public class PlayerHandler : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
-
     public void InitPlayer()
     {
         PlayerInfoPanel.transform.Find("PlayerName").GetComponent<Text>().text = PlayerName;
@@ -155,6 +166,8 @@ public class PlayerHandler : MonoBehaviour
         Stun = 0;
 
         LastTimeStunned = 0;
+
+        CurrentMove = null;
     }
 
     // Update is called once per frame
@@ -172,30 +185,39 @@ public class PlayerHandler : MonoBehaviour
             }
             if (targetVec != new Vector3())
             {
-                rotTowards(targetVec + transform.position);
+                RotTowards(targetVec + transform.position);
                 transform.Translate(targetVec.x * speed * Time.deltaTime, targetVec.y * speed * Time.deltaTime, targetVec.z * speed * Time.deltaTime, Space.World);
             }
         }
-        //Stun Handling
-        if (Stun > 0 && Time.time > LastTimeHit + 5f && LastTimeStunned == 0)
-        {
-            Stun -= 0.25f;
-        }
-
-        if(InValidAnim("Stunned") && LastTimeStunned == 0)
-        {
-            LastTimeStunned = Time.time;
-        }
-
-        if(LastTimeStunned != 0 && Time.time > LastTimeStunned + 3f)
-        {
-            TurnStunOff();
-        }
+        HandleStun();
 
         if(rb.velocity.y < 0)
-        {
             rb.velocity += Vector3.up * Physics.gravity.y *(gravMod) * Time.deltaTime;
+
+        if(CurrentMove != null)
+            HandleCurrentMove();
+    }
+
+    public void HandleCurrentMove()
+    {
+        CurrentMove.CurFrame++;
+        if (CurrentMove.CurFrame == CurrentMove.TotalFrames)
+        {
+            CurrentMove.CurFrame = 0;
+            CurrentMove = null;
         }
+    }
+
+    public void HandleStun()
+    {
+        if (Stun > 0 && Time.time > LastTimeHit + 5f && LastTimeStunned == 0)
+            Stun -= 0.25f;
+
+        if (InValidAnim("Stunned") && LastTimeStunned == 0)
+            LastTimeStunned = Time.time;
+
+        if (LastTimeStunned != 0 && Time.time > LastTimeStunned + 3f)
+            TurnStunOff();
     }
 
     public void Launch(Vector3 dir, float force)
@@ -309,58 +331,118 @@ public class PlayerHandler : MonoBehaviour
         animEventStart.intParameter = 1;
         animEventStart.time = startTime * (1.0f / Constants.ANIMATION_FRAME_RATE);
         animEventStart.stringParameter = hitboxName;
-        animEventStart.functionName = "setHitbox";
+        animEventStart.functionName = "SetHitbox";
 
         AnimationEvent animEventEnd = new AnimationEvent();
         animEventEnd.intParameter = 0;
         animEventEnd.time = endTime * (1.0f / Constants.ANIMATION_FRAME_RATE);
         animEventEnd.stringParameter = hitboxName;
-        animEventEnd.functionName = "setHitbox";
+        animEventEnd.functionName = "SetHitbox";
 
         animClip.AddEvent(animEventStart);
         animClip.AddEvent(animEventEnd);
     }
 
-    public void setHitbox(AnimationEvent ae)
+    public void SetHitbox(AnimationEvent ae)
     {
         gameObject.transform.Find("Hitboxes/" + ae.stringParameter).GetComponent<BoxCollider>().enabled = ae.intParameter == 1;
     }
 
-    
+    protected void SetInvulnFrames(string moveName, string type, int startTime, int endTime)
+    {
+        if (startTime == -1 || endTime == -1)
+            return;
+        AnimationClip animClip = null;
+        foreach (AnimationClip tempClip in anim.runtimeAnimatorController.animationClips)
+        {
+            if (tempClip.name == moveName)
+            {
+                animClip = tempClip;
+            }
+        }
+        if (animClip == null)
+        {
+            Debug.LogError("Error: Could not find animation clip to bind invulnerability frames to");
+            return;
+        }
+        AnimationEvent animEventStart = new AnimationEvent();
+        animEventStart.intParameter = 1;
+        animEventStart.time = startTime * (1.0f / Constants.ANIMATION_FRAME_RATE);
+        animEventStart.stringParameter = type;
+        animEventStart.functionName = "SetInvuln";
 
-    public void grabConnected()
+        AnimationEvent animEventEnd = new AnimationEvent();
+        animEventEnd.intParameter = 0;
+        animEventEnd.time = endTime * (1.0f / Constants.ANIMATION_FRAME_RATE);
+        animEventEnd.stringParameter = type;
+        animEventEnd.functionName = "SetInvuln";
+
+        animClip.AddEvent(animEventStart);
+        animClip.AddEvent(animEventEnd);
+    }
+
+    public void SetInvuln(AnimationEvent ae)
+    {
+        if (ae.stringParameter == "Grab")
+            GrabImmune = ae.intParameter == 1;
+        else if (ae.stringParameter == "Strike")
+            StrikeImmune = ae.intParameter == 1;
+        else
+            Debug.Log("No invuln set");
+    }
+
+    public void GrabConnected()
     {
         anim.SetTrigger("GrabConnectParam");
-        stopHitboxes();
+        StopHitboxes();
     }
 
-    public bool canBeGrabbed()
+    public bool CanBeGrabbed()
     {
-        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "Dodge", "LayOnGround", "SuperStart", "SuperConnect" }));
+        if (CurrentMove == null || Health <=0)
+            return true;
+        if(CurrentMove.GrabInvulnFrames[1] == 999)
+            if (InValidAnim(CurrentMove.Name))
+                return false;
+        if (CurrentMove.CurFrame >= CurrentMove.GrabInvulnFrames[0] && CurrentMove.CurFrame <= CurrentMove.GrabInvulnFrames[1])
+            return false;
+        Debug.Log("too far" + CurrentMove.Name);
+        return true;
+        //return !GrabImmune;
+        //return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "Dodge", "LayOnGround", "SuperStart", "SuperConnect" }));
     }
 
-    public bool canBeStriked()
+    public bool CanBeStriked()
     {
-        return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "StrikedFront", "Dodge", "LayOnGround", "SuperStart", "SuperConnect", "SuperLanding", "SuperGrabbedFalling", "SuperGrabbedLanding"}));
+        if (CurrentMove == null || Health <= 0)
+            return true;
+        if (CurrentMove.StrikeInvulnFrames[1] == 999)
+            if (InValidAnim(CurrentMove.Name))
+                return false;
+        if (CurrentMove.CurFrame >= CurrentMove.StrikeInvulnFrames[0] && CurrentMove.CurFrame <= CurrentMove.StrikeInvulnFrames[1])
+            return false;
+        return true; ;
+        //return !StrikeImmune;
+        //return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "StrikedFront", "Dodge", "LayOnGround", "SuperStart", "SuperConnect", "SuperLanding", "SuperGrabbedFalling", "SuperGrabbedLanding"}));
     }
 
-    public void grabMe()
+    public void GrabMe()
     {
         anim.SetTrigger("GrabbedParam");
         Health -= 30;
         Stun += 15;
-        stopHitboxes();
+        StopHitboxes();
     }
 
-    public void strikeMe()
+    public void StrikeMe()
     {
         anim.SetTrigger("StrikedFrontParam");
         Health -= 20;
         Stun += 10;
-        stopHitboxes();
+        StopHitboxes();
     }
 
-    public void stopHitboxes()
+    public void StopHitboxes()
     {
         foreach (Transform t in gameObject.transform.Find("Hitboxes").transform)
         {
@@ -368,7 +450,7 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
-    public void rotTowards(Vector3 target)
+    public void RotTowards(Vector3 target)
     {
         Vector3 targetDirection = target - transform.position;
         float singleStep = rotSpeed * Time.deltaTime;
@@ -376,6 +458,127 @@ public class PlayerHandler : MonoBehaviour
         Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
         transform.rotation = Quaternion.LookRotation(newDirection);
     }
+
+
+    //Methods used for abilities
+    [Serializable]
+    public class Move
+    {
+        public string Name;
+        public string Type;
+        public int[] ActiveFrames;
+        public int[] GrabInvulnFrames;
+        public int[] StrikeInvulnFrames;
+        public int TotalFrames;
+
+        public int CurFrame = 0;
+
+        public Move(string Name) : this(Name, null, null, null, null, 0) { }
+        public Move(string Name, string Type, int[] ActiveFrames, int[] GrabInvulnFrames, int[] StrikeInvulnFrames, int TotalFrames)
+        {
+            this.Name = Name;
+            if (Type == null)
+                this.Type = "NA";
+            else
+                this.Type = Type;
+
+            if(ActiveFrames == null)
+                this.ActiveFrames = new int[] { -1, -1 };
+            else
+                this.ActiveFrames = ActiveFrames;
+
+            if(GrabInvulnFrames == null)
+                this.GrabInvulnFrames = new int[] { -1, -1 };
+            else
+                this.GrabInvulnFrames = GrabInvulnFrames;
+
+            if(StrikeInvulnFrames == null)
+                this.StrikeInvulnFrames = new int[] { -1, -1 };
+            else
+                this.StrikeInvulnFrames = StrikeInvulnFrames;
+
+            this.TotalFrames = TotalFrames;
+
+        }
+    }
+
+    [Serializable]
+    public class Abilities
+    {
+        public List<Move> Moves;
+        public List<Move> InvulnStates;
+    }
+
+    public void PopulateMoveList()
+    {
+        foreach(Move m in AbilityData.Moves)
+        {
+            if (MoveList.ContainsKey(m.Name))
+                MoveList[m.Name] = new Move(m.Name, m.Type, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.TotalFrames);
+            else
+                MoveList.Add(m.Name, new Move(m.Name, m.Type, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.TotalFrames));
+        }
+        foreach(Move invulnState in AbilityData.InvulnStates)
+        {
+            if (MoveList.ContainsKey(invulnState.Name))
+                MoveList[invulnState.Name].Name = invulnState.Name;
+            else
+                MoveList.Add(invulnState.Name, new Move(invulnState.Name));
+            switch (invulnState.Type)
+            {
+                case "Grab":
+                    MoveList[invulnState.Name].GrabInvulnFrames = new int[] { 0, 999 };
+                    break;
+                case "Strike":
+                    MoveList[invulnState.Name].StrikeInvulnFrames = new int[] { 0, 999 };
+                    break;
+                case "Both":
+                    MoveList[invulnState.Name].GrabInvulnFrames = new int[] { 0, 999 };
+                    MoveList[invulnState.Name].StrikeInvulnFrames = new int[] { 0, 999 };
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    protected void SetupActiveMoves()
+    {
+        foreach(Move m in AbilityData.Moves)
+        {
+            Debug.Log("Setup move named: " + m.Name +":"+ MoveList[m.Name].ActiveFrames[0] + ", " + MoveList[m.Name].ActiveFrames[1]);
+            SetActiveFrames(m.Name, m.Name + "Hitbox", MoveList[m.Name].ActiveFrames[0], MoveList[m.Name].ActiveFrames[1]);
+            //SetInvulnFrames(m.Name, "Grab", MoveList[m.Name].GrabInvulnFrames[0], MoveList[m.Name].GrabInvulnFrames[1]);
+            //SetInvulnFrames(m.Name, "Strike", MoveList[m.Name].StrikeInvulnFrames[0], MoveList[m.Name].StrikeInvulnFrames[1]);
+        }
+    }
+
+    protected void SetupInvulnStates()
+    {
+        foreach (Move m in AbilityData.InvulnStates)
+        {
+            if(m.Type == "Grab")
+                SetInvulnFrames(m.Name, m.Type, MoveList[m.Name].GrabInvulnFrames[0], MoveList[m.Name].GrabInvulnFrames[1]);
+            if(m.Type == "Strike")
+                SetInvulnFrames(m.Name, m.Type, MoveList[m.Name].StrikeInvulnFrames[0], MoveList[m.Name].StrikeInvulnFrames[1]);
+            if(m.Type == "Both")
+                SetInvulnFrames(m.Name, m.Type, MoveList[m.Name].StrikeInvulnFrames[0], MoveList[m.Name].StrikeInvulnFrames[1]);
+        }
+    }
+
+
+    public void PrintAllAbilities()
+    {
+        string[] movenamelist = { "Grabbed", "GetUp", "GrabConnect", "StrikedFront", "Dodge", "LayOnGround", "SuperStart", "SuperConnect", "SuperLanding", "SuperGrabbedFalling", "SuperGrabbedLanding" }; ;
+        foreach(string move in movenamelist)
+        {
+            Move tempMove = MoveList[move];
+            Debug.Log(tempMove.Name + ", " + tempMove.Type + ", GrabInvulnFrames: (" + tempMove.GrabInvulnFrames[0] + ", " + tempMove.GrabInvulnFrames[1] + "), StrikeInvulnFrames: (" + tempMove.StrikeInvulnFrames[0] + ", " + tempMove.StrikeInvulnFrames[1] + ")");
+        }
+    }
+
+
+    //Methods used for inputs
 
     virtual protected void AbilityA() { }
     virtual protected void AbilityB() { }

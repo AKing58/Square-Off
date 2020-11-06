@@ -11,8 +11,21 @@ public class RedComet : PlayerHandler
         base.Start();
 
         speed = 3f;
-        SetActiveFrames("Grab", "GrabHitbox", 15, 19);
-        SetActiveFrames("Rekka1", "Rekka1Hitbox", 15, 20);
+        
+        //SetActiveFrames("Grab", "GrabHitbox", 15, 19);
+        //SetActiveFrames("Rekka1", "Rekka1Hitbox", 15, 20);
+
+        abilityJSON = Resources.Load<TextAsset>("GameObjects/Characters/RedCometMoveInfo");
+        AbilityData = JsonUtility.FromJson<Abilities>(abilityJSON.text);
+
+        PopulateMoveList();
+        SetupActiveMoves();
+
+        PrintAllAbilities();
+
+        //AbilityList.Add("Grab", new Ability(Ability.AbilityType.GRAB));
+        //AbilityList["Grab"].AddInvulnerability(PlayerState.GRABINVULN, 5, 15);
+
         setupSuperEvent();
     }
 
@@ -85,6 +98,7 @@ public class RedComet : PlayerHandler
         if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1", "Rekka1 0" }))
         {
             anim.SetTrigger("Rekka1Param");
+            CurrentMove = MoveList["Rekka1"];
         }
     }
     override protected void AbilityB() 
@@ -92,6 +106,7 @@ public class RedComet : PlayerHandler
         if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1 0" }))
         {
             anim.SetTrigger("GrabStartParam");
+            CurrentMove = MoveList["Grab"];
         }
     }
     override protected void AbilityC() 
@@ -99,6 +114,7 @@ public class RedComet : PlayerHandler
         if (InValidAnim(new string[] { "Walk", "Idle" }))
         {
             anim.SetTrigger("SuperStartParam");
+            CurrentMove = MoveList["SuperStart"];
         }
     }
 
@@ -107,13 +123,14 @@ public class RedComet : PlayerHandler
         if (InValidAnim(new string[] { "Walk", "Idle"}))
         {
             anim.SetTrigger("DodgeParam");
+            CurrentMove = MoveList["SuperStart"];
             if (targetVec == new Vector3())
                 dodgeTargetLocation = transform.position + transform.forward * dodgeForce;
             else
             {
                 dodgeTargetLocation = transform.position + targetVec * dodgeForce;
             }
-            rotTowards(dodgeTargetLocation + transform.position);
+            RotTowards(dodgeTargetLocation + transform.position);
             GetComponent<Rigidbody>().AddForce(dodgeTargetLocation + transform.up, ForceMode.VelocityChange);
         }
     }
