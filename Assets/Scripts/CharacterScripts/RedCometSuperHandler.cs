@@ -23,7 +23,7 @@ public class RedCometSuperHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (delayComplete && transform.position.y <= startingHeight)
+        if (delayComplete && transform.position.y <= startingHeight + 0.1f)
         {
             gameObject.GetComponent<PlayerHandler>().SetAnimParam("LandedParam");
             Opponent.GetComponent<PlayerHandler>().SetAnimParam("LandedParam");
