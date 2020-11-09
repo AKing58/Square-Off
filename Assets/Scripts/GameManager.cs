@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject PlayerInfoPanels;
 
     [SerializeField]
-    private Transform[] playerSpawns;
+    private Transform[] playerSpawns = null;
 
     void Awake()
     {
@@ -35,15 +35,18 @@ public class GameManager : MonoBehaviour
 
         var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
         Debug.Log("Player configs.length + " + playerConfigs.Length);
+
+        //instantiating characters should depend on playerConfigs[i].CharacterName
         for (int i = 0; i < playerConfigs.Length; i++)
         {
             
-            GameObject player = Instantiate(Characters["RedComet"], playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
+            GameObject player = Instantiate(Characters[playerConfigs[i].CharacterName], playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
 
             player.AddComponent<Animator>();
             player.name = "Player" + (Players.Count + 1);
 
             Animator playerAnim = player.GetComponent<Animator>();
+            
             playerAnim.runtimeAnimatorController = (RuntimeAnimatorController)Instantiate(Resources.Load("Models/RedCometStuff/RedCometPController"));
             playerAnim.avatar = Instantiate(RedCometAvatar);
 

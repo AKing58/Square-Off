@@ -8,13 +8,16 @@ public class PlayerSetupMenuController : MonoBehaviour
 {
     private int PlayerIndex;
     [SerializeField]
-    private TextMeshProUGUI titleText;
+    private TextMeshProUGUI titleText = null;
     [SerializeField]
-    private GameObject readyPanel;
+    private GameObject readyPanel = null;
     [SerializeField]
-    private GameObject menuPanel;
+    private GameObject menuPanel = null;
     [SerializeField]
-    private Button readyButton;
+    private Button readyButton = null;
+
+    [SerializeField]
+    private Button defaultCharacter = null;
 
     private float ignoreInputTime = 1.5f;
 
@@ -35,21 +38,11 @@ public class PlayerSetupMenuController : MonoBehaviour
         }
     }
 
-    public void SetColor(Material color)
+    public void SetCharacter(string charName)
     {
         if (!inputEnabled) { return; }
 
-        //PlayerConfigurationManager.Instance.SetPlayerColor(PlayerIndex, color);
-        readyPanel.SetActive(true);
-        readyButton.Select();
-        menuPanel.SetActive(false);
-    }
-
-    public void SetCharacter(int charIndex)
-    {
-        if (!inputEnabled) { return; }
-
-        PlayerConfigurationManager.Instance.SetPlayerCharacter(PlayerIndex, charIndex);
+        PlayerConfigurationManager.Instance.SetPlayerCharacter(PlayerIndex, charName);
         readyPanel.SetActive(true);
         readyButton.Select();
         menuPanel.SetActive(false);
@@ -60,5 +53,11 @@ public class PlayerSetupMenuController : MonoBehaviour
         if (!inputEnabled) { return; }
         PlayerConfigurationManager.Instance.ReadyPlayer(PlayerIndex);
         readyButton.gameObject.SetActive(false);
+    }
+
+    public void ReturnToCharacterSelect() {
+        readyPanel.SetActive(false);
+        menuPanel.SetActive(true);
+        defaultCharacter.Select();
     }
 }

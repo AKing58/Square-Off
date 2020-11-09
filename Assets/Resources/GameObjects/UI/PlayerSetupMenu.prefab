@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9019859270796127441}
   - component: {fileID: 5418771258880307176}
   - component: {fileID: 3007064754811411726}
+  - component: {fileID: 879580502755702011}
   m_Layer: 5
   m_Name: ReadyButton
   m_TagString: Untagged
@@ -132,6 +133,35 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &879580502755702011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85608354808536050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 16
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1867559009768277730}
+          m_TargetAssemblyTypeName: PlayerSetupMenuController, Assembly-CSharp
+          m_MethodName: ReturnToCharacterSelect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &357202827651355860
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,8 +174,9 @@ GameObject:
   - component: {fileID: 3371136200305501056}
   - component: {fileID: 629711332107180260}
   - component: {fileID: 1867559009768277730}
+  - component: {fileID: 8892452831460477232}
   m_Layer: 5
-  m_Name: SetupPanel
+  m_Name: PlayerSetupMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,6 +259,27 @@ MonoBehaviour:
   readyPanel: {fileID: 5147403796597738739}
   menuPanel: {fileID: 1765754751297481505}
   readyButton: {fileID: 3007064754811411726}
+  defaultCharacter: {fileID: 4175449394680855384}
+--- !u!114 &8892452831460477232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357202827651355860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 400
+  m_PreferredHeight: 300
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &358599455922759732
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,8 +438,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4292992476
+  m_fontColor: {r: 0.8627451, g: 0.8666667, b: 0.88235295, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -478,9 +530,9 @@ RectTransform:
   m_Father: {fileID: 854869872729201381}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -43.2}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 110}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2227358611993404842
@@ -511,17 +563,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Title Text
+  m_text: 'Player
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 58e9d7a9df0868d4093ba05b719042bc, type: 2}
+  m_sharedMaterial: {fileID: 3785323022718363855, guid: 58e9d7a9df0868d4093ba05b719042bc,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4292992476
+  m_fontColor: {r: 0.8627451, g: 0.8666667, b: 0.88235295, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -654,8 +709,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4283836953
+  m_fontColor: {r: 0.09803922, g: 0.16470589, b: 0.3372549, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -723,6 +778,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4495660600118778621}
+  - component: {fileID: 4666860422714332097}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -739,7 +795,7 @@ RectTransform:
   m_GameObject: {fileID: 1765754751297481505}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children:
   - {fileID: 5856192303074216514}
   - {fileID: 6548196252560236976}
@@ -754,6 +810,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4666860422714332097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765754751297481505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &2203672933871747063
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +927,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 4175449394680855384}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.36832502, g: 0.37086466, b: 0.8773585, a: 1}
+    m_NormalColor: {r: 0, g: 0.5921569, b: 0.9019608, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -876,15 +952,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1867559009768277730}
         m_TargetAssemblyTypeName: PlayerSetupMenuController, Assembly-CSharp
-        m_MethodName: SetColor
-        m_Mode: 2
+        m_MethodName: SetCharacter
+        m_Mode: 5
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 6b1a0f280546bb040bf0af46fd81c741,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: RedComet
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &4146092337859197071
@@ -1229,8 +1304,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4283836953
+  m_fontColor: {r: 0.09803922, g: 0.16470589, b: 0.3372549, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1400,8 +1475,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4283836953
+  m_fontColor: {r: 0.09803922, g: 0.16470589, b: 0.3372549, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1557,7 +1632,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 1460125242794099218}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.9056604, g: 0.08116765, b: 0.08116765, a: 1}
+    m_NormalColor: {r: 0.9098039, g: 0.25490198, b: 0.09411765, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1582,15 +1657,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1867559009768277730}
         m_TargetAssemblyTypeName: PlayerSetupMenuController, Assembly-CSharp
-        m_MethodName: SetColor
-        m_Mode: 2
+        m_MethodName: SetCharacter
+        m_Mode: 5
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 02556467980dd284a9b90c38a1a58404,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: RedComet
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &6801972011697534724
@@ -1690,7 +1764,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 89808526736802183}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.3962264, g: 0.31212175, b: 0.31212175, a: 1}
+    m_NormalColor: {r: 0.44313726, g: 0.5019608, b: 0.5764706, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1715,15 +1789,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1867559009768277730}
         m_TargetAssemblyTypeName: PlayerSetupMenuController, Assembly-CSharp
-        m_MethodName: SetColor
-        m_Mode: 2
+        m_MethodName: SetCharacter
+        m_Mode: 5
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 7d4d6b3db5c750849ae3782f3c581764,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: RedComet
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &8271100474791146316
@@ -1800,8 +1873,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4283836953
+  m_fontColor: {r: 0.09803922, g: 0.16470589, b: 0.3372549, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1957,7 +2030,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 1153816513972964114}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.3092292, g: 0.6415094, b: 0.26326096, a: 1}
+    m_NormalColor: {r: 0.26666668, g: 0.7411765, b: 0.19607843, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1982,14 +2055,13 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1867559009768277730}
         m_TargetAssemblyTypeName: PlayerSetupMenuController, Assembly-CSharp
-        m_MethodName: SetColor
-        m_Mode: 2
+        m_MethodName: SetCharacter
+        m_Mode: 5
         m_Arguments:
-          m_ObjectArgument: {fileID: 2100000, guid: 4372d7a60be17ee4d9484834e146def9,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: RedComet
           m_BoolArgument: 0
         m_CallState: 2

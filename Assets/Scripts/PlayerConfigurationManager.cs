@@ -14,6 +14,8 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public static PlayerConfigurationManager Instance { get; private set; }
 
+    private int playerReadyCount = 0;
+
     private void Awake()
     {
         if (Instance != null)
@@ -33,18 +35,30 @@ public class PlayerConfigurationManager : MonoBehaviour
         return playerConfigs;
     }
 
-    //public void SetPlayerColor(int index, Material color)
-    //{
-    //    playerConfigs[index].PlayerMaterial = color;
-    //}
-
-    public void SetPlayerCharacter(int index, int characterIndex)
+    public void SetPlayerCharacter(int index, string charName)
     {
-        playerConfigs[index].CharacterIndex = characterIndex;
+
+        playerConfigs[index].CharacterName = charName;
     }
 
     public void ReadyPlayer(int index) {
         playerConfigs[index].IsReady = true;
+
+        //debugging for checking number of players
+        playerReadyCount = 0;
+        for (int i = 0; i < playerConfigs.Count; i++) {
+            if (playerConfigs[i].IsReady) {
+                playerReadyCount++;
+            }
+        }
+        Debug.Log("Max players:" + MaxPlayers + " Number of players ready: " + playerReadyCount);
+
+        if (playerConfigs.Count > MaxPlayers) 
+        {
+            MaxPlayers = playerConfigs.Count;
+        }
+
+        //load next scene if all players are ready
         if (playerConfigs.Count == MaxPlayers && playerConfigs.All(p => p.IsReady == true))
         {
             SceneManager.LoadScene("GameScene3");
@@ -53,13 +67,15 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public void HandlePlayerJoin(PlayerInput pi)
     {
-        Debug.Log("Player Joined " + pi.playerIndex);
+        Debug.Log("Player # " + pi.playerIndex + "Joined ");
         pi.transform.SetParent(transform);
         if (!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex)) 
         {
             pi.transform.SetParent(transform);
             playerConfigs.Add(new PlayerConfiguration(pi));
         }
+
+       
     }
 }
 
@@ -77,7 +93,7 @@ public class PlayerConfiguration
     
     public bool IsReady { get; set; } // player is ready to move onto the next scene
 
-    public int CharacterIndex { get; set; }
+    public string CharacterName;
 
     //public Material PlayerMaterial { get; set; }
 }

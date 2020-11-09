@@ -15,9 +15,6 @@ public class PlayerHandler : MonoBehaviour
     public bool controllable = false;
 
     private PlayerConfiguration playerConfig;
-    //[SerializeField]
-    //private MeshRenderer playerMesh;
-
     private PlayerControls controls;
 
     //Used for movement
@@ -41,7 +38,7 @@ public class PlayerHandler : MonoBehaviour
 
     protected bool AbilityAInput
     {
-        get 
+        get
         {
             if (abilityAInput)
             {
@@ -190,7 +187,6 @@ public class PlayerHandler : MonoBehaviour
         LastTimeStunned = 0;
 
         playerConfig = pc;
-        //playerMesh.material = pc.PlayerMaterial;
         playerConfig.Input.onActionTriggered += Input_onActionTriggered;
     }
 
