@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -30,7 +31,12 @@ public class PlayerHandler : MonoBehaviour
     public bool GrabImmune;
     public bool StrikeImmune;
 
+
+    public GameObject GrabInvulnIndicator;
+    public GameObject StrikeInvulnIndicator;
+
     public Dictionary<string, Move> MoveList = new Dictionary<string, Move>();
+
     public Move CurrentMove;
 
     protected TextAsset abilityJSON;
@@ -170,6 +176,15 @@ public class PlayerHandler : MonoBehaviour
         CurrentMove = null;
     }
 
+    void Update()
+    {
+        if (anim.IsInTransition(0))
+        {
+            ResetCurrentMove();
+            //CurrentMove = MoveList[anim.GetNextAnimatorStateInfo(0)];
+        }
+    }
+
     // Update is called once per frame
     protected void FixedUpdate()
     {
@@ -194,18 +209,40 @@ public class PlayerHandler : MonoBehaviour
         if(rb.velocity.y < 0)
             rb.velocity += Vector3.up * Physics.gravity.y *(gravMod) * Time.deltaTime;
 
-        if(CurrentMove != null)
+        if(CurrentMove != null && CurrentMove.Name != "")
             HandleCurrentMove();
     }
-
+    
     public void HandleCurrentMove()
     {
-        CurrentMove.CurFrame++;
+        Debug.Log(CurrentMove.CurFrame);
+        CurrentMove.CurFrame += 1f * anim.GetCurrentAnimatorStateInfo(0).speed;
+
+        if(CurrentMove.CurFrame >= CurrentMove.GrabInvulnFrames[0] && CurrentMove.CurFrame <= CurrentMove.GrabInvulnFrames[1])
+            GrabInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.red;
+        else
+            GrabInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.green;
+
+        if (CurrentMove.CurFrame >= CurrentMove.StrikeInvulnFrames[0] && CurrentMove.CurFrame <= CurrentMove.StrikeInvulnFrames[1])
+            StrikeInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.red;
+        else
+            StrikeInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.green;
+
+        /*
         if (CurrentMove.CurFrame == CurrentMove.TotalFrames)
         {
-            CurrentMove.CurFrame = 0;
-            CurrentMove = null;
+            ResetCurrentMove();
         }
+        */
+    }
+
+    public void ResetCurrentMove()
+    {
+        if(CurrentMove != null)
+            CurrentMove.CurFrame = 0;
+        GrabInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.green;
+        StrikeInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.green;
+        CurrentMove = null;
     }
 
     public void HandleStun()
@@ -223,12 +260,10 @@ public class PlayerHandler : MonoBehaviour
     public void Launch(Vector3 dir, float force)
     {
         GetComponent<Rigidbody>().AddForce(dir * force, ForceMode.VelocityChange);
-        //transform.position = transform.positionVector3.up * 5f;
     }
 
     public void SetAnimParam(string input)
     {
-        print(name + " has set " + input + "anim");
         anim.SetTrigger(input);
     }
 
@@ -248,14 +283,6 @@ public class PlayerHandler : MonoBehaviour
 
     virtual protected void HandleMovementInputs() { }
 
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.blue;
-    //    Gizmos.DrawCube(dodgeTargetLocation, new Vector3(0.1f, 0.1f, 0.1f));
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawCube(dodgeTargetLocation, new Vector3(0.1f, 0.1f, 0.1f));
-    //}
 
     /// <summary>
     /// Returns a color based on the value and max value.
@@ -329,13 +356,13 @@ public class PlayerHandler : MonoBehaviour
         }
         AnimationEvent animEventStart = new AnimationEvent();
         animEventStart.intParameter = 1;
-        animEventStart.time = startTime * (1.0f / Constants.ANIMATION_FRAME_RATE);
+        animEventStart.time = startTime / 60f;
         animEventStart.stringParameter = hitboxName;
         animEventStart.functionName = "SetHitbox";
 
         AnimationEvent animEventEnd = new AnimationEvent();
         animEventEnd.intParameter = 0;
-        animEventEnd.time = endTime * (1.0f / Constants.ANIMATION_FRAME_RATE);
+        animEventEnd.time = endTime / 60f;
         animEventEnd.stringParameter = hitboxName;
         animEventEnd.functionName = "SetHitbox";
 
@@ -343,15 +370,8 @@ public class PlayerHandler : MonoBehaviour
         animClip.AddEvent(animEventEnd);
     }
 
-    public void SetHitbox(AnimationEvent ae)
+    protected void SetMoveFirstFrame(string moveName)
     {
-        gameObject.transform.Find("Hitboxes/" + ae.stringParameter).GetComponent<BoxCollider>().enabled = ae.intParameter == 1;
-    }
-
-    protected void SetInvulnFrames(string moveName, string type, int startTime, int endTime)
-    {
-        if (startTime == -1 || endTime == -1)
-            return;
         AnimationClip animClip = null;
         foreach (AnimationClip tempClip in anim.runtimeAnimatorController.animationClips)
         {
@@ -362,33 +382,26 @@ public class PlayerHandler : MonoBehaviour
         }
         if (animClip == null)
         {
-            Debug.LogError("Error: Could not find animation clip to bind invulnerability frames to");
+            Debug.LogError("Error: Could not find animation clip to bind active frames to, " + moveName);
             return;
         }
         AnimationEvent animEventStart = new AnimationEvent();
-        animEventStart.intParameter = 1;
-        animEventStart.time = startTime * (1.0f / Constants.ANIMATION_FRAME_RATE);
-        animEventStart.stringParameter = type;
-        animEventStart.functionName = "SetInvuln";
-
-        AnimationEvent animEventEnd = new AnimationEvent();
-        animEventEnd.intParameter = 0;
-        animEventEnd.time = endTime * (1.0f / Constants.ANIMATION_FRAME_RATE);
-        animEventEnd.stringParameter = type;
-        animEventEnd.functionName = "SetInvuln";
+        animEventStart.time = 0f;
+        animEventStart.stringParameter = moveName;
+        animEventStart.functionName = "SetMove";
 
         animClip.AddEvent(animEventStart);
-        animClip.AddEvent(animEventEnd);
     }
 
-    public void SetInvuln(AnimationEvent ae)
+    public void SetMove(string moveName)
     {
-        if (ae.stringParameter == "Grab")
-            GrabImmune = ae.intParameter == 1;
-        else if (ae.stringParameter == "Strike")
-            StrikeImmune = ae.intParameter == 1;
-        else
-            Debug.Log("No invuln set");
+        CurrentMove = MoveList[moveName];
+        CurrentMove.CurFrame = 0;
+    }
+
+    public void SetHitbox(AnimationEvent ae)
+    {
+        gameObject.transform.Find("Hitboxes/" + ae.stringParameter).GetComponent<BoxCollider>().enabled = ae.intParameter == 1;
     }
 
     public void GrabConnected()
@@ -399,46 +412,79 @@ public class PlayerHandler : MonoBehaviour
 
     public bool CanBeGrabbed()
     {
-        if (CurrentMove == null || Health <=0)
+        if (Health <= 0)
+            return false;
+        if ((CurrentMove == null || CurrentMove.Name == "") && Health >=0)
             return true;
         if(CurrentMove.GrabInvulnFrames[1] == 999)
             if (InValidAnim(CurrentMove.Name))
                 return false;
         if (CurrentMove.CurFrame >= CurrentMove.GrabInvulnFrames[0] && CurrentMove.CurFrame <= CurrentMove.GrabInvulnFrames[1])
             return false;
-        Debug.Log("too far" + CurrentMove.Name);
         return true;
-        //return !GrabImmune;
-        //return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "Dodge", "LayOnGround", "SuperStart", "SuperConnect" }));
     }
 
     public bool CanBeStriked()
     {
-        if (CurrentMove == null || Health <= 0)
+        if (Health <= 0)
+            return false;
+        if ((CurrentMove == null || CurrentMove.Name == ""))
             return true;
         if (CurrentMove.StrikeInvulnFrames[1] == 999)
             if (InValidAnim(CurrentMove.Name))
                 return false;
         if (CurrentMove.CurFrame >= CurrentMove.StrikeInvulnFrames[0] && CurrentMove.CurFrame <= CurrentMove.StrikeInvulnFrames[1])
             return false;
-        return true; ;
-        //return !StrikeImmune;
-        //return !(InValidAnim(new string[] { "Grabbed", "GetUp", "GrabConnect", "StrikedFront", "Dodge", "LayOnGround", "SuperStart", "SuperConnect", "SuperLanding", "SuperGrabbedFalling", "SuperGrabbedLanding"}));
+
+        return true;
+    }
+
+    public bool AttackOther(PlayerHandler target, string moveName)
+    {
+        if (MoveList[moveName].Type == "Grab" && target.CanBeGrabbed())
+        {
+            anim.SetTrigger("GrabConnectParam");
+            target.GrabMe(this);
+        }
+        else if (MoveList[moveName].Type == "SuperGrab" && target.CanBeGrabbed())
+        {
+            anim.SetTrigger("SuperConnectParam");
+            target.SuperMe(this);
+        }
+        else if (MoveList[moveName].Type == "Strike" && target.CanBeStriked())
+            target.StrikeMe();
+        else
+            return false;
+        target.Health -= MoveList[moveName].Damage;
+        target.Stun -= MoveList[moveName].Stun;
+        return true;
+    }
+
+    public void GrabMe(PlayerHandler grabber)
+    {
+        Vector3 grabLoc = Vector3.MoveTowards(transform.position, grabber.transform.position, 100.0f);
+        //transform.position = new Vector3(grabLoc.x, transform.position.y, grabLoc.z);
+        RotTowards(grabber.transform.position);
+        anim.SetTrigger(Constants.CharacterInitials[grabber.CharacterName] + "GrabbedParam");
+    }
+
+    public void SuperMe(PlayerHandler grabber)
+    {
+        Vector3 grabLoc = Vector3.MoveTowards(transform.position, grabber.transform.position, 100.0f);
+        //transform.position = new Vector3(grabLoc.x, transform.position.y, grabLoc.z);
+        RotTowards(grabber.transform.position);
+        anim.SetTrigger(Constants.CharacterInitials[grabber.CharacterName] + "SuperedParam");
     }
 
     public void GrabMe()
     {
         anim.SetTrigger("GrabbedParam");
-        Health -= 30;
-        Stun += 15;
         StopHitboxes();
     }
 
     public void StrikeMe()
     {
         anim.SetTrigger("StrikedFrontParam");
-        Health -= 20;
-        Stun += 10;
         StopHitboxes();
     }
 
@@ -466,15 +512,21 @@ public class PlayerHandler : MonoBehaviour
     {
         public string Name;
         public string Type;
+        public float Damage;
+        public float Stun;
         public int[] ActiveFrames;
         public int[] GrabInvulnFrames;
         public int[] StrikeInvulnFrames;
+        public string HitboxName;
         public int TotalFrames;
 
-        public int CurFrame = 0;
+        
+        public float CurFrame;
 
-        public Move(string Name) : this(Name, null, null, null, null, 0) { }
-        public Move(string Name, string Type, int[] ActiveFrames, int[] GrabInvulnFrames, int[] StrikeInvulnFrames, int TotalFrames)
+
+        public Move() : this("", null, 0f, 0f, null, null, null, "", 0) { }
+        public Move(string Name) : this(Name, null, 0f, 0f, null, null, null , "", 0) { }
+        public Move(string Name, string Type, float Damage, float Stun, int[] ActiveFrames, int[] GrabInvulnFrames, int[] StrikeInvulnFrames, string HitboxName, int TotalFrames)
         {
             this.Name = Name;
             if (Type == null)
@@ -482,23 +534,39 @@ public class PlayerHandler : MonoBehaviour
             else
                 this.Type = Type;
 
+            this.Damage = Damage;
+            this.Stun = Stun;
+
             if(ActiveFrames == null)
                 this.ActiveFrames = new int[] { -1, -1 };
             else
-                this.ActiveFrames = ActiveFrames;
+                this.ActiveFrames = new int[] { ConvertFramesToSixty(ActiveFrames[0]), ConvertFramesToSixty(ActiveFrames[1])};
 
             if(GrabInvulnFrames == null)
                 this.GrabInvulnFrames = new int[] { -1, -1 };
             else
-                this.GrabInvulnFrames = GrabInvulnFrames;
+                this.GrabInvulnFrames = new int[] { ConvertFramesToSixty(GrabInvulnFrames[0]), ConvertFramesToSixty(GrabInvulnFrames[1]) };
 
-            if(StrikeInvulnFrames == null)
+            if (StrikeInvulnFrames == null)
                 this.StrikeInvulnFrames = new int[] { -1, -1 };
             else
-                this.StrikeInvulnFrames = StrikeInvulnFrames;
+                this.StrikeInvulnFrames = new int[] { ConvertFramesToSixty(StrikeInvulnFrames[0]), ConvertFramesToSixty(StrikeInvulnFrames[1]) };
 
-            this.TotalFrames = TotalFrames;
+            this.HitboxName = HitboxName;
 
+            this.TotalFrames = ConvertFramesToSixty(TotalFrames);
+        }
+
+        //Converts 24 fps frame data to 60 fps
+        public int ConvertFramesToSixty(int input)
+        {
+            float output = input;
+            return (int) (output * (60f / 24f));
+        }
+        public int ConvertFramesFromSixty(int input)
+        {
+            float output = input;
+            return (int) output * (24/60);
         }
     }
 
@@ -514,9 +582,9 @@ public class PlayerHandler : MonoBehaviour
         foreach(Move m in AbilityData.Moves)
         {
             if (MoveList.ContainsKey(m.Name))
-                MoveList[m.Name] = new Move(m.Name, m.Type, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.TotalFrames);
+                MoveList[m.Name] = new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames);
             else
-                MoveList.Add(m.Name, new Move(m.Name, m.Type, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.TotalFrames));
+                MoveList.Add(m.Name, new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames));
         }
         foreach(Move invulnState in AbilityData.InvulnStates)
         {
@@ -546,34 +614,20 @@ public class PlayerHandler : MonoBehaviour
     {
         foreach(Move m in AbilityData.Moves)
         {
-            Debug.Log("Setup move named: " + m.Name +":"+ MoveList[m.Name].ActiveFrames[0] + ", " + MoveList[m.Name].ActiveFrames[1]);
-            SetActiveFrames(m.Name, m.Name + "Hitbox", MoveList[m.Name].ActiveFrames[0], MoveList[m.Name].ActiveFrames[1]);
-            //SetInvulnFrames(m.Name, "Grab", MoveList[m.Name].GrabInvulnFrames[0], MoveList[m.Name].GrabInvulnFrames[1]);
-            //SetInvulnFrames(m.Name, "Strike", MoveList[m.Name].StrikeInvulnFrames[0], MoveList[m.Name].StrikeInvulnFrames[1]);
+            //Debug.Log("Setup move named: " + m.Name + ", " + m.HitboxName + " :"+ MoveList[m.Name].ActiveFrames[0] + ", " + MoveList[m.Name].ActiveFrames[1]);
+            SetActiveFrames(m.Name, m.HitboxName, MoveList[m.Name].ActiveFrames[0], MoveList[m.Name].ActiveFrames[1]);
         }
     }
 
-    protected void SetupInvulnStates()
+    protected void SetupMoveStarts()
     {
+        foreach (Move m in AbilityData.Moves)
+        {
+            SetMoveFirstFrame(m.Name);
+        }
         foreach (Move m in AbilityData.InvulnStates)
         {
-            if(m.Type == "Grab")
-                SetInvulnFrames(m.Name, m.Type, MoveList[m.Name].GrabInvulnFrames[0], MoveList[m.Name].GrabInvulnFrames[1]);
-            if(m.Type == "Strike")
-                SetInvulnFrames(m.Name, m.Type, MoveList[m.Name].StrikeInvulnFrames[0], MoveList[m.Name].StrikeInvulnFrames[1]);
-            if(m.Type == "Both")
-                SetInvulnFrames(m.Name, m.Type, MoveList[m.Name].StrikeInvulnFrames[0], MoveList[m.Name].StrikeInvulnFrames[1]);
-        }
-    }
-
-
-    public void PrintAllAbilities()
-    {
-        string[] movenamelist = { "Grabbed", "GetUp", "GrabConnect", "StrikedFront", "Dodge", "LayOnGround", "SuperStart", "SuperConnect", "SuperLanding", "SuperGrabbedFalling", "SuperGrabbedLanding" }; ;
-        foreach(string move in movenamelist)
-        {
-            Move tempMove = MoveList[move];
-            Debug.Log(tempMove.Name + ", " + tempMove.Type + ", GrabInvulnFrames: (" + tempMove.GrabInvulnFrames[0] + ", " + tempMove.GrabInvulnFrames[1] + "), StrikeInvulnFrames: (" + tempMove.StrikeInvulnFrames[0] + ", " + tempMove.StrikeInvulnFrames[1] + ")");
+            SetMoveFirstFrame(m.Name);
         }
     }
 
