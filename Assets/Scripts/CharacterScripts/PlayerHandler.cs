@@ -57,6 +57,10 @@ public class PlayerHandler : MonoBehaviour
     private bool abilityDInput;
 
     protected bool superAvailable = false;
+    private Color colorStart;
+    private Color colorEnd;
+    private float lerpControl = 0;
+    private float colorRate = 2;
 
     protected bool AbilityAInput
     {
@@ -221,7 +225,9 @@ public class PlayerHandler : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-        
+
+        colorStart = Color.white;
+        colorEnd = GetRandomLightColor();
     }
 
     public void InitPlayer(PlayerConfiguration pc)
@@ -298,13 +304,43 @@ public class PlayerHandler : MonoBehaviour
         }
         HandleStun();
 
+        if (superAvailable) {
+            DetermineSuperBarColor();         
+        }
+
         if(rb.velocity.y < 0)
             rb.velocity += Vector3.up * Physics.gravity.y *(gravMod) * Time.deltaTime;
 
         if(CurrentMove != null && CurrentMove.Name != "")
             HandleCurrentMove();
     }
-    
+
+    private void DetermineSuperBarColor() {
+        lerpControl += Time.deltaTime * colorRate;
+
+        PlayerInfoPanel.transform.Find("SuperBar").GetComponent<Image>().color = Color.Lerp(colorStart, colorEnd, lerpControl);
+
+        if (lerpControl >= 1)
+        {
+            lerpControl = 0;
+            colorStart = PlayerInfoPanel.transform.Find("SuperBar").GetComponent<Image>().color;
+            if (colorEnd == Color.white)
+            {
+                colorEnd = GetRandomLightColor();
+            }
+            else
+            {
+                colorEnd = Color.white;
+            }
+        }
+    }
+
+    private Color GetRandomLightColor()
+    {
+
+        return new Color(UnityEngine.Random.Range(0.6f, 1.0f), UnityEngine.Random.Range(0.6f, 1.0f), UnityEngine.Random.Range(0.6f, 1.0f));
+    }
+
     public void HandleCurrentMove()
     {
         Debug.Log(CurrentMove.CurFrame);
