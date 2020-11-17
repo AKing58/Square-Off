@@ -15,6 +15,8 @@ public class CameraScript : MonoBehaviour
 
     Plane[] planes;
 
+    bool shouldZoom = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,9 +29,9 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (zoomAmount > 0 && allCharactersViewable())
+        if (zoomAmount > 0 && !shouldZoom)
             zoomIn();
-        else if (!allCharactersViewable())
+        else if (shouldZoom)
         {
             zoomOut();
         }
@@ -54,12 +56,25 @@ public class CameraScript : MonoBehaviour
     void zoomOut()
     {
         zoomAmount += 1;
-        gameObject.transform.position += transform.forward * -0.5f;
+        gameObject.transform.position += transform.forward * -0.25f;
+    }
+
+    public void SuperZoomOut()
+    {
+        StartCoroutine(zoomShort());
+    }
+
+    IEnumerator zoomShort()
+    {
+        yield return new WaitForSeconds(3f);
+        shouldZoom = true;
+        yield return new WaitForSeconds(.75f);
+        shouldZoom = false;
     }
 
     void zoomIn()
     {
-        zoomAmount -= 2f;
+        zoomAmount -= 4f;
         gameObject.transform.position += transform.forward;
     }
 }

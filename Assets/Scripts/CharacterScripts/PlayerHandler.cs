@@ -343,25 +343,20 @@ public class PlayerHandler : MonoBehaviour
 
     public void HandleCurrentMove()
     {
-        Debug.Log(CurrentMove.CurFrame);
         CurrentMove.CurFrame += 1f * anim.GetCurrentAnimatorStateInfo(0).speed;
 
-        if(CurrentMove.CurFrame >= CurrentMove.GrabInvulnFrames[0] && CurrentMove.CurFrame <= CurrentMove.GrabInvulnFrames[1])
-            GrabInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.red;
-        else
-            GrabInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.green;
-
-        if (CurrentMove.CurFrame >= CurrentMove.StrikeInvulnFrames[0] && CurrentMove.CurFrame <= CurrentMove.StrikeInvulnFrames[1])
-            StrikeInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.red;
-        else
-            StrikeInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.green;
-
-        /*
-        if (CurrentMove.CurFrame == CurrentMove.TotalFrames)
+        if(GrabInvulnIndicator.active && StrikeInvulnIndicator.active)
         {
-            ResetCurrentMove();
+            if (CurrentMove.CurFrame >= CurrentMove.GrabInvulnFrames[0] && CurrentMove.CurFrame <= CurrentMove.GrabInvulnFrames[1])
+                GrabInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.red;
+            else
+                GrabInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.green;
+
+            if (CurrentMove.CurFrame >= CurrentMove.StrikeInvulnFrames[0] && CurrentMove.CurFrame <= CurrentMove.StrikeInvulnFrames[1])
+                StrikeInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.red;
+            else
+                StrikeInvulnIndicator.GetComponent<MeshRenderer>().material.color = Color.green;
         }
-        */
     }
 
     public void ResetCurrentMove()
@@ -614,6 +609,7 @@ public class PlayerHandler : MonoBehaviour
     public void StrikeMe()
     {
         anim.SetTrigger("StrikedFrontParam");
+        anim.ResetTrigger("GrabConnected");
         StopHitboxes();
     }
 
