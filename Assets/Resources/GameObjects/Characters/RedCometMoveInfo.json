@@ -5,7 +5,7 @@
             "Name": "Grab",
             "Type": "Grab",
             "Damage": 20,
-            "Stun": 15,
+            "Stun": 30,
             "ActiveFrames": [ 15, 19 ],
             "GrabInvulnFrames": [ 5,19 ],
             "HitboxName": "GrabHitbox",
@@ -14,8 +14,8 @@
         {
             "Name": "Rekka1",
             "Type": "Strike",
-            "Damage": 10,
-            "Stun": 8,
+            "Damage": 8,
+            "Stun": 15,
             "ActiveFrames": [ 15, 20 ],
             "HitboxName": "Rekka1Hitbox",
             "TotalFrames": 27
@@ -59,10 +59,6 @@
         {
             "Name": "SuperConnect",
             "Type": "Both"
-        },
-        {
-            "Name": "StrikedFront",
-            "Type": "Grab"
         },
         {
             "Name": "SuperLanding",
