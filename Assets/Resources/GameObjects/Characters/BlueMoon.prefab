@@ -2225,6 +2225,7 @@ GameObject:
   - component: {fileID: 1822133027597781438}
   - component: {fileID: 6297991288521393532}
   - component: {fileID: 4655298801811859797}
+  - component: {fileID: 6877298346676266296}
   m_Layer: 0
   m_Name: BlueMoon
   m_TagString: Untagged
@@ -2449,6 +2450,25 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!95 &6877298346676266296
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532773804299280165}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ae0310442e4b2c549ac0ca45196b43ea, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5583722438609176926
 GameObject:
   m_ObjectHideFlags: 0
