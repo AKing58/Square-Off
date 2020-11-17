@@ -56,6 +56,8 @@ public class PlayerHandler : MonoBehaviour
     private bool abilityCInput;
     private bool abilityDInput;
 
+    protected bool superAvailable = false;
+
     protected bool AbilityAInput
     {
         get
@@ -117,13 +119,15 @@ public class PlayerHandler : MonoBehaviour
     public float Health
     {
         get { return health; }
-        set 
-        { 
-            health = Mathf.Clamp(value,0,maxHealth);
+        set
+        {
+            Energy += (health - value) * 1.5f;
+            health = Mathf.Clamp(value, 0, maxHealth);
             LastTimeHit = Time.time;
             PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().fillAmount = value / MaxHealth;
             PlayerInfoPanel.transform.Find("HPBar/HPText").GetComponent<Text>().text = value + "/" + MaxHealth;
             PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().color = DetermineBarColor(health, maxHealth, false, false);
+            
             if (health <= 0)
             {
                 anim.SetBool("DeadParam", true);
@@ -131,10 +135,33 @@ public class PlayerHandler : MonoBehaviour
                 Stun = 0;
                 //enableKinematics();
             }
-            if(LastTimeStunned != 0)
+            if (LastTimeStunned != 0)
             {
                 TurnStunOff();
             }
+        }
+    }
+
+    [SerializeField]
+    private float maxEnergy;
+
+    public float MaxEnergy
+    {
+        get { return maxEnergy; }
+    }
+
+    [SerializeField]
+    private float energy;
+
+    public float Energy
+    {
+        get { return energy; }
+        set
+        {
+            energy = Mathf.Clamp(value, 0, maxEnergy);
+            superAvailable = (energy == maxEnergy);
+            PlayerInfoPanel.transform.Find("SuperBar").GetComponent<Image>().fillAmount = energy / maxEnergy;
+            
         }
     }
 
@@ -205,6 +232,8 @@ public class PlayerHandler : MonoBehaviour
         maxHealth = 100;
         Health = MaxHealth;
         maxStun = 100;
+        maxEnergy = 100;
+        Energy = 0;
         Stun = 0;
         LastTimeStunned = 0;
 
@@ -695,6 +724,10 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+    protected void ResetSuper() {
+        Energy = 0;
+        superAvailable = false;
+    }
 
     //Methods used for inputs
 

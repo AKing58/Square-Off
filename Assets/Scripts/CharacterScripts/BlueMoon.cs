@@ -104,9 +104,10 @@ public class BlueMoon : PlayerHandler
     }
     override protected void AbilityC() 
     {
-        if (InValidAnim(new string[] { "Walk", "Idle" }))
+        if (InValidAnim(new string[] { "Walk", "Idle" }) && superAvailable)
         {
             anim.SetTrigger("SuperStartParam");
+            ResetSuper();
         }
     }
 

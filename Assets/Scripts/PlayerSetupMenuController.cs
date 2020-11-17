@@ -19,7 +19,7 @@ public class PlayerSetupMenuController : MonoBehaviour
     [SerializeField]
     private Button defaultCharacter = null;
 
-    private float ignoreInputTime = 1.5f;
+    private float ignoreInputTime = 1.0f;
 
     private bool inputEnabled;
 
