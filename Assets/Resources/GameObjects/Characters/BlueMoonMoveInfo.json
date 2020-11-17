@@ -4,8 +4,8 @@
         {
             "Name": "BMGrab",
             "Type": "Grab",
-            "Damage": 20,
-            "Stun": 15,
+            "Damage": 15,
+            "Stun": 25,
             "ActiveFrames": [ 15, 19 ],
             "GrabInvulnFrames": [ 5,19 ],
             "HitboxName": "GrabHitbox",
