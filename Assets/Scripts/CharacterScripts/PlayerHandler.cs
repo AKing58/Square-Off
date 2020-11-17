@@ -127,6 +127,7 @@ public class PlayerHandler : MonoBehaviour
             if (health <= 0)
             {
                 anim.SetBool("DeadParam", true);
+                transform.Find("WorldSpaceUI/Canvas/DirIndicator").gameObject.SetActive(false);
                 Stun = 0;
                 //enableKinematics();
             }
