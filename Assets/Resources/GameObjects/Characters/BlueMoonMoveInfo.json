@@ -61,10 +61,6 @@
             "Type": "Both"
         },
         {
-            "Name": "BMStrikedFront",
-            "Type": "Grab"
-        },
-        {
             "Name": "BMSuperLanding",
             "Type": "Both"
         },
