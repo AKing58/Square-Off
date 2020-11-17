@@ -119,7 +119,7 @@ public class PlayerHandler : MonoBehaviour
         get { return health; }
         set 
         { 
-            health = Mathf.Clamp(value,0,100);
+            health = Mathf.Clamp(value,0,maxHealth);
             LastTimeHit = Time.time;
             PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().fillAmount = value / MaxHealth;
             PlayerInfoPanel.transform.Find("HPBar/HPText").GetComponent<Text>().text = value + "/" + MaxHealth;
