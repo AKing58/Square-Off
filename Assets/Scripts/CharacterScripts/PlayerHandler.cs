@@ -470,7 +470,7 @@ public class PlayerHandler : MonoBehaviour
 
     public bool CanBeGrabbed()
     {
-        if (Health <= 0)
+        if (Health <= 0 || !controllable)
             return false;
         if ((CurrentMove == null || CurrentMove.Name == "") && Health >=0)
             return true;
@@ -484,7 +484,7 @@ public class PlayerHandler : MonoBehaviour
 
     public bool CanBeStriked()
     {
-        if (Health <= 0)
+        if (Health <= 0 || !controllable)
             return false;
         if ((CurrentMove == null || CurrentMove.Name == ""))
             return true;
@@ -532,6 +532,7 @@ public class PlayerHandler : MonoBehaviour
         //transform.position = new Vector3(grabLoc.x, transform.position.y, grabLoc.z);
         RotTowards(grabber.transform.position);
         anim.SetTrigger(Constants.CharacterInitials[grabber.CharacterName] + "SuperedParam");
+        GameObject.Find("GameManager").GetComponent<GameManager>().TempDisableControls();
     }
 
     public void GrabMe()
