@@ -13,7 +13,7 @@ public class PlayerHandler : MonoBehaviour
     protected float rotSpeed = 1000.0f;
     public float speed = 1.5f;
     public float gravMod = 2.5f;
-    protected float dodgeForce = 20f;
+    protected float dodgeForce;
     public bool controllable = false;
 
     private PlayerConfiguration playerConfig;
@@ -119,7 +119,7 @@ public class PlayerHandler : MonoBehaviour
         get { return health; }
         set 
         { 
-            health = Mathf.Clamp(value,0,100);
+            health = Mathf.Clamp(value,0,maxHealth);
             LastTimeHit = Time.time;
             PlayerInfoPanel.transform.Find("HPBar").GetComponent<Image>().fillAmount = value / MaxHealth;
             PlayerInfoPanel.transform.Find("HPBar/HPText").GetComponent<Text>().text = value + "/" + MaxHealth;
@@ -127,6 +127,7 @@ public class PlayerHandler : MonoBehaviour
             if (health <= 0)
             {
                 anim.SetBool("DeadParam", true);
+                transform.Find("WorldSpaceUI/Canvas/DirIndicator").gameObject.SetActive(false);
                 Stun = 0;
                 //enableKinematics();
             }
@@ -214,17 +215,21 @@ public class PlayerHandler : MonoBehaviour
         if (playerConfig.PlayerIndex == 0)
         {
              myMaterial = Resources.Load<Material>("Materials/Red");
+            transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(1,0,0,0.6f);
         }
         else if (playerConfig.PlayerIndex == 1)
         {
              myMaterial = Resources.Load<Material>("Materials/Blue");
+             transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0, 0, 1, 0.6f);
         }
         else if (playerConfig.PlayerIndex == 2)
         {
              myMaterial = Resources.Load<Material>("Materials/Green");
+             transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0, 1, 0, 0.6f);
         }
         else {
              myMaterial = Resources.Load<Material>("Materials/Yellow");
+             transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0, 0.6f);
         }
 
         for (int i = 0; i < bodyPieces.Length; i++)
@@ -470,7 +475,7 @@ public class PlayerHandler : MonoBehaviour
 
     public bool CanBeGrabbed()
     {
-        if (Health <= 0)
+        if (Health <= 0 || !controllable)
             return false;
         if ((CurrentMove == null || CurrentMove.Name == "") && Health >=0)
             return true;
@@ -484,7 +489,7 @@ public class PlayerHandler : MonoBehaviour
 
     public bool CanBeStriked()
     {
-        if (Health <= 0)
+        if (Health <= 0 || !controllable)
             return false;
         if ((CurrentMove == null || CurrentMove.Name == ""))
             return true;
@@ -532,6 +537,7 @@ public class PlayerHandler : MonoBehaviour
         //transform.position = new Vector3(grabLoc.x, transform.position.y, grabLoc.z);
         RotTowards(grabber.transform.position);
         anim.SetTrigger(Constants.CharacterInitials[grabber.CharacterName] + "SuperedParam");
+        GameObject.Find("GameManager").GetComponent<GameManager>().TempDisableControls();
     }
 
     public void GrabMe()

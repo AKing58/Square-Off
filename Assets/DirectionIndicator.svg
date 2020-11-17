@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg3750"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="DirectionIndicator.svg"
+   inkscape:export-filename="C:\Users\Adam\Documents\GitHub\Square-Off\Assets\DirectionalIndicator.png"
+   inkscape:export-xdpi="73.25"
+   inkscape:export-ydpi="73.25">
+  <defs
+     id="defs3744" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="80.672107"
+     inkscape:cy="423.84371"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-others="false"
+     inkscape:object-nodes="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1137"
+     inkscape:window-x="1672"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3747">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <circle
+       style="fill:#000000;fill-opacity:1;stroke-width:0.33441219"
+       id="path3752"
+       cx="92.604164"
+       cy="113.68156"
+       r="67.837906" />
+    <path
+       sodipodi:type="star"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.26458332"
+       id="path3769"
+       sodipodi:sides="3"
+       sodipodi:cx="92.604167"
+       sodipodi:cy="43.302325"
+       sodipodi:r1="22.3358"
+       sodipodi:r2="16.416813"
+       sodipodi:arg1="0.52359878"
+       sodipodi:arg2="1.5707963"
+       inkscape:flatsided="false"
+       inkscape:rounded="0.25"
+       inkscape:randomized="0"
+       d="m 111.94753,54.470226 c -2.50536,4.339411 -14.332645,5.248913 -19.343365,5.248913 -5.010721,0 -16.838011,-0.909502 -19.343371,-5.248913 -2.50536,-4.339411 2.620633,-15.036895 5.125993,-19.376306 2.50536,-4.339411 9.206657,-14.127394 14.217377,-14.127394 5.01072,0 11.712016,9.787983 14.217376,14.127393 2.50536,4.339411 7.63135,15.036896 5.12599,19.376307 z"
+       inkscape:transform-center-x="1.9238095e-06"
+       inkscape:transform-center-y="-5.583951" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.2920219"
+       id="path3752-4"
+       cx="92.604164"
+       cy="113.68156"
+       r="59.238731" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.19392247"
+       id="path3769-5"
+       sodipodi:sides="3"
+       sodipodi:cx="71.059525"
+       sodipodi:cy="17.922867"
+       sodipodi:r1="16.370699"
+       sodipodi:r2="12.032463"
+       sodipodi:arg1="0.52359878"
+       sodipodi:arg2="1.5707963"
+       inkscape:flatsided="false"
+       inkscape:rounded="0.25"
+       inkscape:randomized="0"
+       d="m 85.236966,26.108216 c -1.836267,3.180508 -10.504907,3.847114 -14.177441,3.847114 -3.672534,0 -12.341174,-0.666606 -14.177441,-3.847114 -1.836267,-3.180508 1.920755,-11.021073 3.757022,-14.20158 1.836267,-3.1805084 6.747885,-10.354468 10.420419,-10.3544681 3.672534,-10e-8 8.584152,7.1739593 10.420419,10.3544671 1.836267,3.180508 5.593289,11.021073 3.757022,14.201581 z"
+       inkscape:transform-center-x="2.2778553e-06"
+       inkscape:transform-center-y="-5.7486696"
+       transform="matrix(1.079127,0,0,1.4046236,15.921915,29.15648)" />
+    <path
+       sodipodi:type="star"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.26458332"
+       id="path3769-3"
+       sodipodi:sides="3"
+       sodipodi:cx="171.60118"
+       sodipodi:cy="187.65457"
+       sodipodi:r1="22.3358"
+       sodipodi:r2="16.416813"
+       sodipodi:arg1="0.52359878"
+       sodipodi:arg2="1.5707963"
+       inkscape:flatsided="false"
+       inkscape:rounded="0.25"
+       inkscape:randomized="0"
+       d="m 190.94455,198.82247 c -2.50536,4.33941 -14.33265,5.24891 -19.34337,5.24891 -5.01072,0 -16.83801,-0.9095 -19.34337,-5.24891 -2.50536,-4.33941 2.62063,-15.03689 5.12599,-19.3763 2.50536,-4.33942 9.20666,-14.1274 14.21738,-14.1274 5.01072,0 11.71202,9.78798 14.21738,14.12739 2.50536,4.33942 7.63135,15.0369 5.12599,19.37631 z"
+       inkscape:transform-center-x="1.9238095e-06"
+       inkscape:transform-center-y="-5.583951"
+       inkscape:export-xdpi="73.25"
+       inkscape:export-ydpi="73.25" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.16965027"
+       id="path3769-3-3"
+       sodipodi:sides="3"
+       sodipodi:cx="171.60118"
+       sodipodi:cy="188.59624"
+       sodipodi:r1="14.321669"
+       sodipodi:r2="10.526426"
+       sodipodi:arg1="0.52359878"
+       sodipodi:arg2="1.5707963"
+       inkscape:flatsided="false"
+       inkscape:rounded="0.25"
+       inkscape:randomized="0"
+       d="m 184.00411,195.75707 c -1.60643,2.78242 -9.19006,3.36559 -12.40293,3.36559 -3.21286,0 -10.7965,-0.58317 -12.40293,-3.36559 -1.60643,-2.78242 1.68035,-9.64162 3.28678,-12.42405 1.60643,-2.78242 5.90329,-9.05845 9.11615,-9.05845 3.21287,0 7.50972,6.27603 9.11615,9.05845 1.60644,2.78243 4.89321,9.64163 3.28678,12.42405 z"
+       inkscape:transform-center-x="1.2335396e-06"
+       inkscape:transform-center-y="-3.5804129"
+       inkscape:export-xdpi="73.25"
+       inkscape:export-ydpi="73.25" />
+  </g>
+</svg>
