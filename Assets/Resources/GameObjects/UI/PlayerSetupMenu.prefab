@@ -959,7 +959,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: RedComet
+          m_StringArgument: BlueMoon
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &4146092337859197071
@@ -1796,7 +1796,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
           m_FloatArgument: 0
-          m_StringArgument: RedComet
+          m_StringArgument: BlueMoon
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &8271100474791146316

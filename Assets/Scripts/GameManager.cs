@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        Characters.Add("BlueMoon", Resources.Load<GameObject>("GameObjects/Characters/BlueMoon"));
+        Characters.Add("RedComet", Resources.Load<GameObject>("GameObjects/Characters/RedComet"));
+        Characters.Add("BlueMoon", Resources.Load<GameObject>("GameObjects/Characters/BlueMoon"));    
     }
 
     void Start()
@@ -43,12 +44,12 @@ public class GameManager : MonoBehaviour
             
             GameObject player = Instantiate(Characters[playerConfigs[i].CharacterName], playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
 
-            player.AddComponent<Animator>();
+            //player.AddComponent<Animator>();
             player.name = "Player" + (Players.Count + 1);
 
-            Animator playerAnim = player.GetComponent<Animator>();
+            //Animator playerAnim = player.GetComponent<Animator>();
             
-            playerAnim.runtimeAnimatorController = (RuntimeAnimatorController)Instantiate(Resources.Load("Models/RedCometStuff/RedCometPController"));
+            //playerAnim.runtimeAnimatorController = (RuntimeAnimatorController)Instantiate(Resources.Load("Models/RedCometStuff/RedCometPController"));
             //playerAnim.avatar = Instantiate(RedCometAvatar);
 
             Players.Add(player);
