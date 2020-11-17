@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     //};
 
     public List<GameObject> Players;
-    public Avatar RedCometAvatar;
+    //public Avatar RedCometAvatar;
 
     public GameObject PlayerInfoPanels;
 
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         Players = new List<GameObject>();
 
         var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
-        Debug.Log("Player configs.length + " + playerConfigs.Length);
+        //Debug.Log("Player configs.length + " + playerConfigs.Length);
 
         //instantiating characters should depend on playerConfigs[i].CharacterName
         for (int i = 0; i < playerConfigs.Length; i++)
@@ -48,14 +48,14 @@ public class GameManager : MonoBehaviour
             Animator playerAnim = player.GetComponent<Animator>();
             
             playerAnim.runtimeAnimatorController = (RuntimeAnimatorController)Instantiate(Resources.Load("Models/RedCometStuff/RedCometPController"));
-            playerAnim.avatar = Instantiate(RedCometAvatar);
+            //playerAnim.avatar = Instantiate(RedCometAvatar);
 
             Players.Add(player);
             PlayerHandler ph = player.GetComponent<PlayerHandler>();
 
             ph.controllable = true;
             ph.PlayerInfoPanel = PlayerInfoPanels.transform.Find("Player" + Players.Count + "Panel").gameObject;
-            ph.CharacterName = "Red Comet";
+            ph.CharacterName = playerConfigs[i].CharacterName;
             ph.PlayerName = "Player " + Players.Count;
 
             ph.InitPlayer(playerConfigs[i]);

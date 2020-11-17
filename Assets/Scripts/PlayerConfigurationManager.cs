@@ -14,7 +14,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public static PlayerConfigurationManager Instance { get; private set; }
 
-    private int playerReadyCount = 0;
+    //private int playerReadyCount = 0;
 
     private void Awake()
     {
@@ -45,13 +45,13 @@ public class PlayerConfigurationManager : MonoBehaviour
         playerConfigs[index].IsReady = true;
 
         //debugging for checking number of players
-        playerReadyCount = 0;
-        for (int i = 0; i < playerConfigs.Count; i++) {
-            if (playerConfigs[i].IsReady) {
-                playerReadyCount++;
-            }
-        }
-        Debug.Log("Max players:" + MaxPlayers + " Number of players ready: " + playerReadyCount);
+        //playerReadyCount = 0;
+        //for (int i = 0; i < playerConfigs.Count; i++) {
+        //    if (playerConfigs[i].IsReady) {
+        //        playerReadyCount++;
+        //    }
+        //}
+        //Debug.Log("Max players:" + MaxPlayers + " Number of players ready: " + playerReadyCount);
 
         if (playerConfigs.Count > MaxPlayers) 
         {
@@ -61,7 +61,7 @@ public class PlayerConfigurationManager : MonoBehaviour
         //load next scene if all players are ready
         if (playerConfigs.Count == MaxPlayers && playerConfigs.All(p => p.IsReady == true))
         {
-            SceneManager.LoadScene("GameScene3");
+            SceneManager.LoadScene("StageSelect");
         }
     }
 

@@ -26,6 +26,8 @@ public class PlayerHandler : MonoBehaviour
     public string CharacterName;
     public string PlayerName;
 
+    public GameObject[] bodyPieces;
+
     public float LastTimeHit;
     public float LastTimeStunned;
 
@@ -173,6 +175,7 @@ public class PlayerHandler : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        
     }
 
     public void InitPlayer(PlayerConfiguration pc)
@@ -188,6 +191,27 @@ public class PlayerHandler : MonoBehaviour
 
         playerConfig = pc;
         playerConfig.Input.onActionTriggered += Input_onActionTriggered;
+
+        Material myMaterial;
+        if (playerConfig.PlayerIndex == 0)
+        {
+             myMaterial = Resources.Load<Material>("Materials/Red");
+        }
+        else if (playerConfig.PlayerIndex == 1)
+        {
+             myMaterial = Resources.Load<Material>("Materials/Blue");
+        }
+        else if (playerConfig.PlayerIndex == 2)
+        {
+             myMaterial = Resources.Load<Material>("Materials/Green");
+        }
+        else {
+             myMaterial = Resources.Load<Material>("Materials/Yellow");
+        }
+        
+        for (int i = 0; i < bodyPieces.Length; i++) {
+            bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material = myMaterial;
+        }
     }
 
     // Update is called once per frame

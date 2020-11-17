@@ -269,13 +269,13 @@ MonoBehaviour:
     m_Top: 60
     m_Bottom: 60
   m_ChildAlignment: 0
-  fitType: 4
-  rows: 0
-  columns: 2
-  cellSize: {x: 560, y: 600.8524}
+  fitType: 0
+  rows: -2147483648
+  columns: 0
+  cellSize: {x: NaN, y: 20}
   spacing: {x: 20, y: 20}
-  fitX: 0
-  fitY: 0
+  fitX: 1
+  fitY: 1
 --- !u!1 &552642462
 GameObject:
   m_ObjectHideFlags: 0
