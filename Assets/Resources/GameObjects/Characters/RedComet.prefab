@@ -2554,6 +2554,7 @@ GameObject:
   - component: {fileID: 7338787513810138561}
   - component: {fileID: 8577033992705598138}
   - component: {fileID: 5333886653732956822}
+  - component: {fileID: 1221832707296545463}
   m_Layer: 0
   m_Name: RedComet
   m_TagString: Untagged
@@ -2688,6 +2689,25 @@ MonoBehaviour:
   health: 0
   maxStun: 0
   stun: 0
+--- !u!95 &1221832707296545463
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6036014263987503654}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ec82b2ac3da73944bd097127cfac87a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6099179230649765403
 GameObject:
   m_ObjectHideFlags: 0

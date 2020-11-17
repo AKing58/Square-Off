@@ -2547,7 +2547,7 @@ MonoBehaviour:
   - {x: -2.5, y: 0, z: -2.5}
   - {x: 2.5, y: 0, z: -2.5}
   Players: []
-  RedCometAvatar: {fileID: 9000000, guid: 739d0a7a4461b5146b133f814b3a73cd, type: 3}
+  RedCometAvatar: {fileID: 9000000, guid: 489b7997ceaef7b4cbde28893556141d, type: 3}
   PlayerInfoPanels: {fileID: 778229246}
 --- !u!4 &1603817174
 Transform:

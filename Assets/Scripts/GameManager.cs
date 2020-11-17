@@ -26,12 +26,13 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        Characters.Add("RedComet", Resources.Load<GameObject>("GameObjects/Characters/RedComet"));
+        Characters.Add("BlueMoon", Resources.Load<GameObject>("GameObjects/Characters/BlueMoon"));
     }
 
     void Start()
     {
         Players = new List<GameObject>();
+
 
         var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
         //Debug.Log("Player configs.length + " + playerConfigs.Length);
@@ -66,6 +67,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //public void spawnPlayer()
+    //{
+    //    GameObject player = Instantiate(Characters["BlueMoon"], spawnLocations[Players.Count], Quaternion.identity);
+        
+    //    player.AddComponent<Animator>();
+    //    player.name = "Player" + (Players.Count+1);
+
+    //    Animator playerAnim = player.GetComponent<Animator>();
+    //    playerAnim.runtimeAnimatorController = (RuntimeAnimatorController)Instantiate(Resources.Load("Models/BlueMoon/BlueMoonPController"));
+    //    playerAnim.avatar = Instantiate(RedCometAvatar);
+
+    //    ph.controllable = true;
+    //    ph.PlayerInfoPanel = PlayerInfoPanels.transform.Find("Player" + Players.Count + "Panel").gameObject;
+    //    ph.CharacterName = "Blue Moon";
+    //    ph.PlayerName = "Player " + Players.Count;
+    //    ph.InitPlayer();
+    //}
 
 
     //public void spawnPlayer()
