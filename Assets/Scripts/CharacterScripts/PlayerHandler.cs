@@ -214,17 +214,21 @@ public class PlayerHandler : MonoBehaviour
         if (playerConfig.PlayerIndex == 0)
         {
              myMaterial = Resources.Load<Material>("Materials/Red");
+            transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(1,0,0,0.6f);
         }
         else if (playerConfig.PlayerIndex == 1)
         {
              myMaterial = Resources.Load<Material>("Materials/Blue");
+             transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0, 0, 1, 0.6f);
         }
         else if (playerConfig.PlayerIndex == 2)
         {
              myMaterial = Resources.Load<Material>("Materials/Green");
+             transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0, 1, 0, 0.6f);
         }
         else {
              myMaterial = Resources.Load<Material>("Materials/Yellow");
+             transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0, 0.6f);
         }
 
         for (int i = 0; i < bodyPieces.Length; i++)
