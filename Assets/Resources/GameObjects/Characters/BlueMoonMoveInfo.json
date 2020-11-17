@@ -4,8 +4,8 @@
         {
             "Name": "BMGrab",
             "Type": "Grab",
-            "Damage": 20,
-            "Stun": 15,
+            "Damage": 15,
+            "Stun": 25,
             "ActiveFrames": [ 12, 16 ],
             "GrabInvulnFrames": [ 5,16 ],
             "HitboxName": "GrabHitbox",
@@ -14,7 +14,7 @@
         {
             "Name": "BMRekka1",
             "Type": "Strike",
-            "Damage": 15,
+            "Damage": 5,
             "Stun": 10,
             "ActiveFrames": [ 11, 15 ],
             "HitboxName": "Rekka1Hitbox",
