@@ -71,6 +71,10 @@
         {
             "Name": "RCSuperGrabbed",
             "Type": "Both"
+        },
+        {
+            "Name": "BMGrabbed",
+            "Type": "Both"
         }
     ]
 }
