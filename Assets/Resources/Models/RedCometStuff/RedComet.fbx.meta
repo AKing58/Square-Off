@@ -11,7 +11,7 @@ ModelImporter:
     second: Armature|GetUp
   - first:
       74: 3997614985018663949
-    second: Armature|Grab
+    second: SuperLanding
   - first:
       74: 3924081102366001219
     second: Armature|Grabbed
@@ -72,6 +72,39 @@ ModelImporter:
   - first:
       74: -8933422709920212946
     second: SuperLanding
+  - first:
+      74: -7523799387860143440
+    second: Dodge
+  - first:
+      74: 3742509414200382275
+    second: SuperGrabbed
+  - first:
+      74: 5993963157537624584
+    second: SuperGrabbedFalling
+  - first:
+      74: -6286069967555654867
+    second: SuperGrabbedLanding
+  - first:
+      74: 5587355199528916491
+    second: LayOnGround
+  - first:
+      74: -7946090837608899293
+    second: RCSuperGrabbed
+  - first:
+      74: 4702152582479402539
+    second: RCSuperGrabbedFalling
+  - first:
+      74: 386552577558862605
+    second: RCSuperGrabbedLanding
+  - first:
+      74: 7660253505164609195
+    second: SuperGrab
+  - first:
+      74: -6536865056371348905
+    second: RCSuperGrabbed
+  - first:
+      74: -6717276347803813689
+    second: RCGrabbed
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -164,35 +197,6 @@ ModelImporter:
       internalID: 0
       firstFrame: 0
       lastFrame: 46
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Grabbed
-      takeName: Armature|Grabbed
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 38
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -362,11 +366,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: SuperConnect
-      takeName: Armature|SuperConnect
+      name: Dodge
+      takeName: Armature|Dodge
       internalID: 0
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 12
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -391,11 +395,156 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Grab
+      name: SuperLanding
       takeName: Armature|SuperLanding
       internalID: 0
       firstFrame: 0
-      lastFrame: 20
+      lastFrame: 25
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: LayOnGround
+      takeName: Armature|LayOnGround
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: SuperGrab
+      takeName: Armature|SuperGrab
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 46
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: SuperConnect
+      takeName: Armature|SuperConnect
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 125
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: RCSuperGrabbed
+      takeName: Armature|RCSuperGrabbed
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 139
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: RCGrabbed
+      takeName: Armature|RCGrabbed
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 38
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

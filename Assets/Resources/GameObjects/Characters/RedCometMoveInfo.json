@@ -1,0 +1,76 @@
+{
+    "Moves":
+    [
+        {
+            "Name": "Grab",
+            "Type": "Grab",
+            "Damage": 20,
+            "Stun": 15,
+            "ActiveFrames": [ 15, 19 ],
+            "GrabInvulnFrames": [ 5,19 ],
+            "HitboxName": "GrabHitbox",
+            "TotalFrames": 46
+        },
+        {
+            "Name": "Rekka1",
+            "Type": "Strike",
+            "Damage": 15,
+            "Stun": 10,
+            "ActiveFrames": [ 15, 20 ],
+            "HitboxName": "Rekka1Hitbox",
+            "TotalFrames": 27
+        },
+        {
+            "Name": "SuperGrab",
+            "Type": "SuperGrab",
+            "Damage": 100,
+            "ActiveFrames": [ 15, 19 ],
+            "GrabInvulnFrames": [ 0, 19 ],
+            "StrikeInvulnFrames": [ 0, 19 ],
+            "HitboxName": "SuperHitbox",
+            "TotalFrames": 46
+        },
+        {
+            "Name": "Dodge",
+            "Type": "NA",
+            "GrabInvulnFrames": [ 0, 9 ],
+            "StrikeInvulnFrames": [ 3, 9 ],
+            "TotalFrames": 12
+        }
+    ],
+    "InvulnStates":
+    [
+        {
+            "Name": "RCGrabbed",
+            "Type": "Both"
+        },
+        {
+            "Name": "GetUp",
+            "Type": "Both"
+        },
+        {
+            "Name": "GrabConnect",
+            "Type": "Both"
+        },
+        {
+            "Name": "LayOnGround",
+            "Type": "Both"
+        },
+        {
+            "Name": "SuperConnect",
+            "Type": "Both"
+        },
+        {
+            "Name": "StrikedFront",
+            "Type": "Grab"
+        },
+        {
+            "Name": "SuperLanding",
+            "Type": "Both"
+        },
+        {
+            "Name": "RCSuperGrabbed",
+            "Type": "Both"
+        }
+    ]
+}
