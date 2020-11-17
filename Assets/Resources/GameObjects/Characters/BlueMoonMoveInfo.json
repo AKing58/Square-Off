@@ -6,8 +6,8 @@
             "Type": "Grab",
             "Damage": 20,
             "Stun": 15,
-            "ActiveFrames": [ 15, 19 ],
-            "GrabInvulnFrames": [ 5,19 ],
+            "ActiveFrames": [ 12, 16 ],
+            "GrabInvulnFrames": [ 5,16 ],
             "HitboxName": "GrabHitbox",
             "TotalFrames": 46
         },
