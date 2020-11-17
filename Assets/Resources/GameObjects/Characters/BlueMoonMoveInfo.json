@@ -14,7 +14,7 @@
         {
             "Name": "BMRekka1",
             "Type": "Strike",
-            "Damage": 15,
+            "Damage": 5,
             "Stun": 10,
             "ActiveFrames": [ 11, 15 ],
             "HitboxName": "Rekka1Hitbox",
