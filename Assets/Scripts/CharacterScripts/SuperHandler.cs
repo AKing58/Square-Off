@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RedCometSuperHandler : SuperHandler
+public class SuperHandler : MonoBehaviour
 {
     public float startingHeight;
     public bool delayComplete = false;
     public GameObject Opponent;
+    [SerializeField]
+    private float delay = 3.25f;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +18,7 @@ public class RedCometSuperHandler : SuperHandler
 
     private IEnumerator StartingDelay()
     {
-        yield return new WaitForSeconds(3.25f);
+        yield return new WaitForSeconds(delay);
         delayComplete = true;
     }
 
@@ -32,5 +34,4 @@ public class RedCometSuperHandler : SuperHandler
             Destroy(this);
         }
     }
-
 }

@@ -9,12 +9,12 @@ public class GrabHandler : HitBoxScript
     {
         PlayerHandler targetPH = collider.gameObject.GetComponent<PlayerHandler>();
         PlayerHandler selfPH = parentGO.GetComponent<PlayerHandler>();
-        if (!targetPH.canBeGrabbed())
+        if (!targetPH.CanBeGrabbed())
             return;
 
         Vector3 grabLoc = Vector3.MoveTowards(targetPH.transform.position, transform.position, 100.0f);
         targetPH.transform.position = new Vector3(grabLoc.x, targetPH.transform.position.y, grabLoc.z);
-        targetPH.rotTowards(selfPH.transform.position);
+        targetPH.RotTowards(selfPH.transform.position);
         if (selfPH.GetComponent<PlayerHandler>().InValidAnim("SuperStart"))
         {
             targetPH.SetAnimParam("SuperedParam");
@@ -24,9 +24,9 @@ public class GrabHandler : HitBoxScript
         }
         else
         {
-            targetPH.grabMe();
+            targetPH.GrabMe();
         }
-        selfPH.grabConnected();
+        selfPH.GrabConnected();
         GetComponent<BoxCollider>().enabled = false;
     }
 }

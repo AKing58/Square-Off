@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
             //playerAnim.avatar = Instantiate(RedCometAvatar);
 
             Players.Add(player);
+               
             PlayerHandler ph = player.GetComponent<PlayerHandler>();
 
             ph.controllable = true;
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
             ph.PlayerName = "Player " + Players.Count;
 
             ph.InitPlayer(playerConfigs[i]);
+            Players[Players.Count - 1].GetComponent<PlayerHandler>().RotTowards(Vector3.zero);
             //var player = Instantiate(RedCometAvatar, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
             //player.GetComponent<PlayerHandler>().InitializePlayer(playerConfigs[i]);
         }
@@ -80,6 +82,7 @@ public class GameManager : MonoBehaviour
     //    Players.Add(player);
     //    PlayerHandler ph = player.GetComponent<PlayerHandler>();
 
+
     //    ph.controllable = true;
     //    ph.PlayerInfoPanel = PlayerInfoPanels.transform.Find("Player" + Players.Count + "Panel").gameObject;
     //    ph.CharacterName = "Red Comet";
@@ -87,6 +90,9 @@ public class GameManager : MonoBehaviour
         
     //    ph.InitPlayer();
     //}
+
+    //}
+
 
     
 

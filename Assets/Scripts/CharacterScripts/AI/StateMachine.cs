@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-	protected enum State { SPAWNEDIN, SLEEP, SEEK, APPROACH, ATTACK, RETREAT, DEAD }
+	protected enum AIState { SPAWNEDIN, SLEEP, SEEK, APPROACH, ATTACK, RETREAT, DEAD }
 
 	[SerializeField]
-	protected State curState = State.SLEEP;
+	protected AIState curState = AIState.SLEEP;
 	[SerializeField]
-	protected State prevState = State.SLEEP;
+	protected AIState prevState = AIState.SLEEP;
 	[SerializeField]
 	protected bool pauseAI = false;
 
@@ -28,7 +28,7 @@ public class StateMachine : MonoBehaviour
 	void FixedUpdate() {
 		if (curState != null && !pauseAI) {
 			StateLogic();
-			State transition = GetTransition();
+			AIState transition = GetTransition();
 			if (transition != null) {
 				SetState(transition);
 			}
@@ -39,13 +39,13 @@ public class StateMachine : MonoBehaviour
 	virtual protected void StateLogic() { }
 
 	//# Determine the next state that the state machine should transition into, given certain conditions are met
-	virtual protected State GetTransition() => State.SPAWNEDIN;
+	virtual protected AIState GetTransition() => AIState.SPAWNEDIN;
 
-	virtual protected void EnterState(State newState, State oldState) { }
+	virtual protected void EnterState(AIState newState, AIState oldState) { }
 
-	virtual protected void ExitState(State oldState, State newState) { }
+	virtual protected void ExitState(AIState oldState, AIState newState) { }
 
-	protected void SetState(State newState) {
+	protected void SetState(AIState newState) {
 		prevState = curState;
 		curState = newState;
 
