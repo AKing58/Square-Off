@@ -122,8 +122,8 @@ public class BlueMoon : PlayerHandler
             {
                 dodgeTargetLocation = transform.position + targetVec * dodgeForce;
             }
-            RotTowards(dodgeTargetLocation + transform.position);
-            GetComponent<Rigidbody>().AddForce(dodgeTargetLocation + transform.up, ForceMode.VelocityChange);
+            RotTowards(transform.position);
+            GetComponent<Rigidbody>().AddForce(transform.forward*dodgeForce + transform.up, ForceMode.VelocityChange);
         }
     }
 

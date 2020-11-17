@@ -127,8 +127,9 @@ public class RedComet : PlayerHandler
             {
                 dodgeTargetLocation = transform.position + targetVec * dodgeForce;
             }
-            RotTowards(dodgeTargetLocation + transform.position);
-            GetComponent<Rigidbody>().AddForce(dodgeTargetLocation + transform.up, ForceMode.VelocityChange);
+            
+            RotTowards(dodgeTargetLocation);
+            GetComponent<Rigidbody>().AddForce(transform.forward * dodgeForce + transform.up, ForceMode.VelocityChange);
         }
     }
 
