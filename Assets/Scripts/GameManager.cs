@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        Characters.Add("RedComet", Resources.Load<GameObject>("GameObjects/Characters/RedComet"));
+        Characters.Add("BlueMoon", Resources.Load<GameObject>("GameObjects/Characters/BlueMoon"));
     }
 
     void Start()
@@ -32,13 +32,13 @@ public class GameManager : MonoBehaviour
 
     public void spawnPlayer()
     {
-        GameObject player = Instantiate(Characters["RedComet"], spawnLocations[Players.Count], Quaternion.identity);
+        GameObject player = Instantiate(Characters["BlueMoon"], spawnLocations[Players.Count], Quaternion.identity);
         
         player.AddComponent<Animator>();
         player.name = "Player" + (Players.Count+1);
 
         Animator playerAnim = player.GetComponent<Animator>();
-        playerAnim.runtimeAnimatorController = (RuntimeAnimatorController)Instantiate(Resources.Load("Models/RedCometStuff/RedCometPController"));
+        playerAnim.runtimeAnimatorController = (RuntimeAnimatorController)Instantiate(Resources.Load("Models/BlueMoon/BlueMoonPController"));
         playerAnim.avatar = Instantiate(RedCometAvatar);
 
         Players.Add(player);
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
 
         ph.controllable = true;
         ph.PlayerInfoPanel = PlayerInfoPanels.transform.Find("Player" + Players.Count + "Panel").gameObject;
-        ph.CharacterName = "Red Comet";
+        ph.CharacterName = "Blue Moon";
         ph.PlayerName = "Player " + Players.Count;
         ph.InitPlayer();
     }
