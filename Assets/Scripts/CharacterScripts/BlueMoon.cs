@@ -11,7 +11,7 @@ public class BlueMoon : PlayerHandler
         base.Start();
 
         speed = 4f;
-        dodgeForce = 10f;
+        dodgeForce = 12f;
 
         abilityJSON = Resources.Load<TextAsset>("GameObjects/Characters/BlueMoonMoveInfo");
         AbilityData = JsonUtility.FromJson<Abilities>(abilityJSON.text);

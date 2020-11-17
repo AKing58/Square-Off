@@ -68,6 +68,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void TempDisableControls()
+    {
+        foreach(GameObject go in Players)
+        {
+            StartCoroutine(Pause(go));
+        }
+    }
+
+    public IEnumerator Pause(GameObject go)
+    {
+        go.GetComponent<PlayerHandler>().controllable = false;
+        yield return new WaitForSeconds(5.5f); 
+        go.GetComponent<PlayerHandler>().controllable = true;
+    }
+
     //public void spawnPlayer()
     //{
     //    GameObject player = Instantiate(Characters["BlueMoon"], spawnLocations[Players.Count], Quaternion.identity);
