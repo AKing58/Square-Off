@@ -692,7 +692,7 @@ PrefabInstance:
     - target: {fileID: 756909085151334649, guid: 0cedc93bf0f85cd40b780d472e9196d9,
         type: 3}
       propertyPath: MaxPlayers
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cedc93bf0f85cd40b780d472e9196d9, type: 3}
