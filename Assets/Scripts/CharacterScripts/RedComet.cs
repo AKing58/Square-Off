@@ -11,6 +11,7 @@ public class RedComet : PlayerHandler
         base.Start();
 
         speed = 3f;
+        dodgeForce = 7f;
 
         abilityJSON = Resources.Load<TextAsset>("GameObjects/Characters/RedCometMoveInfo");
         AbilityData = JsonUtility.FromJson<Abilities>(abilityJSON.text);

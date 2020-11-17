@@ -13,7 +13,7 @@ public class PlayerHandler : MonoBehaviour
     protected float rotSpeed = 1000.0f;
     public float speed = 1.5f;
     public float gravMod = 2.5f;
-    protected float dodgeForce = 20f;
+    protected float dodgeForce;
     public bool controllable = false;
 
     private PlayerConfiguration playerConfig;
