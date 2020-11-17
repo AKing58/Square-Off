@@ -1309,6 +1309,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1903624908480186043, guid: a2116988a276c7f468e8a74f04950110,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1603817173}
+    - target: {fileID: 1903624908480186043, guid: a2116988a276c7f468e8a74f04950110,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartScene
+      objectReference: {fileID: 0}
     - target: {fileID: 1903624908534860742, guid: a2116988a276c7f468e8a74f04950110,
         type: 3}
       propertyPath: m_AnchorMin.y
