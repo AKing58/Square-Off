@@ -86,13 +86,16 @@ public class GameManager : MonoBehaviour
             }
             if (deadPlayers == Players.Count - 1)
             {
-                PlayerInfoPanels.SetActive(false);
-                VictoryScreen.SetActive(true);
+                StartCoroutine(EndMatch());       
             }
         }      
     }
 
-  
+    private IEnumerator EndMatch() {
+        yield return new WaitForSeconds(7.0f);
+        PlayerInfoPanels.SetActive(false);
+        VictoryScreen.SetActive(true);
+    }
 
     private void RemoveExtraPlayerPanels() {
         if (Players.Count != Constants.MAX_PLAYERS) {
