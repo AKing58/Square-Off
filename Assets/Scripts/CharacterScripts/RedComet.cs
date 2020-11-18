@@ -26,9 +26,10 @@ public class RedComet : PlayerHandler
     // Update is called once per frame
     new void FixedUpdate()
     {
-        HandleAbilityInputs();
+        
         if (controllable)
         {
+            HandleAbilityInputs();
             HandleMovementInputs();
         }
         base.FixedUpdate();

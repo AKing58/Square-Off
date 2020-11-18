@@ -20,7 +20,7 @@ public class PlayerHandler : MonoBehaviour
     private PlayerControls controls;
 
     //Used for movement
-    protected Vector3 targetVec;
+    public Vector3 targetVec;
 
     protected Rigidbody rb;
 
