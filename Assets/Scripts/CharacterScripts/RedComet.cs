@@ -26,9 +26,10 @@ public class RedComet : PlayerHandler
     // Update is called once per frame
     new void FixedUpdate()
     {
-        HandleAbilityInputs();
+        
         if (controllable)
         {
+            HandleAbilityInputs();
             HandleMovementInputs();
         }
         base.FixedUpdate();
@@ -89,15 +90,13 @@ public class RedComet : PlayerHandler
 
     override protected void AbilityA()
     {
-        float rekkaForce = 2.0f;
+        float rekkaForce = 3.0f;
         if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1", "Rekka1 0" }))
         {            
             anim.SetTrigger("Rekka1Param");
             if (InValidAnim(new string[] { "Walk", "Idle" }))
                 rekkaForce = 5.0f;
             GetComponent<Rigidbody>().AddForce(transform.forward * rekkaForce, ForceMode.VelocityChange);
-            CurrentMove = MoveList["Rekka1"];
-            CurrentMove.CurFrame = 0;
         }
     }
     override protected void AbilityB() 

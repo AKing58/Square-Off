@@ -113,6 +113,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator Pause(GameObject go)
     {
+        go.GetComponent<PlayerHandler>().targetVec = Vector3.zero;
         go.GetComponent<PlayerHandler>().controllable = false;
         yield return new WaitForSeconds(5.5f); 
         go.GetComponent<PlayerHandler>().controllable = true;

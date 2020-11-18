@@ -20,7 +20,7 @@ public class PlayerHandler : MonoBehaviour
     private PlayerControls controls;
 
     //Used for movement
-    protected Vector3 targetVec;
+    public Vector3 targetVec;
 
     protected Rigidbody rb;
 
@@ -566,11 +566,13 @@ public class PlayerHandler : MonoBehaviour
     {
         if (MoveList[moveName].Type == "Grab" && target.CanBeGrabbed())
         {
+            target.gameObject.transform.position = gameObject.transform.position + transform.forward;
             anim.SetTrigger("GrabConnectParam");
             target.GrabMe(this);
         }
         else if (MoveList[moveName].Type == "SuperGrab" && target.CanBeGrabbed())
         {
+            target.gameObject.transform.position = gameObject.transform.position + transform.forward;
             anim.SetTrigger("SuperConnectParam");
             target.SuperMe(this);
         }
