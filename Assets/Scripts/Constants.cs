@@ -9,4 +9,5 @@ public static class Constants
     public const uint ColRed = 0x96000064;
     public const uint ColYellow = 0x96960064;
     public static readonly Dictionary<string, string> CharacterInitials = new Dictionary<string, string>{ { "RedComet", "RC" },{ "BlueMoon", "BM" } };
+    public const int MAX_PLAYERS = 4;
 }

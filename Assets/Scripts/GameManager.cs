@@ -67,6 +67,15 @@ public class GameManager : MonoBehaviour
             //var player = Instantiate(RedCometAvatar, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
             //player.GetComponent<PlayerHandler>().InitializePlayer(playerConfigs[i]);
         }
+        RemoveExtraPlayerPanels();
+    }
+
+    private void RemoveExtraPlayerPanels() {
+        if (Players.Count != Constants.MAX_PLAYERS) {
+            for (int i = Players.Count+1; i <= Constants.MAX_PLAYERS; i++) {
+                PlayerInfoPanels.transform.Find("Player" + i + "Panel").gameObject.SetActive(false);
+            }
+        }
     }
 
     public void TempDisableControls()
