@@ -22,8 +22,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject PlayerInfoPanels;
 
+    public GameObject VictoryScreen;
+
     [SerializeField]
     private Transform[] playerSpawns = null;
+   
 
     void Awake()
     {
@@ -33,8 +36,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        
         Players = new List<GameObject>();
-
 
         var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
         //Debug.Log("Player configs.length + " + playerConfigs.Length);
@@ -69,6 +72,27 @@ public class GameManager : MonoBehaviour
         }
         RemoveExtraPlayerPanels();
     }
+
+    void Update() {
+        if (Players.Count > 1) {
+            int deadPlayers = 0;
+
+            foreach (GameObject player in Players)
+            {
+                if (player.GetComponent<PlayerHandler>().Health <= 0)
+                {
+                    deadPlayers++;
+                }
+            }
+            if (deadPlayers == Players.Count - 1)
+            {
+                PlayerInfoPanels.SetActive(false);
+                VictoryScreen.SetActive(true);
+            }
+        }      
+    }
+
+  
 
     private void RemoveExtraPlayerPanels() {
         if (Players.Count != Constants.MAX_PLAYERS) {
@@ -216,7 +240,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    
+    public void LoadScene(string scn) {
+        SceneManager.LoadScene(scn);
+    }
 
     public List<PlayerHandler> ReturnPlayerCharacters()
     {

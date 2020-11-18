@@ -20,7 +20,10 @@ public class PlayerConfigurationManager : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.Log("SINGLETON - Trying to create another instance of singleton!!");
+            Destroy(Instance.gameObject);
+            Instance = this;
+            DontDestroyOnLoad(Instance);
+            playerConfigs = new List<PlayerConfiguration>();         
         }
         else 
         {

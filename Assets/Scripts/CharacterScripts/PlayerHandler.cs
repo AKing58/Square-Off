@@ -609,7 +609,7 @@ public class PlayerHandler : MonoBehaviour
     public void StrikeMe()
     {
         anim.SetTrigger("StrikedFrontParam");
-        anim.ResetTrigger("GrabConnected");
+        //anim.ResetTrigger("GrabConnected");
         StopHitboxes();
     }
 
