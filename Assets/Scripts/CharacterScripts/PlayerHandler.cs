@@ -338,7 +338,7 @@ public class PlayerHandler : MonoBehaviour
     private Color GetRandomLightColor()
     {
 
-        return new Color(UnityEngine.Random.Range(0.6f, 1.0f), UnityEngine.Random.Range(0.6f, 1.0f), UnityEngine.Random.Range(0.6f, 1.0f));
+        return new Color(UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f));
     }
 
     public void HandleCurrentMove()

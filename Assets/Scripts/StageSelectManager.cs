@@ -16,7 +16,7 @@ public class StageSelectManager : MonoBehaviour
     {
         //backgroundImg = gameObject.GetComponent<Image>();
         spriteList.Add("The Grid", Resources.Load<Sprite>("Images/TheGrid"));
-        spriteList.Add("The Non-Grid", Resources.Load<Sprite>("Images/spiritfarer"));
+        spriteList.Add("The Round", Resources.Load<Sprite>("Images/TheRound"));
     } 
 
     public void changeBackground(string spriteName)
