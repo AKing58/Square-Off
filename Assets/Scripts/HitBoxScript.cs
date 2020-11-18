@@ -14,6 +14,8 @@ public class HitBoxScript : MonoBehaviour
     void OnTriggerStay(Collider collider)
     {
         PlayerHandler targetPH = collider.gameObject.GetComponent<PlayerHandler>();
+        if (targetPH == null)
+            return;
         PlayerHandler selfPH = parentGO.GetComponent<PlayerHandler>();
 
         if (selfPH.AttackOther(targetPH, selfPH.CurrentMove.Name))

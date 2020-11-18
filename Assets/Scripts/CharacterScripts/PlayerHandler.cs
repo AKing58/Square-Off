@@ -566,11 +566,13 @@ public class PlayerHandler : MonoBehaviour
     {
         if (MoveList[moveName].Type == "Grab" && target.CanBeGrabbed())
         {
+            target.gameObject.transform.position = gameObject.transform.position + transform.forward;
             anim.SetTrigger("GrabConnectParam");
             target.GrabMe(this);
         }
         else if (MoveList[moveName].Type == "SuperGrab" && target.CanBeGrabbed())
         {
+            target.gameObject.transform.position = gameObject.transform.position + transform.forward;
             anim.SetTrigger("SuperConnectParam");
             target.SuperMe(this);
         }
