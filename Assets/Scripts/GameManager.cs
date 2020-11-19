@@ -22,8 +22,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject PlayerInfoPanels;
 
+    public GameObject VictoryScreen;
+
     [SerializeField]
     private Transform[] playerSpawns = null;
+   
 
     void Awake()
     {
@@ -33,8 +36,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        
         Players = new List<GameObject>();
-
 
         var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
         //Debug.Log("Player configs.length + " + playerConfigs.Length);
@@ -113,6 +116,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator Pause(GameObject go)
     {
+        go.GetComponent<PlayerHandler>().targetVec = Vector3.zero;
         go.GetComponent<PlayerHandler>().controllable = false;
         yield return new WaitForSeconds(5.5f); 
         go.GetComponent<PlayerHandler>().controllable = true;
@@ -240,7 +244,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    
+    public void LoadScene(string scn) {
+        SceneManager.LoadScene(scn);
+    }
 
     public List<PlayerHandler> ReturnPlayerCharacters()
     {
