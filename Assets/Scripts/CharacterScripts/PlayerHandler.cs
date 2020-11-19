@@ -568,20 +568,26 @@ public class PlayerHandler : MonoBehaviour
         {
             target.gameObject.transform.position = gameObject.transform.position + transform.forward;
             anim.SetTrigger("GrabConnectParam");
+            Move tempMove = MoveList["Grab"];
+            StartCoroutine(DamageDelay(target, (tempMove.GrabDelayFrames * 2.5f) / 60, tempMove.Damage, tempMove.Stun));
             target.GrabMe(this);
         }
         else if (MoveList[moveName].Type == "SuperGrab" && target.CanBeGrabbed())
         {
             target.gameObject.transform.position = gameObject.transform.position + transform.forward;
             anim.SetTrigger("SuperConnectParam");
+            Move tempMove = MoveList["SuperGrab"];
+            StartCoroutine(DamageDelay(target, (tempMove.GrabDelayFrames * 2.5f) /60, tempMove.Damage, tempMove.Stun));
             target.SuperMe(this);
         }
         else if (MoveList[moveName].Type == "Strike" && target.CanBeStriked())
+        {
             target.StrikeMe();
+            target.Health -= MoveList[moveName].Damage;
+            target.Stun += MoveList[moveName].Stun;
+        }
         else
             return false;
-        target.Health -= MoveList[moveName].Damage;
-        target.Stun += MoveList[moveName].Stun;
         return true;
     }
 
@@ -650,10 +656,12 @@ public class PlayerHandler : MonoBehaviour
         
         public float CurFrame;
 
+        public int GrabDelayFrames;
 
-        public Move() : this("", null, 0f, 0f, null, null, null, "", 0) { }
-        public Move(string Name) : this(Name, null, 0f, 0f, null, null, null , "", 0) { }
-        public Move(string Name, string Type, float Damage, float Stun, int[] ActiveFrames, int[] GrabInvulnFrames, int[] StrikeInvulnFrames, string HitboxName, int TotalFrames)
+
+        public Move() : this("", null, 0f, 0f, null, null, null, "", 0, 0) { }
+        public Move(string Name) : this(Name, null, 0f, 0f, null, null, null , "", 0, 0) { }
+        public Move(string Name, string Type, float Damage, float Stun, int[] ActiveFrames, int[] GrabInvulnFrames, int[] StrikeInvulnFrames, string HitboxName, int TotalFrames, int GrabDelayFrames)
         {
             this.Name = Name;
             if (Type == null)
@@ -682,6 +690,8 @@ public class PlayerHandler : MonoBehaviour
             this.HitboxName = HitboxName;
 
             this.TotalFrames = ConvertFramesToSixty(TotalFrames);
+
+            this.GrabDelayFrames = GrabDelayFrames;
         }
 
         //Converts 24 fps frame data to 60 fps
@@ -709,9 +719,9 @@ public class PlayerHandler : MonoBehaviour
         foreach(Move m in AbilityData.Moves)
         {
             if (MoveList.ContainsKey(m.Name))
-                MoveList[m.Name] = new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames);
+                MoveList[m.Name] = new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames, m.GrabDelayFrames);
             else
-                MoveList.Add(m.Name, new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames));
+                MoveList.Add(m.Name, new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames, m.GrabDelayFrames));
         }
         foreach(Move invulnState in AbilityData.InvulnStates)
         {
@@ -761,6 +771,13 @@ public class PlayerHandler : MonoBehaviour
     protected void ResetSuper() {
         Energy = 0;
         superAvailable = false;
+    }
+
+    protected IEnumerator DamageDelay(PlayerHandler target, float delay, float damage, float stun) 
+    {
+        yield return new WaitForSeconds(delay);
+        target.Health -= damage;
+        target.Stun += stun;
     }
 
     //Methods used for inputs

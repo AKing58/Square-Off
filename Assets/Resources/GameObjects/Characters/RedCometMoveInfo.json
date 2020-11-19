@@ -9,6 +9,7 @@
             "ActiveFrames": [ 15, 20 ],
             "GrabInvulnFrames": [ 5,20 ],
             "HitboxName": "GrabHitbox",
+            "GrabDelayFrames": 19,
             "TotalFrames": 46
         },
         {
@@ -28,6 +29,7 @@
             "GrabInvulnFrames": [ 0, 19 ],
             "StrikeInvulnFrames": [ 0, 19 ],
             "HitboxName": "SuperHitbox",
+            "GrabDelayFrames": 102,
             "TotalFrames": 46
         },
         {
@@ -45,6 +47,18 @@
             "Type": "Both"
         },
         {
+            "Name": "BMGrabbed",
+            "Type": "Both"
+        },
+        {
+            "Name": "RCSuperGrabbed",
+            "Type": "Both"
+        },
+        {
+            "Name": "BMSuperGrabbed",
+            "Type": "Both"
+        },
+        {
             "Name": "GetUp",
             "Type": "Both"
         },
@@ -58,18 +72,6 @@
         },
         {
             "Name": "SuperConnect",
-            "Type": "Both"
-        },
-        {
-            "Name": "SuperLanding",
-            "Type": "Both"
-        },
-        {
-            "Name": "RCSuperGrabbed",
-            "Type": "Both"
-        },
-        {
-            "Name": "BMGrabbed",
             "Type": "Both"
         }
     ]

@@ -77,10 +77,10 @@ ModelImporter:
     second: BM_TPose
   - first:
       74: 7917562310230271234
-    second: BMGetUp
+    second: GetUp
   - first:
       74: 7883257842968959275
-    second: BMGrab
+    second: Grab
   - first:
       74: 4639631857954370205
     second: BMGrabConnect
@@ -111,6 +111,30 @@ ModelImporter:
   - first:
       74: -3869283571463867959
     second: BMGrabbed
+  - first:
+      74: 3499728582831962634
+    second: _TPose
+  - first:
+      74: -3100369314251171874
+    second: Idle
+  - first:
+      74: -4609996597576711829
+    second: Rekka1
+  - first:
+      74: 3280349892016957842
+    second: StrikedFront
+  - first:
+      74: -1259348495862288683
+    second: SuperConnect
+  - first:
+      74: 2667949614841947897
+    second: Walk
+  - first:
+      74: -196460247793375568
+    second: GrabConnect
+  - first:
+      74: 6147514781237434798
+    second: BMSuperGrabbed
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -140,8 +164,8 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: BM_TPose
-      takeName: Armature|BM_TPose
+      name: _TPose
+      takeName: Armature|_TPose
       internalID: 0
       firstFrame: 0
       lastFrame: 1
@@ -169,8 +193,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BMGetUp
-      takeName: Armature|BMGetUp
+      name: GetUp
+      takeName: Armature|GetUp
       internalID: 0
       firstFrame: 0
       lastFrame: 24
@@ -198,8 +222,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BMGrab
-      takeName: Armature|BMGrab
+      name: Grab
+      takeName: Armature|Grab
       internalID: 0
       firstFrame: 0
       lastFrame: 46
@@ -227,8 +251,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BMGrabConnect
-      takeName: Armature|BMGrabConnect
+      name: GrabConnect
+      takeName: Armature|GrabConnect
       internalID: 0
       firstFrame: 0
       lastFrame: 30
@@ -256,8 +280,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BMIdle
-      takeName: Armature|BMIdle
+      name: Idle
+      takeName: Armature|Idle
       internalID: 0
       firstFrame: 0
       lastFrame: 50
@@ -285,8 +309,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BMRekka1
-      takeName: Armature|BMRekka1
+      name: Rekka1
+      takeName: Armature|Rekka1
       internalID: 0
       firstFrame: 0
       lastFrame: 27
@@ -314,8 +338,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BMStrikedFront
-      takeName: Armature|BMStrikedFront
+      name: StrikedFront
+      takeName: Armature|StrikedFront
       internalID: 0
       firstFrame: 0
       lastFrame: 10
@@ -343,8 +367,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BMSuperConnect
-      takeName: Armature|BMSuperConnect
+      name: SuperConnect
+      takeName: Armature|SuperConnect
       internalID: 0
       firstFrame: 0
       lastFrame: 125
@@ -372,37 +396,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BMSuperLanding
-      takeName: Armature|BMSuperLanding
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 25
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: BMWalk
-      takeName: Armature|BMWalk
+      name: Walk
+      takeName: Armature|Walk
       internalID: 0
       firstFrame: 0
       lastFrame: 37
@@ -493,6 +488,35 @@ ModelImporter:
       internalID: 0
       firstFrame: 0
       lastFrame: 38
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: BMSuperGrabbed
+      takeName: Armature|BMSuperGrabbed
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 139
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

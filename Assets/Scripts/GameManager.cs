@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
     }
 
     private IEnumerator EndMatch() {
-        yield return new WaitForSeconds(7.0f);
+        yield return new WaitForSeconds(2.0f);
         PlayerInfoPanels.SetActive(false);
         VictoryScreen.SetActive(true);
     }
