@@ -2,17 +2,18 @@
     "Moves":
     [
         {
-            "Name": "BMGrab",
+            "Name": "Grab",
             "Type": "Grab",
             "Damage": 15,
             "Stun": 25,
             "ActiveFrames": [ 18, 22 ],
             "GrabInvulnFrames": [ 8,22 ],
             "HitboxName": "GrabHitbox",
+            "GrabDelayFrames": 19,
             "TotalFrames": 46
         },
         {
-            "Name": "BMRekka1",
+            "Name": "Rekka1",
             "Type": "Strike",
             "Damage": 6,
             "Stun": 10,
@@ -28,6 +29,7 @@
             "GrabInvulnFrames": [ 0, 19 ],
             "StrikeInvulnFrames": [ 0, 19 ],
             "HitboxName": "SuperHitbox",
+            "GrabDelayFrames": 102,
             "TotalFrames": 46
         },
         {
@@ -45,23 +47,7 @@
             "Type": "Both"
         },
         {
-            "Name": "BMGetUp",
-            "Type": "Both"
-        },
-        {
-            "Name": "BMGrabConnect",
-            "Type": "Both"
-        },
-        {
-            "Name": "LayOnGround",
-            "Type": "Both"
-        },
-        {
-            "Name": "BMSuperConnect",
-            "Type": "Both"
-        },
-        {
-            "Name": "BMSuperLanding",
+            "Name": "BMGrabbed",
             "Type": "Both"
         },
         {
@@ -69,7 +55,23 @@
             "Type": "Both"
         },
         {
-            "Name": "BMGrabbed",
+            "Name": "BMSuperGrabbed",
+            "Type": "Both"
+        },
+        {
+            "Name": "GetUp",
+            "Type": "Both"
+        },
+        {
+            "Name": "GrabConnect",
+            "Type": "Both"
+        },
+        {
+            "Name": "LayOnGround",
+            "Type": "Both"
+        },
+        {
+            "Name": "SuperConnect",
             "Type": "Both"
         }
     ]

@@ -67,6 +67,39 @@ public class GameManager : MonoBehaviour
             //var player = Instantiate(RedCometAvatar, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
             //player.GetComponent<PlayerHandler>().InitializePlayer(playerConfigs[i]);
         }
+        RemoveExtraPlayerPanels();
+    }
+
+    void Update() {
+        if (Players.Count > 1) {
+            int deadPlayers = 0;
+
+            foreach (GameObject player in Players)
+            {
+                if (player.GetComponent<PlayerHandler>().Health <= 0)
+                {
+                    deadPlayers++;
+                }
+            }
+            if (deadPlayers == Players.Count - 1)
+            {
+                StartCoroutine(EndMatch());       
+            }
+        }      
+    }
+
+    private IEnumerator EndMatch() {
+        yield return new WaitForSeconds(2.0f);
+        PlayerInfoPanels.SetActive(false);
+        VictoryScreen.SetActive(true);
+    }
+
+    private void RemoveExtraPlayerPanels() {
+        if (Players.Count != Constants.MAX_PLAYERS) {
+            for (int i = Players.Count+1; i <= Constants.MAX_PLAYERS; i++) {
+                PlayerInfoPanels.transform.Find("Player" + i + "Panel").gameObject.SetActive(false);
+            }
+        }
     }
 
     public void TempDisableControls()
