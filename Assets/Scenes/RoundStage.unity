@@ -3417,6 +3417,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadScene
       objectReference: {fileID: 0}
+    - target: {fileID: 4351501756112343614, guid: 7ad389eba21986746b0237abbe1d671a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4351501756342555032, guid: 7ad389eba21986746b0237abbe1d671a,
         type: 3}
       propertyPath: m_Name

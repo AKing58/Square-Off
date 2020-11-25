@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -18,12 +19,10 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && this != Instance)
         {
-            Destroy(Instance.gameObject);
-            Instance = this;
-            DontDestroyOnLoad(Instance);
-            playerConfigs = new List<PlayerConfiguration>();         
+            Destroy(gameObject);
+                 
         }
         else 
         {
@@ -32,6 +31,8 @@ public class PlayerConfigurationManager : MonoBehaviour
             playerConfigs = new List<PlayerConfiguration>();
         }
     }
+
+   
 
     public List<PlayerConfiguration> GetPlayerConfigs()
     {
@@ -79,6 +80,22 @@ public class PlayerConfigurationManager : MonoBehaviour
         }
 
        
+    }
+
+    public void ResetPlayers()
+    {
+        foreach (Transform child in transform) {
+            Destroy(child.gameObject);
+        }
+        playerConfigs.Clear();
+    }
+
+    public void DisableJoining() {
+        gameObject.GetComponent<PlayerInputManager>().DisableJoining();
+    }
+
+    public void EnableJoining() {
+        gameObject.GetComponent<PlayerInputManager>().EnableJoining();
     }
 }
 

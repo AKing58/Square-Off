@@ -8,6 +8,12 @@ public class CharacterSelectManager : MonoBehaviour
     public Text joinText;
     // Start is called before the first frame update
 
+    void Start() {
+        if (PlayerConfigurationManager.Instance != null) {
+            PlayerConfigurationManager.Instance.EnableJoining();
+        }
+    }
+
     public void showJoinText() {
         if (PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == 0)
         {
@@ -23,6 +29,6 @@ public class CharacterSelectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        showJoinText();
     }
 }
