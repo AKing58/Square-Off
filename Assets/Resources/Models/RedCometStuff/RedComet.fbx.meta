@@ -23,7 +23,7 @@ ModelImporter:
     second: Armature|Idle
   - first:
       74: -5323755829518042231
-    second: Armature|Rekka1
+    second: Rekka1
   - first:
       74: -5708542602998246651
     second: StrikedFront
@@ -126,6 +126,9 @@ ModelImporter:
   - first:
       74: -8944289285138003073
     second: StanceDive
+  - first:
+      74: 7900728154875920607
+    second: SuperGrab
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -217,7 +220,7 @@ ModelImporter:
       takeName: Armature|Grab
       internalID: 0
       firstFrame: 0
-      lastFrame: 46
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -304,7 +307,7 @@ ModelImporter:
       takeName: Armature|Rekka1
       internalID: 0
       firstFrame: 0
-      lastFrame: 27
+      lastFrame: 12
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -333,7 +336,7 @@ ModelImporter:
       takeName: Armature|StrikedFront
       internalID: 0
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 6
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -478,7 +481,7 @@ ModelImporter:
       takeName: Armature|SuperGrab
       internalID: 0
       firstFrame: 0
-      lastFrame: 46
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

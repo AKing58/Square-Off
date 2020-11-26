@@ -77,7 +77,7 @@ public class RedComet : PlayerHandler
             anim.SetTrigger("StanceParam");
         if (InValidAnim("Stance"))
         {
-            anim.SetTrigger("StanceDiveParam"); ;
+            anim.SetTrigger("StanceDiveParam");
             CurrentForce = transform.forward * 50f;
         }
 
