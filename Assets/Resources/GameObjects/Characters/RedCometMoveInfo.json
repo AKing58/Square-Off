@@ -7,7 +7,7 @@
             "Damage": 20,
             "Stun": 30,
             "ActiveFrames": [ 15, 20 ],
-            "GrabInvulnFrames": [ 5,20 ],
+            "GrabInvulnFrames": [ 0,20 ],
             "HitboxName": "GrabHitbox",
             "GrabDelayFrames": 19,
             "TotalFrames": 46
@@ -44,7 +44,7 @@
         {
             "Name": "StanceStart",
             "Type": "NA",
-            "GrabInvulnFrames": [ 0, 8 ],
+            "GrabInvulnFrames": [ 0, 5 ],
             "TotalFrames": 10
         },
         {
@@ -88,6 +88,10 @@
         {
             "Name": "SuperConnect",
             "Type": "Both"
+        },
+        {
+            "Name": "StanceDive",
+            "Type": "Grab"
         }
     ]
 }

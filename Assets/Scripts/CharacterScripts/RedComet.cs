@@ -66,6 +66,8 @@ public class RedComet : PlayerHandler
                 rekkaForce = 25.0f;
             CurrentForce = transform.forward * rekkaForce;
         }
+        if (InValidAnim("Stance"))
+            anim.SetTrigger("RekkaParam");
     }
     override protected void AbilityB() 
     {
