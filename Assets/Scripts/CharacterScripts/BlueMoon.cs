@@ -23,18 +23,6 @@ public class BlueMoon : PlayerHandler
         //setupSuperEvent();
     }
 
-    // Update is called once per frame
-    new void FixedUpdate()
-    {
-        
-        if (controllable)
-        {
-            HandleAbilityInputs();
-            HandleMovementInputs();
-        }
-        base.FixedUpdate();
-    }
-
     private void setupSuperEvent()
     {
         AnimationClip animClip = null;
@@ -58,6 +46,7 @@ public class BlueMoon : PlayerHandler
         animClip.AddEvent(animEventStart);
     }
 
+    /*
     protected void SuperLaunch()
     {
         float launchForce = 15f;
@@ -67,26 +56,7 @@ public class BlueMoon : PlayerHandler
         opponent.Launch(transform.up, launchForce);
 
     }
-
-    protected override void HandleAbilityInputs()
-    {
-        if (AbilityAInput)
-            AbilityA();
-        else if (AbilityBInput)
-            AbilityB();
-        else if (AbilityCInput)
-            AbilityC();
-        else if (AbilityDInput)
-            AbilityD();
-    }
-    protected override void HandleMovementInputs()
-    {
-        float h = movementInput.x;
-        float v = movementInput.y;
-
-        targetVec = new Vector3(h, 0, v);
-        targetVec.Normalize();
-    }
+    */
 
     override protected void AbilityA() 
     {
@@ -124,7 +94,7 @@ public class BlueMoon : PlayerHandler
                 dodgeTargetLocation = transform.position + targetVec * dodgeForce;
             }
             RotTowards(transform.position);
-            GetComponent<Rigidbody>().AddForce(transform.forward*dodgeForce + transform.up, ForceMode.VelocityChange);
+            CurrentForce = transform.forward*dodgeForce;
         }
     }
 

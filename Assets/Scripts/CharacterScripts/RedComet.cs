@@ -11,7 +11,7 @@ public class RedComet : PlayerHandler
         base.Start();
 
         speed = 3f;
-        dodgeForce = 10f;
+        dodgeForce = 50f;
 
         abilityJSON = Resources.Load<TextAsset>("GameObjects/Characters/RedCometMoveInfo");
         AbilityData = JsonUtility.FromJson<Abilities>(abilityJSON.text);
@@ -19,20 +19,18 @@ public class RedComet : PlayerHandler
         PopulateMoveList();
         SetupActiveMoves();
         SetupMoveStarts();
-
-        //setupSuperEvent();
     }
 
-    // Update is called once per frame
     new void FixedUpdate()
     {
-        
-        if (controllable)
-        {
-            HandleAbilityInputs();
-            HandleMovementInputs();
-        }
         base.FixedUpdate();
+        if (InValidAnim("Stance"))
+        {
+            if (targetVec != new Vector3())
+            {
+                RotTowards(targetVec + transform.position);
+            }
+        }
     }
 
     private void setupSuperEvent()
@@ -58,53 +56,30 @@ public class RedComet : PlayerHandler
         animClip.AddEvent(animEventStart);
     }
 
-    protected void SuperLaunch()
-    {
-        float launchForce = 15f;
-        print("launching " + transform.Find("Hitboxes/GrabHitbox").GetChild(0).name);
-        PlayerHandler opponent = transform.Find("Hitboxes/GrabHitbox").GetChild(0).GetComponent<PlayerHandler>();
-        Launch(transform.up, launchForce);
-        opponent.Launch(transform.up, launchForce);
-
-    }
-
-    protected override void HandleAbilityInputs()
-    {
-        if (AbilityAInput)
-            AbilityA();
-        else if (AbilityBInput)
-            AbilityB();
-        else if (AbilityCInput)
-            AbilityC();
-        else if (AbilityDInput)
-            AbilityD();
-    }
-    protected override void HandleMovementInputs()
-    {
-        float h = movementInput.x;
-        float v = movementInput.y;
-
-        targetVec = new Vector3(h, 0, v);
-        targetVec.Normalize();
-    }
-
     override protected void AbilityA()
     {
-        float rekkaForce = 3.0f;
-        if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1", "Rekka1 0" }))
+        float rekkaForce = 20.0f;
+        if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1"}))
         {            
-            anim.SetTrigger("Rekka1Param");
+            anim.SetTrigger("RekkaParam");
             if (InValidAnim(new string[] { "Walk", "Idle" }))
-                rekkaForce = 5.0f;
-            GetComponent<Rigidbody>().AddForce(transform.forward * rekkaForce, ForceMode.VelocityChange);
+                rekkaForce = 25.0f;
+            CurrentForce = transform.forward * rekkaForce;
         }
     }
     override protected void AbilityB() 
     {
-        if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1 0" }))
-        {
+        if (InValidAnim(new string[] { "Walk", "Idle"}))
             anim.SetTrigger("GrabStartParam");
+        if (InValidAnim("Rekka2"))
+            anim.SetTrigger("StanceParam");
+        if (InValidAnim("Stance"))
+        {
+            anim.SetTrigger("StanceDiveParam"); ;
+            CurrentForce = transform.forward * 50f;
         }
+
+            
     }
     override protected void AbilityC() 
     {
@@ -117,7 +92,7 @@ public class RedComet : PlayerHandler
 
     override protected void AbilityD() 
     {
-        if (InValidAnim(new string[] { "Walk", "Idle"}))
+        if (InValidAnim(new string[] { "Walk", "Idle", "Stance" }))
         {
             anim.SetTrigger("DodgeParam");
             if (targetVec == new Vector3())
@@ -128,7 +103,7 @@ public class RedComet : PlayerHandler
             }
             
             RotTowards(dodgeTargetLocation);
-            GetComponent<Rigidbody>().AddForce(transform.forward * dodgeForce + transform.up, ForceMode.VelocityChange);
+            CurrentForce = transform.forward * dodgeForce;
         }
     }
 

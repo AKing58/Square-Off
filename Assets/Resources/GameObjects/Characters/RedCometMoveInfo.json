@@ -22,6 +22,15 @@
             "TotalFrames": 27
         },
         {
+            "Name": "Rekka2",
+            "Type": "Strike",
+            "Damage": 8,
+            "Stun": 15,
+            "ActiveFrames": [ 2, 4 ],
+            "HitboxName": "Rekka1Hitbox",
+            "TotalFrames": 10
+        },
+        {
             "Name": "SuperGrab",
             "Type": "SuperGrab",
             "Damage": 100,
@@ -31,6 +40,12 @@
             "HitboxName": "SuperHitbox",
             "GrabDelayFrames": 102,
             "TotalFrames": 46
+        },
+        {
+            "Name": "StanceStart",
+            "Type": "NA",
+            "GrabInvulnFrames": [ 0, 8 ],
+            "TotalFrames": 10
         },
         {
             "Name": "Dodge",
