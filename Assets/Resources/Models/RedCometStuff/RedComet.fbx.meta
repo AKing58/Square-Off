@@ -336,7 +336,7 @@ ModelImporter:
       takeName: Armature|StrikedFront
       internalID: 0
       firstFrame: 0
-      lastFrame: 6
+      lastFrame: 5
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -655,7 +655,7 @@ ModelImporter:
       takeName: Armature|Rekka2
       internalID: 0
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 8
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
