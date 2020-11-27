@@ -16,6 +16,8 @@ public class PlayerHandler : MonoBehaviour
     protected float dodgeForce;
     public bool controllable = false;
 
+    protected Vector3 CurrentForce = Vector3.zero; 
+
     private PlayerConfiguration playerConfig;
     private PlayerControls controls;
 
@@ -276,12 +278,18 @@ public class PlayerHandler : MonoBehaviour
 
     void Update()
     {
+        if (controllable)
+        {
+            HandleAbilityInputs();
+            HandleMovementInputs();
+        }
         if (anim.IsInTransition(0))
         {
             ResetCurrentMove();
-            //CurrentMove = MoveList[anim.GetNextAnimatorStateInfo(0)];
         }
     }
+
+
 
     // Update is called once per frame
     protected void FixedUpdate()
@@ -310,6 +318,12 @@ public class PlayerHandler : MonoBehaviour
 
         if(rb.velocity.y < 0)
             rb.velocity += Vector3.up * Physics.gravity.y *(gravMod) * Time.deltaTime;
+        if(CurrentForce != Vector3.zero)
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.AddForce(CurrentForce, ForceMode.Impulse);
+            CurrentForce = Vector3.zero;
+        }
 
         if(CurrentMove != null && CurrentMove.Name != "")
             HandleCurrentMove();
@@ -380,11 +394,6 @@ public class PlayerHandler : MonoBehaviour
             TurnStunOff();
     }
 
-    public void Launch(Vector3 dir, float force)
-    {
-        GetComponent<Rigidbody>().AddForce(dir * force, ForceMode.VelocityChange);
-    }
-
     public void SetAnimParam(string input)
     {
         anim.SetTrigger(input);
@@ -402,9 +411,24 @@ public class PlayerHandler : MonoBehaviour
         GetComponent<Rigidbody>().detectCollisions = true;
     }
 
-    virtual protected void HandleAbilityInputs() { }
+    protected void HandleAbilityInputs()
+    {
+        if (AbilityAInput)
+            AbilityA();
+        else if (AbilityBInput)
+            AbilityB();
+        else if (AbilityCInput)
+            AbilityC();
+        else if (AbilityDInput)
+            AbilityD();
+    }
+    protected void HandleMovementInputs()
+    {
+        float h = movementInput.x;
+        float v = movementInput.y;
 
-    virtual protected void HandleMovementInputs() { }
+        targetVec = new Vector3(h, 0, v);
+    }
 
 
     /// <summary>

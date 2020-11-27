@@ -23,7 +23,7 @@ ModelImporter:
     second: Armature|Idle
   - first:
       74: -5323755829518042231
-    second: Armature|Rekka1
+    second: Rekka1
   - first:
       74: -5708542602998246651
     second: StrikedFront
@@ -114,6 +114,24 @@ ModelImporter:
   - first:
       74: 6147514781237434798
     second: BMSuperGrabbed
+  - first:
+      74: -4116084241226213254
+    second: Rekka2
+  - first:
+      74: -3314624077035124364
+    second: Stance
+  - first:
+      74: 2929876892929424730
+    second: StanceStart
+  - first:
+      74: -8944289285138003073
+    second: StanceDive
+  - first:
+      74: 7900728154875920607
+    second: SuperGrab
+  - first:
+      74: 9004402757165627906
+    second: StanceStart
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -205,7 +223,7 @@ ModelImporter:
       takeName: Armature|Grab
       internalID: 0
       firstFrame: 0
-      lastFrame: 46
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -292,7 +310,7 @@ ModelImporter:
       takeName: Armature|Rekka1
       internalID: 0
       firstFrame: 0
-      lastFrame: 27
+      lastFrame: 12
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -321,7 +339,7 @@ ModelImporter:
       takeName: Armature|StrikedFront
       internalID: 0
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 5
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -466,7 +484,7 @@ ModelImporter:
       takeName: Armature|SuperGrab
       internalID: 0
       firstFrame: 0
-      lastFrame: 46
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -612,6 +630,122 @@ ModelImporter:
       internalID: 0
       firstFrame: 0
       lastFrame: 139
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Rekka2
+      takeName: Armature|Rekka2
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 8
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Stance
+      takeName: Armature|Stance
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: StanceStart
+      takeName: Armature|StanceStart
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 7
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: StanceDive
+      takeName: Armature|StanceDive
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 8
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

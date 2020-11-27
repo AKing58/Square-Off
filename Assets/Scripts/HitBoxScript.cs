@@ -11,8 +11,14 @@ public class HitBoxScript : MonoBehaviour
         Physics.IgnoreCollision(GetComponent<Collider>(), transform.GetComponent<Collider>());
     }
 
+
     void OnTriggerStay(Collider collider)
     {
+        if(parentGO.GetComponent<PlayerHandler>().CurrentMove == null)
+        {
+            GetComponent<BoxCollider>().enabled = false;
+            return;
+        }
         PlayerHandler targetPH = collider.gameObject.GetComponent<PlayerHandler>();
         if (targetPH == null)
             return;

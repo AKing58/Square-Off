@@ -6,37 +6,52 @@
             "Type": "Grab",
             "Damage": 20,
             "Stun": 30,
-            "ActiveFrames": [ 15, 20 ],
-            "GrabInvulnFrames": [ 5,20 ],
+            "ActiveFrames": [ 6, 8 ],
+            "GrabInvulnFrames": [ 0, 6 ],
             "HitboxName": "GrabHitbox",
             "GrabDelayFrames": 19,
-            "TotalFrames": 46
+            "TotalFrames": 16
         },
         {
             "Name": "Rekka1",
             "Type": "Strike",
             "Damage": 8,
             "Stun": 15,
-            "ActiveFrames": [ 15, 20 ],
+            "ActiveFrames": [ 7, 9 ],
             "HitboxName": "Rekka1Hitbox",
-            "TotalFrames": 27
+            "TotalFrames": 12
+        },
+        {
+            "Name": "Rekka2",
+            "Type": "Strike",
+            "Damage": 8,
+            "Stun": 15,
+            "ActiveFrames": [ 3, 5 ],
+            "HitboxName": "Rekka1Hitbox",
+            "TotalFrames": 8
         },
         {
             "Name": "SuperGrab",
             "Type": "SuperGrab",
             "Damage": 100,
-            "ActiveFrames": [ 15, 19 ],
-            "GrabInvulnFrames": [ 0, 19 ],
-            "StrikeInvulnFrames": [ 0, 19 ],
+            "ActiveFrames": [ 6, 8 ],
+            "GrabInvulnFrames": [ 0, 6 ],
+            "StrikeInvulnFrames": [ 0, 6 ],
             "HitboxName": "SuperHitbox",
             "GrabDelayFrames": 102,
             "TotalFrames": 46
         },
         {
+            "Name": "StanceStart",
+            "Type": "NA",
+            "GrabInvulnFrames": [ 0, 5 ],
+            "TotalFrames": 5
+        },
+        {
             "Name": "Dodge",
             "Type": "NA",
             "GrabInvulnFrames": [ 0, 5 ],
-            "StrikeInvulnFrames": [ 0, 7 ],
+            "StrikeInvulnFrames": [ 0, 8 ],
             "TotalFrames": 12
         }
     ],
@@ -73,6 +88,10 @@
         {
             "Name": "SuperConnect",
             "Type": "Both"
+        },
+        {
+            "Name": "StanceDive",
+            "Type": "Grab"
         }
     ]
 }
