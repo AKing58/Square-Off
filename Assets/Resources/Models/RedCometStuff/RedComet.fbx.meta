@@ -129,6 +129,9 @@ ModelImporter:
   - first:
       74: 7900728154875920607
     second: SuperGrab
+  - first:
+      74: 9004402757165627906
+    second: StanceStart
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -713,7 +716,7 @@ ModelImporter:
       takeName: Armature|StanceStart
       internalID: 0
       firstFrame: 0
-      lastFrame: 5
+      lastFrame: 7
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
