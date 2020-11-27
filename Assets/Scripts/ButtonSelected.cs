@@ -12,7 +12,7 @@ public class ButtonSelected : MonoBehaviour, ISelectHandler
     public TMP_Text text;
     public void OnSelect(BaseEventData eventData)
     {
-        Debug.Log(text.text);
+        //Debug.Log(text.text);
         ssm.changeBackground(text.text);
     }
 }

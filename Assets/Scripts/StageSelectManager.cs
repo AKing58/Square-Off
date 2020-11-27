@@ -17,6 +17,8 @@ public class StageSelectManager : MonoBehaviour
         //backgroundImg = gameObject.GetComponent<Image>();
         spriteList.Add("The Grid", Resources.Load<Sprite>("Images/TheGrid"));
         spriteList.Add("The Round", Resources.Load<Sprite>("Images/TheRound"));
+
+        SoundManager.PlayMusic(SoundManager.Music.CharSelect);
     } 
 
     public void changeBackground(string spriteName)

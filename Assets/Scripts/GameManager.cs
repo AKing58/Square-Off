@@ -71,6 +71,19 @@ public class GameManager : MonoBehaviour
             //player.GetComponent<PlayerHandler>().InitializePlayer(playerConfigs[i]);
         }
         RemoveExtraPlayerPanels();
+
+        switch(Random.Range(0,2))
+        {
+            case 0:
+                SoundManager.PlayMusic(SoundManager.Music.GridStage);
+                break;
+            case 1:
+                SoundManager.PlayMusic(SoundManager.Music.RoundStage);
+                break;
+            default:
+                Debug.LogError("Not 0 or 1");
+                break;
+        }
     }
 
     void Update() {

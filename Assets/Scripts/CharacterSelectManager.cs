@@ -12,6 +12,7 @@ public class CharacterSelectManager : MonoBehaviour
         if (PlayerConfigurationManager.Instance != null) {
             PlayerConfigurationManager.Instance.EnableJoining();
         }
+        SoundManager.PlayMusic(SoundManager.Music.CharSelect);
     }
 
     public void showJoinText() {
