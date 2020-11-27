@@ -245,6 +245,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void LoadScene(string scn) {
+        if (!scn.Equals("StageSelect")) {
+            PlayerConfigurationManager.Instance.ResetPlayers();
+        }      
         SceneManager.LoadScene(scn);
     }
 

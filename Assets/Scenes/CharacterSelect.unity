@@ -592,7 +592,7 @@ PrefabInstance:
     - target: {fileID: 756909085151334630, guid: 0cedc93bf0f85cd40b780d472e9196d9,
         type: 3}
       propertyPath: m_PlayerJoinedEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 756909085151334630, guid: 0cedc93bf0f85cd40b780d472e9196d9,
         type: 3}
@@ -613,11 +613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PlayerJoinedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1862557944}
+      objectReference: {fileID: 0}
     - target: {fileID: 756909085151334630, guid: 0cedc93bf0f85cd40b780d472e9196d9,
         type: 3}
       propertyPath: m_PlayerJoinedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: showJoinText
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 756909085151334630, guid: 0cedc93bf0f85cd40b780d472e9196d9,
         type: 3}
