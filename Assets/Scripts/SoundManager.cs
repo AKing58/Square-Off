@@ -21,7 +21,7 @@ public static class SoundManager
     private static AudioSource oneShotAudioSource;
 
     public static void PlayMusic(Music sound) {
-        GameObject soundGameObject = new GameObject("Sound");
+        GameObject soundGameObject = new GameObject("BGM");
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
         audioSource.volume = 0.05f;
         audioSource.spatialBlend = 0.8f;
