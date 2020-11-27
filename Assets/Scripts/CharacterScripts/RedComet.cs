@@ -71,8 +71,8 @@ public class RedComet : PlayerHandler
     }
     override protected void AbilityB() 
     {
-        if (InValidAnim(new string[] { "Walk", "Idle"}))
-            anim.SetTrigger("GrabStartParam");
+        if (InValidAnim(new string[] { "Walk", "Idle", "Rekka2" }))
+            anim.SetTrigger("StanceParam");
         if (InValidAnim("Rekka2"))
             anim.SetTrigger("StanceParam");
         if (InValidAnim("Stance"))
