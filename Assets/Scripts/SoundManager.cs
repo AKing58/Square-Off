@@ -13,8 +13,12 @@ public static class SoundManager
 
     public enum SFX { 
         UISelect,
-        UIConfirm
+        UIConfirm,
+        UICancel
     }
+
+    private static GameObject oneShotGameObject;
+    private static AudioSource oneShotAudioSource;
 
     public static void PlayMusic(Music sound) {
         GameObject soundGameObject = new GameObject("Sound");
@@ -27,11 +31,14 @@ public static class SoundManager
     }
 
     public static void PlayOneShot(SFX sound) {
-        GameObject soundGameObject = new GameObject("Sound");
-        AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
-        audioSource.volume = 0.05f;
-        audioSource.spatialBlend = 0.8f;    
-        audioSource.PlayOneShot(GetAudioClip(sound));
+        if (oneShotGameObject == null) {
+            oneShotGameObject = new GameObject("Sound");
+            oneShotAudioSource = oneShotGameObject.AddComponent<AudioSource>();
+            oneShotAudioSource.volume = 0.05f;
+            oneShotAudioSource.spatialBlend = 0.8f;
+        }
+              
+        oneShotAudioSource.PlayOneShot(GetAudioClip(sound));
     }
 
     private static AudioClip GetAudioClip(SFX sound)

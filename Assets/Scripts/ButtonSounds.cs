@@ -16,5 +16,8 @@ public class ButtonSounds : MonoBehaviour, ISelectHandler
         SoundManager.PlayOneShot(SoundManager.SFX.UIConfirm);
     }
 
+    public void OnCancel() {
+        SoundManager.PlayOneShot(SoundManager.SFX.UICancel);
+    }
 
 }
