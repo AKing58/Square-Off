@@ -716,7 +716,7 @@ ModelImporter:
       takeName: Armature|StanceStart
       internalID: 0
       firstFrame: 0
-      lastFrame: 7
+      lastFrame: 6
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -745,7 +745,7 @@ ModelImporter:
       takeName: Armature|StanceDive
       internalID: 0
       firstFrame: 0
-      lastFrame: 8
+      lastFrame: 21
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

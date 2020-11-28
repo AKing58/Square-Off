@@ -19,6 +19,8 @@
             "Stun": 15,
             "ActiveFrames": [ 7, 9 ],
             "HitboxName": "Rekka1Hitbox",
+            "MovementFrames": [0, 12],
+            "MovementAmount": 1,
             "TotalFrames": 12
         },
         {
@@ -28,6 +30,8 @@
             "Stun": 15,
             "ActiveFrames": [ 3, 5 ],
             "HitboxName": "Rekka1Hitbox",
+            "MovementFrames": [0, 8],
+            "MovementAmount": 0.5,
             "TotalFrames": 8
         },
         {
@@ -52,8 +56,21 @@
             "Type": "NA",
             "GrabInvulnFrames": [ 0, 5 ],
             "StrikeInvulnFrames": [ 0, 8 ],
+            "MovementFrames": [0, 12],
+            "MovementAmount": 1.5,
             "TotalFrames": 12
+        },
+        {
+            "Name": "StanceDive",
+            "Type": "Grab",
+            "ActiveFrames": [ 3, 13 ],
+            "GrabInvulnFrames": [ 0, 13 ],
+            "HitboxName": "GrabHitbox",
+            "MovementFrames": [0, 13],
+            "MovementAmount": 2,
+            "TotalFrames": 8
         }
+        
     ],
     "InvulnStates":
     [
@@ -88,10 +105,6 @@
         {
             "Name": "SuperConnect",
             "Type": "Both"
-        },
-        {
-            "Name": "StanceDive",
-            "Type": "Grab"
         }
     ]
 }
