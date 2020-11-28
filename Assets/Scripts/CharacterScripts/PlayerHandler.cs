@@ -64,6 +64,13 @@ public class PlayerHandler : MonoBehaviour
     private float lerpControl = 0;
     private float colorRate = 2;
 
+    private Color[] auraColors;
+    private int colorAuraEndIndex;
+    public Color colorAuraStart;
+    public Color colorAuraEnd;
+    private float auraRate = 0.75f;
+    private float lerpAuraControl = 0;
+
     protected bool AbilityAInput
     {
         get
@@ -230,6 +237,19 @@ public class PlayerHandler : MonoBehaviour
 
         colorStart = Color.white;
         colorEnd = GetRandomLightColor();
+
+        auraColors = new Color[8];
+        colorAuraEndIndex = 1;
+        auraColors[0] = Color.red; // red
+        auraColors[1] = new Color(1.0f, 0.37f, 0, 1.0f); // orange
+        auraColors[2] = Color.yellow; // yellow
+        auraColors[3] = Color.green; // green
+        auraColors[4] = Color.cyan; // cyan
+        auraColors[5] = Color.blue; // blue
+        auraColors[6] = new Color(0.5f, 0.1f, 0.9f); //purple
+        auraColors[7] = new Color(0.9f, 0.3f, 0.85f); //pink
+        colorAuraStart = auraColors[1];
+        colorAuraEnd = auraColors[colorAuraEndIndex];
     }
 
     public void InitPlayer(PlayerConfiguration pc)
@@ -251,22 +271,22 @@ public class PlayerHandler : MonoBehaviour
         Material myMaterial;
         if (playerConfig.PlayerIndex == 0)
         {
-             myMaterial = Resources.Load<Material>("Materials/Red");
+            myMaterial = Resources.Load<Material>("Materials/OutlineShadows");
             transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(1,0,0,0.6f);
         }
         else if (playerConfig.PlayerIndex == 1)
         {
-             myMaterial = Resources.Load<Material>("Materials/Blue");
+             myMaterial = Resources.Load<Material>("Materials/OutlineShadows1");
              transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0, 0, 1, 0.6f);
         }
         else if (playerConfig.PlayerIndex == 2)
         {
-             myMaterial = Resources.Load<Material>("Materials/Green");
-             transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0, 1, 0, 0.6f);
+             myMaterial = Resources.Load<Material>("Materials/OutlineShadows2");
+            transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0, 1, 0, 0.6f);
         }
         else {
-             myMaterial = Resources.Load<Material>("Materials/Yellow");
-             transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0, 0.6f);
+             myMaterial = Resources.Load<Material>("Materials/OutlineShadows3");
+            transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0, 0.6f);
         }
 
         for (int i = 0; i < bodyPieces.Length; i++)
@@ -313,7 +333,8 @@ public class PlayerHandler : MonoBehaviour
         HandleStun();
 
         if (superAvailable) {
-            DetermineSuperBarColor();         
+            DetermineSuperBarColor();
+            SuperAura();
         }
 
         if(rb.velocity.y < 0)
@@ -327,6 +348,29 @@ public class PlayerHandler : MonoBehaviour
 
         if(CurrentMove != null && CurrentMove.Name != "")
             HandleCurrentMove();
+    }
+
+    private void SuperPulse() {
+        
+    }
+
+    private void SuperAura() {
+        lerpAuraControl += Time.deltaTime * auraRate;
+        bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetColor("_FirstOutlineColor", Color.Lerp(colorAuraStart, colorAuraEnd, lerpAuraControl));
+
+        if (lerpAuraControl >= 1.0) {
+            lerpAuraControl = 0;
+            colorAuraStart = bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.GetColor("_FirstOutlineColor");
+            if (colorAuraEndIndex == 7)
+            {
+                colorAuraEndIndex = 0;
+            }
+            else {
+                colorAuraEndIndex++;
+            }
+            colorAuraEnd = auraColors[colorAuraEndIndex];
+        }
+
     }
 
     private void DetermineSuperBarColor() {
@@ -818,6 +862,15 @@ public class PlayerHandler : MonoBehaviour
     protected void ResetSuper() {
         Energy = 0;
         superAvailable = false;
+        //reset super aura variables
+        lerpAuraControl = 0;
+        colorAuraEndIndex = 1;
+        colorAuraStart = auraColors[0];
+        colorAuraEnd = auraColors[1];
+        bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_FirstOutlineWidth", 0.0f);
+
+        //reset super pulse variables
+        bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_SecondOutlineWidth", 0.0f);
     }
 
     protected IEnumerator DamageDelay(PlayerHandler target, float delay, float damage, float stun) 

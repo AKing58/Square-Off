@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 76537420}
   - component: {fileID: 76537419}
   - component: {fileID: 76537418}
+  - component: {fileID: 76537421}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -281,7 +282,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 86bb76f70cf600b4eb2493c877725ae8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -311,6 +312,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76537416}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &76537421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76537416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9242334064be04e40aa7e2287fbd8802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorStart: {r: 0, g: 0, b: 0, a: 0}
+  colorEnd: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &86777218
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,6 +655,7 @@ GameObject:
   - component: {fileID: 189229387}
   - component: {fileID: 189229386}
   - component: {fileID: 189229385}
+  - component: {fileID: 189229388}
   m_Layer: 0
   m_Name: Cylinder (1)
   m_TagString: Untagged
@@ -694,7 +710,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5bdd35c6b0f0a594e9294b547e088a50, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -724,6 +740,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189229383}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &189229388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189229383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9242334064be04e40aa7e2287fbd8802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorStart: {r: 0, g: 0, b: 0, a: 0}
+  colorEnd: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &227531008 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4351501756342555032, guid: 7ad389eba21986746b0237abbe1d671a,
@@ -1759,6 +1789,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gm: {fileID: 1603817173}
   zoomAmount: 0
+  targets: []
+  smoothTime: 0.5
 --- !u!1 &2139693934
 GameObject:
   m_ObjectHideFlags: 0
