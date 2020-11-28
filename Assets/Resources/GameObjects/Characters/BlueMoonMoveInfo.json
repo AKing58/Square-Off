@@ -30,6 +30,7 @@
             "StrikeInvulnFrames": [ 0, 19 ],
             "HitboxName": "SuperHitbox",
             "GrabDelayFrames": 102,
+            "Knockback": 200,
             "TotalFrames": 46
         },
         {
@@ -47,7 +48,7 @@
             "Damage": 15,
             "Stun": 25,
             "ActiveFrames": [ 13, 18 ],
-            "HitboxName": "Rekka1Hitbox",
+            "HitboxName": "GrabHitbox",
             "MovementFrames": [0, 12],
             "MovementAmount": 1,
             "Knockback": 45,
