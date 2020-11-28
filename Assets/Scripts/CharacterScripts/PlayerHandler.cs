@@ -667,6 +667,11 @@ public class PlayerHandler : MonoBehaviour
             target.StrikeMe();
             target.Health -= MoveList[moveName].Damage;
             target.Stun += MoveList[moveName].Stun;
+            if (MoveList[moveName].Knockback > 0)
+            {
+                target.gameObject.transform.position = gameObject.transform.position + transform.forward;
+                target.KnockbackMe(this, MoveList[moveName].Knockback);
+            }
         }
         else
             return false;
@@ -703,6 +708,13 @@ public class PlayerHandler : MonoBehaviour
         StopHitboxes();
     }
 
+    public void KnockbackMe(PlayerHandler pusher, float knockback)
+    {
+        RotTowards(pusher.transform.position);
+        Rigidbody rg = GetComponent<Rigidbody>();
+        rg.AddForce(transform.forward * -knockback, ForceMode.Impulse);
+    }
+
     public void StopHitboxes()
     {
         foreach (Transform t in gameObject.transform.Find("Hitboxes").transform)
@@ -736,6 +748,7 @@ public class PlayerHandler : MonoBehaviour
         public int[] MovementFrames;
         public float MovementAmount;
         public int TotalFrames;
+        public float Knockback;
 
         
         public float CurFrame;
@@ -743,9 +756,9 @@ public class PlayerHandler : MonoBehaviour
         public int GrabDelayFrames;
 
 
-        public Move() : this("", null, 0f, 0f, null, null, null, "", 0, 0, null, 0f) { }
-        public Move(string Name) : this(Name, null, 0f, 0f, null, null, null , "", 0, 0, null, 0f) { }
-        public Move(string Name, string Type, float Damage, float Stun, int[] ActiveFrames, int[] GrabInvulnFrames, int[] StrikeInvulnFrames, string HitboxName, int TotalFrames, int GrabDelayFrames, int[] MovementFrames, float MovementAmount)
+        public Move() : this("", null, 0f, 0f, null, null, null, "", 0, 0, null, 0f, 0f) { }
+        public Move(string Name) : this(Name, null, 0f, 0f, null, null, null , "", 0, 0, null, 0f, 0f) { }
+        public Move(string Name, string Type, float Damage, float Stun, int[] ActiveFrames, int[] GrabInvulnFrames, int[] StrikeInvulnFrames, string HitboxName, int TotalFrames, int GrabDelayFrames, int[] MovementFrames, float MovementAmount, float Knockback)
         {
             this.Name = Name;
             if (Type == null)
@@ -783,6 +796,8 @@ public class PlayerHandler : MonoBehaviour
             this.MovementAmount = MovementAmount;
 
             this.GrabDelayFrames = GrabDelayFrames;
+
+            this.Knockback = Knockback;
         }
 
         //Converts 24 fps frame data to 60 fps
@@ -810,9 +825,9 @@ public class PlayerHandler : MonoBehaviour
         foreach(Move m in AbilityData.Moves)
         {
             if (MoveList.ContainsKey(m.Name))
-                MoveList[m.Name] = new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames, m.GrabDelayFrames, m.MovementFrames, m.MovementAmount);
+                MoveList[m.Name] = new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames, m.GrabDelayFrames, m.MovementFrames, m.MovementAmount, m.Knockback);
             else
-                MoveList.Add(m.Name, new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames, m.GrabDelayFrames, m.MovementFrames, m.MovementAmount));
+                MoveList.Add(m.Name, new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames, m.GrabDelayFrames, m.MovementFrames, m.MovementAmount, m.Knockback));
         }
         foreach(Move invulnState in AbilityData.InvulnStates)
         {
