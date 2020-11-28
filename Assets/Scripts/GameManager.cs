@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Transform[] playerSpawns = null;
+
+    public Camera MainCam;
    
 
     void Awake()
@@ -37,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        MainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
         Players = new List<GameObject>();
 
         var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
@@ -67,6 +69,7 @@ public class GameManager : MonoBehaviour
             ph.PlayerName = "Player " + Players.Count;
 
             ph.InitPlayer(playerConfigs[i]);
+            ph.GM = this;
             Players[Players.Count - 1].GetComponent<PlayerHandler>().RotTowards(Vector3.zero);
             //var player = Instantiate(RedCometAvatar, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
             //player.GetComponent<PlayerHandler>().InitializePlayer(playerConfigs[i]);
