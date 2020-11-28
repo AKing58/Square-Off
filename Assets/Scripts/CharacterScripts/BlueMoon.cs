@@ -70,7 +70,7 @@ public class BlueMoon : PlayerHandler
     {
         if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1 0" }))
         {
-            anim.SetTrigger("GrabStartParam");
+            anim.SetTrigger("BootParam");
         }
     }
     override protected void AbilityC() 
@@ -94,7 +94,7 @@ public class BlueMoon : PlayerHandler
                 dodgeTargetLocation = transform.position + targetVec * dodgeForce;
             }
             RotTowards(transform.position);
-            CurrentForce = transform.forward*dodgeForce;
+            //CurrentForce = transform.forward*dodgeForce;
         }
     }
 

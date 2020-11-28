@@ -37,7 +37,21 @@
             "Type": "NA",
             "GrabInvulnFrames": [ 0, 5 ],
             "StrikeInvulnFrames": [ 0, 7 ],
+            "MovementFrames": [0, 12],
+            "MovementAmount": 1.5,
             "TotalFrames": 12
+        },
+        {
+            "Name": "Boot",
+            "Type": "Strike",
+            "Damage": 15,
+            "Stun": 25,
+            "ActiveFrames": [ 22, 36 ],
+            "HitboxName": "Rekka1Hitbox",
+            "MovementFrames": [0, 12],
+            "MovementAmount": 1,
+            "Knockback": 45,
+            "TotalFrames": 44
         }
     ],
     "InvulnStates":
