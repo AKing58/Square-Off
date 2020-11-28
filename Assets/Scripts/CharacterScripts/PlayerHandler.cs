@@ -38,9 +38,12 @@ public class PlayerHandler : MonoBehaviour
     public bool GrabImmune;
     public bool StrikeImmune;
 
+    public GameManager GM;
 
     public GameObject GrabInvulnIndicator;
     public GameObject StrikeInvulnIndicator;
+
+    public Camera ThisCam;
 
     public Dictionary<string, Move> MoveList = new Dictionary<string, Move>();
 
@@ -227,6 +230,9 @@ public class PlayerHandler : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+
+        ThisCam = transform.Find("PlayerCamera").GetComponent<Camera>();
+        ThisCam.enabled = false;
 
         colorStart = Color.white;
         colorEnd = GetRandomLightColor();
@@ -615,6 +621,7 @@ public class PlayerHandler : MonoBehaviour
             target.gameObject.transform.position = gameObject.transform.position + transform.forward;
             anim.SetTrigger("SuperConnectParam");
             Move tempMove = MoveList["SuperGrab"];
+            StartCoroutine(TempCameraControl(5.5f));
             StartCoroutine(DamageDelay(target, (tempMove.GrabDelayFrames * 2.5f) /60, tempMove.Damage, tempMove.Stun));
             target.SuperMe(this);
         }
@@ -632,6 +639,15 @@ public class PlayerHandler : MonoBehaviour
         else
             return false;
         return true;
+    }
+
+    public IEnumerator TempCameraControl(float time)
+    {
+        ThisCam.enabled = true;
+        GM.MainCam.enabled = false;
+        yield return new WaitForSeconds(time);
+        ThisCam.enabled = false;
+        GM.MainCam.enabled = true;
     }
 
     public void GrabMe(PlayerHandler grabber)

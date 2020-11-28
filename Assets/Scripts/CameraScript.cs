@@ -24,7 +24,7 @@ public class CameraScript : MonoBehaviour
         thisCam = GetComponent<Camera>();
         foreach(GameObject go in gm.Players)
         {
-            targets.Add(go.transform);
+            targets.Add(go.transform.Find("Head"));
         }
     }
 
@@ -52,7 +52,7 @@ public class CameraScript : MonoBehaviour
         var bounds = new Bounds(targets[0].position, Vector3.zero);
         for(int i = 0; i < targets.Count; i++)
         {
-            if(targets[i].gameObject.GetComponent<PlayerHandler>().Health >= 0)
+            if(targets[i].parent.gameObject.GetComponent<PlayerHandler>().Health >= 0)
                 bounds.Encapsulate(targets[i].position);
         }
         return bounds.center;
