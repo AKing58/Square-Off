@@ -121,7 +121,6 @@ public class GameManager : MonoBehaviour
 
     public void TempDisableControls()
     {
-        Camera.main.gameObject.GetComponent<CameraScript>().SuperZoomOut();
         foreach(GameObject go in Players)
         {
             StartCoroutine(Pause(go));
