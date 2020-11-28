@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    Transform defaultPosition;
-
     public GameManager gm;
 
     [SerializeField]
@@ -13,68 +11,50 @@ public class CameraScript : MonoBehaviour
 
     Camera thisCam;
 
-    Plane[] planes;
+    public List<Transform> targets;
+    private Vector3 offset;
+    public float smoothTime = 0.5f;
 
-    bool shouldZoom = false;
+    private Vector3 velocity;
 
     // Start is called before the first frame update
     void Start()
     {
-        defaultPosition = transform;
+        offset = new Vector3(0, 5f, -7.5f);
         thisCam = GetComponent<Camera>();
-        planes = GeometryUtility.CalculateFrustumPlanes(thisCam);
-
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if (zoomAmount > 0 && !shouldZoom)
-            zoomIn();
-        else if (shouldZoom)
-        {
-            zoomOut();
-        }
-    }
-
-    bool characterViewable(GameObject go)
-    {
-        return (GeometryUtility.TestPlanesAABB(planes, go.GetComponent<Collider>().bounds));
-    }
-
-    bool allCharactersViewable()
-    {
-        bool output = true;
         foreach(GameObject go in gm.Players)
         {
-            if(!(go.GetComponent<PlayerHandler>().Health <= 0))
-                output = output && characterViewable(go);
+            targets.Add(go.transform.Find("Head"));
         }
-        return output;
     }
 
-    void zoomOut()
+    void LateUpdate()
     {
-        zoomAmount += 1;
-        gameObject.transform.position += transform.forward * -0.25f;
+        if (targets.Count == 0)
+            return;
+        move();
     }
 
-    public void SuperZoomOut()
+    void move()
     {
-        StartCoroutine(zoomShort());
+        Vector3 center = GetCenterPoint();
+        Vector3 newPosition = center + offset;
+        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
     }
-
-    IEnumerator zoomShort()
+    
+    Vector3 GetCenterPoint()
     {
-        yield return new WaitForSeconds(3f);
-        shouldZoom = true;
-        yield return new WaitForSeconds(.75f);
-        shouldZoom = false;
-    }
+        if (targets.Count == 1)
+        {
+            return targets[0].position;
+        }
 
-    void zoomIn()
-    {
-        zoomAmount -= 4f;
-        gameObject.transform.position += transform.forward;
+        var bounds = new Bounds(targets[0].position, Vector3.zero);
+        for(int i = 0; i < targets.Count; i++)
+        {
+            if(targets[i].parent.gameObject.GetComponent<PlayerHandler>().Health >= 0)
+                bounds.Encapsulate(targets[i].position);
+        }
+        return bounds.center;
     }
 }
