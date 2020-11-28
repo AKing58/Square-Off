@@ -68,7 +68,7 @@ public class PlayerHandler : MonoBehaviour
     private int colorAuraEndIndex;
     public Color colorAuraStart;
     public Color colorAuraEnd;
-    private float auraRate = 0.75f;
+    private float auraRate = 1.75f;
     private float lerpAuraControl = 0;
 
     protected bool AbilityAInput
@@ -293,6 +293,10 @@ public class PlayerHandler : MonoBehaviour
         {
             bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material = myMaterial;
         }
+        bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_FirstOutlineWidth", 0.1f);
+        bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetColor("_FirstOutlineColor", Color.black);
+        bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_SecondOutlineWidth", 0.0f);
+        bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetColor("_SecondOutlineColor", bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.GetColor("_Color"));
         CurrentMove = null;
     }
 
@@ -356,6 +360,7 @@ public class PlayerHandler : MonoBehaviour
 
     private void SuperAura() {
         lerpAuraControl += Time.deltaTime * auraRate;
+        bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_FirstOutlineWidth", 0.10f);
         bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetColor("_FirstOutlineColor", Color.Lerp(colorAuraStart, colorAuraEnd, lerpAuraControl));
 
         if (lerpAuraControl >= 1.0) {
@@ -882,10 +887,12 @@ public class PlayerHandler : MonoBehaviour
         colorAuraEndIndex = 1;
         colorAuraStart = auraColors[0];
         colorAuraEnd = auraColors[1];
-        bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_FirstOutlineWidth", 0.0f);
+        bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_FirstOutlineWidth", 0.1f);
+        bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetColor("_FirstOutlineColor", Color.black);
 
         //reset super pulse variables
         bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_SecondOutlineWidth", 0.0f);
+
     }
 
     protected IEnumerator DamageDelay(PlayerHandler target, float delay, float damage, float stun) 

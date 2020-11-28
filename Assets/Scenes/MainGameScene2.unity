@@ -655,7 +655,6 @@ GameObject:
   - component: {fileID: 189229387}
   - component: {fileID: 189229386}
   - component: {fileID: 189229385}
-  - component: {fileID: 189229388}
   m_Layer: 0
   m_Name: Cylinder (1)
   m_TagString: Untagged
@@ -740,20 +739,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189229383}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &189229388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 189229383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9242334064be04e40aa7e2287fbd8802, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colorStart: {r: 0, g: 0, b: 0, a: 0}
-  colorEnd: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &227531008 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4351501756342555032, guid: 7ad389eba21986746b0237abbe1d671a,
