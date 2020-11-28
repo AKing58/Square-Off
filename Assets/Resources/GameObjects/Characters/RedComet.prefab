@@ -2599,6 +2599,7 @@ MonoBehaviour:
     MovementFrames: ffffffffffffffff
     MovementAmount: 0
     TotalFrames: 0
+    Knockback: 0
     CurFrame: 0
     GrabDelayFrames: 0
   maxHealth: 0
@@ -3855,7 +3856,6 @@ GameObject:
   m_Component:
   - component: {fileID: 775508934517561226}
   - component: {fileID: 4102264034372656815}
-  - component: {fileID: 2071109465835534540}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: Untagged
@@ -3920,14 +3920,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &2071109465835534540
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7720915406663294874}
-  m_Enabled: 1
 --- !u!1 &7770929164133050680
 GameObject:
   m_ObjectHideFlags: 0
