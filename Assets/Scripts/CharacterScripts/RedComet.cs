@@ -64,21 +64,21 @@ public class RedComet : PlayerHandler
             anim.SetTrigger("RekkaParam");
             if (InValidAnim(new string[] { "Walk", "Idle" }))
                 rekkaForce = 25.0f;
-            CurrentForce = transform.forward * rekkaForce;
+            //CurrentForce = transform.forward * rekkaForce;
         }
         if (InValidAnim("Stance"))
             anim.SetTrigger("RekkaParam");
     }
     override protected void AbilityB() 
     {
-        if (InValidAnim(new string[] { "Walk", "Idle"}))
-            anim.SetTrigger("GrabStartParam");
+        if (InValidAnim(new string[] { "Walk", "Idle", "Rekka2" }))
+            anim.SetTrigger("StanceParam");
         if (InValidAnim("Rekka2"))
             anim.SetTrigger("StanceParam");
         if (InValidAnim("Stance"))
         {
             anim.SetTrigger("StanceDiveParam");
-            CurrentForce = transform.forward * 50f;
+            //CurrentForce = transform.forward * 50f;
         }
 
             
@@ -105,7 +105,7 @@ public class RedComet : PlayerHandler
             }
             
             RotTowards(dodgeTargetLocation);
-            CurrentForce = transform.forward * dodgeForce;
+            //CurrentForce = transform.forward * dodgeForce;
         }
     }
 

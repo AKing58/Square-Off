@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4845347309510136614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1969429986600478357}
+  - component: {fileID: 6580701931625338853}
+  m_Layer: 0
+  m_Name: GameAssets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1969429986600478357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4845347309510136614}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.090264, y: 2.8130186, z: -9.5728}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6580701931625338853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4845347309510136614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a5c2eb88a1d7e42a3fc96c149dc742, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundAudioClips:
+  - audioClip: {fileID: 8300000, guid: 39357ab9e660a9d479d1a8a4943f99e1, type: 3}
+    sound: 0
+  - audioClip: {fileID: 8300000, guid: 563a777287225ab4f8079c9884f714bb, type: 3}
+    sound: 1
+  - audioClip: {fileID: 8300000, guid: 6acceefed3026ef44a6140c7338b5e59, type: 3}
+    sound: 2
+  - audioClip: {fileID: 8300000, guid: 9cd8f413b63d3a743846aa7f66b5cc98, type: 3}
+    sound: 3
+  sfxAudioClips:
+  - audioClip: {fileID: 8300000, guid: 734ad0c26ea00e348932e596d6c67edb, type: 3}
+    sound: 0
+  - audioClip: {fileID: 8300000, guid: 2131e1fcc517e844bbe3f0c548f4e288, type: 3}
+    sound: 1
+  - audioClip: {fileID: 8300000, guid: e4e2be8aa01ec514682da6ad34df83b9, type: 3}
+    sound: 2

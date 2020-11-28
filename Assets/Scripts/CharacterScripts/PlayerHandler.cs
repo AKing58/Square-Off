@@ -359,6 +359,20 @@ public class PlayerHandler : MonoBehaviour
     {
         CurrentMove.CurFrame += 1f * anim.GetCurrentAnimatorStateInfo(0).speed;
 
+        if(CurrentMove.CurFrame >= CurrentMove.MovementFrames[0] && CurrentMove.CurFrame <= CurrentMove.MovementFrames[1])
+        {
+            float CurFrameInMovement = CurrentMove.CurFrame - CurrentMove.MovementFrames[0];
+            float LastMoveFrame = CurrentMove.MovementFrames[1] - CurrentMove.MovementFrames[0];
+            float lastT = (CurFrameInMovement - 1)/LastMoveFrame;
+            float t = CurFrameInMovement / LastMoveFrame;
+
+            float moveAmount = Mathf.SmoothStep(0, CurrentMove.MovementAmount, t);
+            if(CurFrameInMovement > 0)
+                moveAmount -= Mathf.SmoothStep(0, CurrentMove.MovementAmount, lastT);
+            transform.position += transform.forward * moveAmount;
+            //transform.position += transform.forward * CurrentMove.MovementAmount /  (CurrentMove.MovementFrames[1] - CurrentMove.MovementFrames[0]);
+        }
+
         if(GrabInvulnIndicator.active && StrikeInvulnIndicator.active)
         {
             if (CurrentMove.CurFrame >= CurrentMove.GrabInvulnFrames[0] && CurrentMove.CurFrame <= CurrentMove.GrabInvulnFrames[1])
@@ -675,6 +689,8 @@ public class PlayerHandler : MonoBehaviour
         public int[] GrabInvulnFrames;
         public int[] StrikeInvulnFrames;
         public string HitboxName;
+        public int[] MovementFrames;
+        public float MovementAmount;
         public int TotalFrames;
 
         
@@ -683,9 +699,9 @@ public class PlayerHandler : MonoBehaviour
         public int GrabDelayFrames;
 
 
-        public Move() : this("", null, 0f, 0f, null, null, null, "", 0, 0) { }
-        public Move(string Name) : this(Name, null, 0f, 0f, null, null, null , "", 0, 0) { }
-        public Move(string Name, string Type, float Damage, float Stun, int[] ActiveFrames, int[] GrabInvulnFrames, int[] StrikeInvulnFrames, string HitboxName, int TotalFrames, int GrabDelayFrames)
+        public Move() : this("", null, 0f, 0f, null, null, null, "", 0, 0, null, 0f) { }
+        public Move(string Name) : this(Name, null, 0f, 0f, null, null, null , "", 0, 0, null, 0f) { }
+        public Move(string Name, string Type, float Damage, float Stun, int[] ActiveFrames, int[] GrabInvulnFrames, int[] StrikeInvulnFrames, string HitboxName, int TotalFrames, int GrabDelayFrames, int[] MovementFrames, float MovementAmount)
         {
             this.Name = Name;
             if (Type == null)
@@ -715,6 +731,13 @@ public class PlayerHandler : MonoBehaviour
 
             this.TotalFrames = ConvertFramesToSixty(TotalFrames);
 
+            if (MovementFrames == null)
+                this.MovementFrames = new int[] { -1, -1 };
+            else
+                this.MovementFrames = MovementFrames;
+
+            this.MovementAmount = MovementAmount;
+
             this.GrabDelayFrames = GrabDelayFrames;
         }
 
@@ -743,9 +766,9 @@ public class PlayerHandler : MonoBehaviour
         foreach(Move m in AbilityData.Moves)
         {
             if (MoveList.ContainsKey(m.Name))
-                MoveList[m.Name] = new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames, m.GrabDelayFrames);
+                MoveList[m.Name] = new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames, m.GrabDelayFrames, m.MovementFrames, m.MovementAmount);
             else
-                MoveList.Add(m.Name, new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames, m.GrabDelayFrames));
+                MoveList.Add(m.Name, new Move(m.Name, m.Type, m.Damage, m.Stun, m.ActiveFrames, m.GrabInvulnFrames, m.StrikeInvulnFrames, m.HitboxName, m.TotalFrames, m.GrabDelayFrames, m.MovementFrames, m.MovementAmount));
         }
         foreach(Move invulnState in AbilityData.InvulnStates)
         {

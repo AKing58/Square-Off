@@ -847,6 +847,7 @@ GameObject:
   - component: {fileID: 1100253538}
   - component: {fileID: 1100253537}
   - component: {fileID: 1100253540}
+  - component: {fileID: 1100253541}
   m_Layer: 5
   m_Name: TheRound
   m_TagString: Untagged
@@ -929,6 +930,18 @@ MonoBehaviour:
           m_StringArgument: RoundStage
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1100253541}
+        m_TargetAssemblyTypeName: ButtonSounds, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1100253538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -981,6 +994,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ssm: {fileID: 419067418}
   text: {fileID: 655720361}
+--- !u!114 &1100253541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100253535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e7eae96b105e94f92342c99ba0b887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1238440028
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,6 +1019,7 @@ GameObject:
   - component: {fileID: 1238440031}
   - component: {fileID: 1238440030}
   - component: {fileID: 1238440033}
+  - component: {fileID: 1238440034}
   m_Layer: 5
   m_Name: TheGrid
   m_TagString: Untagged
@@ -1076,6 +1102,18 @@ MonoBehaviour:
           m_StringArgument: MainGameScene2
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1238440034}
+        m_TargetAssemblyTypeName: ButtonSounds, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1238440031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1128,6 +1166,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ssm: {fileID: 419067418}
   text: {fileID: 238812356}
+--- !u!114 &1238440034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238440028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e7eae96b105e94f92342c99ba0b887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1617029511
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class PlayerConfigurationManager : MonoBehaviour
     private List<PlayerConfiguration> playerConfigs;
 
     [SerializeField]
-    private int MaxPlayers = 2;
+    private int MaxPlayers = 1;
 
     public static PlayerConfigurationManager Instance { get; private set; }
 
@@ -57,7 +57,7 @@ public class PlayerConfigurationManager : MonoBehaviour
         //}
         //Debug.Log("Max players:" + MaxPlayers + " Number of players ready: " + playerReadyCount);
 
-        if (playerConfigs.Count > MaxPlayers) 
+        if (playerConfigs.Count != MaxPlayers) 
         {
             MaxPlayers = playerConfigs.Count;
         }
