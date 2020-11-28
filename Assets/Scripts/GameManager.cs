@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        Application.targetFrameRate = 60;
         Characters.Add("RedComet", Resources.Load<GameObject>("GameObjects/Characters/RedComet"));
         Characters.Add("BlueMoon", Resources.Load<GameObject>("GameObjects/Characters/BlueMoon"));
     }
