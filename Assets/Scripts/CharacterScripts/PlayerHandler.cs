@@ -613,7 +613,7 @@ public class PlayerHandler : MonoBehaviour
             target.gameObject.transform.position = gameObject.transform.position + transform.forward;
             anim.SetTrigger("GrabConnectParam");
             Move tempMove = MoveList["Grab"];
-            StartCoroutine(DamageDelay(target, (tempMove.GrabDelayFrames * 2.5f) / 60, tempMove.Damage, tempMove.Stun));
+            StartCoroutine(DamageDelay(target, (tempMove.GrabDelayFrames * 2.5f) / 60, tempMove.Damage, tempMove.Stun, MoveList[moveName].Knockback));
             target.GrabMe(this);
         }
         else if (MoveList[moveName].Type == "SuperGrab" && target.CanBeGrabbed())
@@ -622,7 +622,7 @@ public class PlayerHandler : MonoBehaviour
             anim.SetTrigger("SuperConnectParam");
             Move tempMove = MoveList["SuperGrab"];
             StartCoroutine(TempCameraControl(5.5f));
-            StartCoroutine(DamageDelay(target, (tempMove.GrabDelayFrames * 2.5f) /60, tempMove.Damage, tempMove.Stun));
+            StartCoroutine(DamageDelay(target, (tempMove.GrabDelayFrames * 2.5f) /60, tempMove.Damage, tempMove.Stun, MoveList[moveName].Knockback));
             target.SuperMe(this);
         }
         else if (MoveList[moveName].Type == "Strike" && target.CanBeStriked())
@@ -851,11 +851,16 @@ public class PlayerHandler : MonoBehaviour
         superAvailable = false;
     }
 
-    protected IEnumerator DamageDelay(PlayerHandler target, float delay, float damage, float stun) 
+    protected IEnumerator DamageDelay(PlayerHandler target, float delay, float damage, float stun, float knockback) 
     {
         yield return new WaitForSeconds(delay);
         target.Health -= damage;
         target.Stun += stun;
+
+        if (knockback > 0)
+        {
+            target.KnockbackMe(this, knockback);
+        }
     }
 
     //Methods used for inputs
