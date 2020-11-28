@@ -227,7 +227,6 @@ GameObject:
   - component: {fileID: 76537420}
   - component: {fileID: 76537419}
   - component: {fileID: 76537418}
-  - component: {fileID: 76537421}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -312,20 +311,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76537416}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &76537421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 76537416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9242334064be04e40aa7e2287fbd8802, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colorStart: {r: 0, g: 0, b: 0, a: 0}
-  colorEnd: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &86777218
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +694,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5bdd35c6b0f0a594e9294b547e088a50, type: 2}
+  - {fileID: 2100000, guid: 8bc35e089dc2522428d4c66386db17e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

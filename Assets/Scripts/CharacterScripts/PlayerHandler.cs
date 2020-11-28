@@ -68,8 +68,12 @@ public class PlayerHandler : MonoBehaviour
     private int colorAuraEndIndex;
     public Color colorAuraStart;
     public Color colorAuraEnd;
-    private float auraRate = 1.75f;
+    private float auraRate = 2.5f;
     private float lerpAuraControl = 0;
+
+    private float pulseControl = 0;
+    private float pulseRate = 0.75f;
+    private Color baseColor;
 
     protected bool AbilityAInput
     {
@@ -240,14 +244,14 @@ public class PlayerHandler : MonoBehaviour
 
         auraColors = new Color[8];
         colorAuraEndIndex = 1;
-        auraColors[0] = Color.red; // red
-        auraColors[1] = new Color(1.0f, 0.37f, 0, 1.0f); // orange
-        auraColors[2] = Color.yellow; // yellow
-        auraColors[3] = Color.green; // green
-        auraColors[4] = Color.cyan; // cyan
-        auraColors[5] = Color.blue; // blue
-        auraColors[6] = new Color(0.5f, 0.1f, 0.9f); //purple
-        auraColors[7] = new Color(0.9f, 0.3f, 0.85f); //pink
+        auraColors[0] = new Color(0.95f, 0.29f, 0.29f); // light red
+        auraColors[1] = new Color(0.94f, 0.57f, 0.24f); // light orange
+        auraColors[2] = new Color(0.91f, 0.89f, 0.30f); // light yellow
+        auraColors[3] = new Color(0.36f, 0.91f, 0.30f); // light green
+        auraColors[4] = new Color(0.29f, 0.89f, 0.92f); // cyan
+        auraColors[5] = new Color(0.36f, 0.42f, 0.97f); // blue
+        auraColors[6] = new Color(0.62f, 0.37f, 0.93f); //purple
+        auraColors[7] = new Color(0.91f, 0.43f, 0.84f); //pink
         colorAuraStart = auraColors[1];
         colorAuraEnd = auraColors[colorAuraEndIndex];
     }
@@ -271,21 +275,25 @@ public class PlayerHandler : MonoBehaviour
         Material myMaterial;
         if (playerConfig.PlayerIndex == 0)
         {
-            myMaterial = Resources.Load<Material>("Materials/OutlineShadows");
+            myMaterial = Resources.Load<Material>("Materials/OutlineMaterial");
+            //myMaterial = Resources.Load<Material>("Materials/OutlineShadows");
             transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(1,0,0,0.6f);
         }
         else if (playerConfig.PlayerIndex == 1)
         {
-             myMaterial = Resources.Load<Material>("Materials/OutlineShadows1");
-             transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0, 0, 1, 0.6f);
+             myMaterial = Resources.Load<Material>("Materials/OutlineMaterial1");
+            //myMaterial = Resources.Load<Material>("Materials/OutlineShadows1");
+            transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0, 0, 1, 0.6f);
         }
         else if (playerConfig.PlayerIndex == 2)
         {
-             myMaterial = Resources.Load<Material>("Materials/OutlineShadows2");
+            myMaterial = Resources.Load<Material>("Materials/OutlineMaterial2");
+            //myMaterial = Resources.Load<Material>("Materials/OutlineShadows2");
             transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0, 1, 0, 0.6f);
         }
         else {
-             myMaterial = Resources.Load<Material>("Materials/OutlineShadows3");
+            myMaterial = Resources.Load<Material>("Materials/OutlineMaterial3");
+            //myMaterial = Resources.Load<Material>("Materials/OutlineShadows3");
             transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0, 0.6f);
         }
 
@@ -297,6 +305,7 @@ public class PlayerHandler : MonoBehaviour
         bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetColor("_FirstOutlineColor", Color.black);
         bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_SecondOutlineWidth", 0.0f);
         bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetColor("_SecondOutlineColor", bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.GetColor("_Color"));
+        baseColor = bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.GetColor("_Color");
         CurrentMove = null;
     }
 
@@ -338,7 +347,8 @@ public class PlayerHandler : MonoBehaviour
 
         if (superAvailable) {
             DetermineSuperBarColor();
-            SuperAura();
+            //SuperAura();
+            SuperPulse();
         }
 
         if(rb.velocity.y < 0)
@@ -355,7 +365,14 @@ public class PlayerHandler : MonoBehaviour
     }
 
     private void SuperPulse() {
-        
+        pulseControl += Time.deltaTime * pulseRate;
+
+        bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_SecondOutlineWidth", Mathf.Lerp(0.0f, 1.0f, pulseControl));
+        bodyPieces[0].GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetColor("_SecondOutlineColor", Color.Lerp(baseColor, new Color(baseColor.r, baseColor.g, baseColor.b, 0.0f), pulseControl));
+
+        if (pulseControl >= 2.0) {
+            pulseControl = 0;
+        }
     }
 
     private void SuperAura() {
