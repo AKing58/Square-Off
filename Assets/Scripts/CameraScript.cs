@@ -6,9 +6,6 @@ public class CameraScript : MonoBehaviour
 {
     public GameManager gm;
 
-    [SerializeField]
-    private float zoomAmount = 0;
-
     Camera thisCam;
 
     public List<Transform> targets;

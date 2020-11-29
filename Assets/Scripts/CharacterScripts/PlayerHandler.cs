@@ -168,11 +168,27 @@ public class PlayerHandler : MonoBehaviour
         set
         {
             energy = Mathf.Clamp(value, 0, maxEnergy);
-            superAvailable = (energy == maxEnergy);
+            
+            if(energy >= maxEnergy)
+            {
+                if (!superAvailable)
+                {
+                    superAvailable = true;
+                    applySuperShader();
+                }
+            }
+            else if(energy == 0)
+            {
+                applyDefaultShader();
+            }
+            else
+                superAvailable = false;
+            //superAvailable = (energy == maxEnergy);
             PlayerInfoPanel.transform.Find("SuperBar").GetComponent<Image>().fillAmount = energy / maxEnergy;
             
         }
     }
+    
 
     [SerializeField]
     private float maxStun;
@@ -359,6 +375,25 @@ public class PlayerHandler : MonoBehaviour
     {
 
         return new Color(UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f));
+    }
+
+    void applySuperShader()
+    {
+        Shader superShader = Resources.Load<Shader>("Materials/SuperShader");
+        for (int i = 0; i < bodyPieces.Length; i++)
+            bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.shader = superShader;
+    }
+
+    void applyDefaultShader()
+    {
+        Shader defaultShader = Shader.Find("Universal Render Pipeline/Lit");
+        for (int i = 0; i < bodyPieces.Length; i++)
+            bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.shader = defaultShader;
+    }
+
+    public void printstuff()
+    {
+        Debug.Log("Going into stance");
     }
 
     public void HandleCurrentMove()
