@@ -15,6 +15,7 @@ public class PlayerHandler : MonoBehaviour
     public float gravMod = 2.5f;
     protected float dodgeForce;
     public bool controllable = false;
+    public bool IsAI = false;
 
     protected Vector3 CurrentForce = Vector3.zero; 
 
@@ -253,6 +254,29 @@ public class PlayerHandler : MonoBehaviour
         colorStart = Color.white;
         colorEnd = GetRandomLightColor();
     }
+    
+    public void InitAI()
+    {
+        PlayerInfoPanel.transform.Find("PlayerName").GetComponent<Text>().text = PlayerName;
+        PlayerInfoPanel.transform.Find("CharacterName").GetComponent<Text>().text = CharacterName;
+
+        maxHealth = 100;
+        Health = MaxHealth;
+        maxStun = 100;
+        maxEnergy = 100;
+        Energy = 0;
+        Stun = 0;
+        LastTimeStunned = 0;
+
+        Material myMaterial = Resources.Load<Material>("Materials/Blue");
+
+        for (int i = 0; i < bodyPieces.Length; i++)
+        {
+            bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material = myMaterial;
+        }
+
+        CurrentMove = null;
+    }
 
     public void InitPlayer(PlayerConfiguration pc)
     {
@@ -304,6 +328,10 @@ public class PlayerHandler : MonoBehaviour
         {
             HandleAbilityInputs();
             HandleMovementInputs();
+        }
+        else if (IsAI)
+        {
+            HandleAbilityInputs();
         }
         if (anim.IsInTransition(0))
         {
@@ -614,7 +642,7 @@ public class PlayerHandler : MonoBehaviour
 
     public bool CanBeGrabbed()
     {
-        if (Health <= 0 || !controllable)
+        if (Health <= 0)
             return false;
         if ((CurrentMove == null || CurrentMove.Name == "") && Health >=0)
             return true;
@@ -628,7 +656,7 @@ public class PlayerHandler : MonoBehaviour
 
     public bool CanBeStriked()
     {
-        if (Health <= 0 || !controllable)
+        if (Health <= 0)
             return false;
         if ((CurrentMove == null || CurrentMove.Name == ""))
             return true;

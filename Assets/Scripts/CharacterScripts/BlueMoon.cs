@@ -10,7 +10,7 @@ public class BlueMoon : PlayerHandler
     {
         base.Start();
 
-        speed = 4f;
+        speed = 3.5f;
         dodgeForce = 12f;
 
         abilityJSON = Resources.Load<TextAsset>("GameObjects/Characters/BlueMoonMoveInfo");
@@ -98,6 +98,6 @@ public class BlueMoon : PlayerHandler
         }
     }
 
-    virtual protected void Super() { }
+    override protected void Super() { }
 
 }

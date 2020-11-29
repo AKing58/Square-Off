@@ -109,6 +109,6 @@ public class RedComet : PlayerHandler
         }
     }
 
-    virtual protected void Super() { }
+    override protected void Super() { }
 
 }

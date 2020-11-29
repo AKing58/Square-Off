@@ -74,6 +74,26 @@ public class GameManager : MonoBehaviour
             //var player = Instantiate(RedCometAvatar, playerSpawns[i].position, playerSpawns[i].rotation, gameObject.transform);
             //player.GetComponent<PlayerHandler>().InitializePlayer(playerConfigs[i]);
         }
+        if(playerConfigs.Length == 1)
+        {
+            GameObject AIChar = Instantiate(Characters["RedComet"], playerSpawns[1].position, playerSpawns[1].rotation, gameObject.transform);
+            AIChar.AddComponent<RedCometAI>();
+            AIChar.GetComponent<RedCometAI>().InitializeAI(this);
+
+            Players.Add(AIChar);
+
+            PlayerHandler ph = AIChar.GetComponent<PlayerHandler>();
+
+            ph.controllable = !true;
+            ph.IsAI = true;
+            ph.PlayerInfoPanel = PlayerInfoPanels.transform.Find("Player" + Players.Count + "Panel").gameObject;
+            ph.CharacterName = "RedComet";
+            ph.PlayerName = "AI1";
+
+            ph.InitAI();
+            ph.GM = this;
+            Players[Players.Count - 1].GetComponent<PlayerHandler>().RotTowards(Vector3.zero);
+        }
         RemoveExtraPlayerPanels();
 
         switch(Random.Range(0,2))

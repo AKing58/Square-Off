@@ -10,7 +10,7 @@ public class RedCometAI : StateMachine
 	public void InitializeAI(GameManager gmInput)
     {
 		SetState(AIState.SLEEP);
-		parent = gameObject.GetComponent<PlayerHandler>();
+		parent = gameObject.GetComponent<RedComet>();
 		gmRef = gmInput;
 	}
 
@@ -51,8 +51,8 @@ public class RedCometAI : StateMachine
 					break;
 				break;
 			case AIState.ATTACK:
-				if (hasAttacked())
-					return AIState.SLEEP;
+				if (shouldApproach())
+					return AIState.APPROACH;
 				break;
 			case AIState.RETREAT:
 				break;
@@ -106,17 +106,29 @@ public class RedCometAI : StateMachine
 		//Debug.Log("s approach");
 		if (
 			opponentRef != null &&
-			parent.GetComponent<PlayerHandler>().InValidAnim(new string[] { "Walk", "Idle" }) &&
+			parent.GetComponent<PlayerHandler>().InValidAnim(new string[] { "Walk", "Idle"}) &&
 			Vector3.Distance(parent.transform.position, opponentRef.transform.position) > 1
 			)
 		{
 			return true;
 		}
-		return false;
+		else if (
+			opponentRef != null &&
+			parent.GetComponent<PlayerHandler>().InValidAnim("Stance") &&
+			Vector3.Distance(parent.transform.position, opponentRef.transform.position) > 2.5
+            )
+        {
+			return true;
+        }
+			return false;
 	}
 
 	void approach()
     {
+        if (parent.InValidAnim("Stance"))
+        {
+			parent.ActivateInputD();
+        }
 		parent.setTargetVec((opponentRef.transform.position - parent.transform.position).normalized);
     }
 
@@ -125,17 +137,71 @@ public class RedCometAI : StateMachine
 		//Debug.Log("s attack");
 		if (
 			opponentRef != null &&
-			parent.GetComponent<PlayerHandler>().InValidAnim(new string[]{ "Walk", "Idle" }) &&
-			Vector3.Distance(parent.transform.position, opponentRef.transform.position) < 1
+			parent.GetComponent<PlayerHandler>().InValidAnim(new string[] { "Walk", "Idle" }) &&
+			Vector3.Distance(parent.transform.position, opponentRef.transform.position) < 1 &&
+			isFacing(opponentRef.transform)
+			)
+        {
+			return true;
+        }else if (
+			opponentRef != null &&
+			parent.GetComponent<PlayerHandler>().InValidAnim("Stance") &&
+			Vector3.Distance(parent.transform.position, opponentRef.transform.position) < 2.5f &&
+			isFacing(opponentRef.transform)
 			)
         {
 			return true;
         }
-		return false;
+			return false;
 	}
+
+	bool isFacing(Transform target)
+    {
+		return Vector3.Dot((target.position - transform.position).normalized, transform.forward) > 0.9f;
+    }
 
 	void attack()
 	{
+		if (parent.InValidAnim("Rekka1"))
+		{
+			Debug.Log("Combo Attack");
+			parent.ActivateInputA();
+		}
+		else if(parent.InValidAnim("Stance"))
+		{
+			Debug.Log("Stance Attack");
+			if (Vector3.Distance(parent.transform.position, opponentRef.transform.position) < 1)
+				parent.ActivateInputA();
+			if (Vector3.Distance(parent.transform.position, opponentRef.transform.position) < 2.5f)
+				parent.ActivateInputB();
+		}
+		else if (parent.InValidAnim(new string[] { "Walk", "Idle" }))
+		{
+			if(parent.Energy >= 100)
+            {
+				parent.ActivateInputC();
+            }
+			int attackID = Random.Range(0, 3);
+			switch (attackID)
+			{
+				case 0:
+					parent.ActivateInputA();
+					break;
+				case 1:
+					parent.ActivateInputB();
+					break;
+				case 2:
+					parent.ActivateInputD();
+					break;
+				default:
+					break;
+			}
+        }
+        else
+        {
+			Debug.Log("No Attack Available");
+        }
+		/*
 		int attackID = Random.Range(0, 2);
 		switch (attackID)
 		{
@@ -148,6 +214,7 @@ public class RedCometAI : StateMachine
 			default:
 				break;
 		}
+		*/
 	}
 
 	bool hasAttacked()
