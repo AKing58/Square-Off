@@ -25,9 +25,9 @@
             "Name": "SuperGrab",
             "Type": "SuperGrab",
             "Damage": 100,
-            "ActiveFrames": [ 15, 19 ],
-            "GrabInvulnFrames": [ 0, 19 ],
-            "StrikeInvulnFrames": [ 0, 19 ],
+            "ActiveFrames": [ 6, 8 ],
+            "GrabInvulnFrames": [ 0, 6 ],
+            "StrikeInvulnFrames": [ 0, 6 ],
             "HitboxName": "SuperHitbox",
             "GrabDelayFrames": 102,
             "Knockback": 200,
@@ -47,12 +47,12 @@
             "Type": "Strike",
             "Damage": 15,
             "Stun": 25,
-            "ActiveFrames": [ 13, 18 ],
+            "ActiveFrames": [ 10, 16 ],
             "HitboxName": "GrabHitbox",
-            "MovementFrames": [0, 12],
+            "MovementFrames": [0, 10],
             "MovementAmount": 1,
-            "Knockback": 45,
-            "TotalFrames": 30
+            "Knockback": 50,
+            "TotalFrames": 27
         }
     ],
     "InvulnStates":
