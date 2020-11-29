@@ -164,12 +164,10 @@ public class RedCometAI : StateMachine
 	{
 		if (parent.InValidAnim("Rekka1"))
 		{
-			Debug.Log("Combo Attack");
 			parent.ActivateInputA();
 		}
 		else if(parent.InValidAnim("Stance"))
 		{
-			Debug.Log("Stance Attack");
 			if (Vector3.Distance(parent.transform.position, opponentRef.transform.position) < 1)
 				parent.ActivateInputA();
 			if (Vector3.Distance(parent.transform.position, opponentRef.transform.position) < 2.5f)
