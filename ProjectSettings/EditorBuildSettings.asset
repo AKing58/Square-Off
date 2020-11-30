@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RoundStage.unity
     guid: f267120780e49ad47801514fecb6edd0
+  - enabled: 1
+    path: Assets/Scenes/ObstacleTest.unity
+    guid: d4118b0f639e85e4eb13e202013e624b
   m_configObjects: {}
