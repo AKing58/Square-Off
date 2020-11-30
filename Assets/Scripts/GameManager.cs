@@ -99,10 +99,10 @@ public class GameManager : MonoBehaviour
         switch(Random.Range(0,2))
         {
             case 0:
-                SoundManager.PlayMusic(SoundManager.Music.GridStage);
+                SoundManager.PlayMusic(SoundManager.Music.GridStage, true);
                 break;
             case 1:
-                SoundManager.PlayMusic(SoundManager.Music.RoundStage);
+                SoundManager.PlayMusic(SoundManager.Music.RoundStage, true);
                 break;
             default:
                 Debug.LogError("Not 0 or 1");
@@ -283,7 +283,10 @@ public class GameManager : MonoBehaviour
     public void LoadScene(string scn) {
         if (!scn.Equals("StageSelect")) {
             PlayerConfigurationManager.Instance.ResetPlayers();
-        }      
+        }
+        if (scn.Equals("StageSelect") || scn.Equals("CharacterSelect")) {
+            SoundManager.PlayMusic(SoundManager.Music.MainMenus, false);
+        }
         SceneManager.LoadScene(scn);
     }
 

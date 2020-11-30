@@ -46,12 +46,10 @@ MonoBehaviour:
   soundAudioClips:
   - audioClip: {fileID: 8300000, guid: 39357ab9e660a9d479d1a8a4943f99e1, type: 3}
     sound: 0
-  - audioClip: {fileID: 8300000, guid: 563a777287225ab4f8079c9884f714bb, type: 3}
-    sound: 1
-  - audioClip: {fileID: 8300000, guid: 6acceefed3026ef44a6140c7338b5e59, type: 3}
-    sound: 2
   - audioClip: {fileID: 8300000, guid: 9cd8f413b63d3a743846aa7f66b5cc98, type: 3}
-    sound: 3
+    sound: 2
+  - audioClip: {fileID: 8300000, guid: 6acceefed3026ef44a6140c7338b5e59, type: 3}
+    sound: 1
   sfxAudioClips:
   - audioClip: {fileID: 8300000, guid: 734ad0c26ea00e348932e596d6c67edb, type: 3}
     sound: 0

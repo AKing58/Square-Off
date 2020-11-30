@@ -10,7 +10,7 @@ public class TitleManager : MonoBehaviour
         if (PlayerConfigurationManager.Instance != null) {
             PlayerConfigurationManager.Instance.DisableJoining();
         }
-        SoundManager.PlayMusic(SoundManager.Music.MainMenu);
+        SoundManager.PlayMusic(SoundManager.Music.MainMenus);
     }
 
     public void LoadScene(string scene) {

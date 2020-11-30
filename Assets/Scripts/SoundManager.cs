@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class SoundManager
 {
     public enum Music { 
-        MainMenu,
-        CharSelect,
+        MainMenus,
         GridStage,
         RoundStage
     }
@@ -19,15 +19,34 @@ public static class SoundManager
 
     private static GameObject oneShotGameObject;
     private static AudioSource oneShotAudioSource;
+    private static GameObject MenuBGM;
+    private static bool fightMode = false;
 
-    public static void PlayMusic(Music sound) {
-        GameObject soundGameObject = new GameObject("BGM");
-        AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
-        audioSource.volume = 0.05f;
-        audioSource.spatialBlend = 0.8f;
-        audioSource.loop = true;
-        audioSource.clip = GetAudioClip(sound);
-        audioSource.Play();
+    public static void PlayMusic(Music sound, bool fightOn=false) {
+        if (!fightOn) {
+            fightMode = fightOn;
+        }
+
+        if (!fightMode) {
+            if (MenuBGM == null)
+            {
+                MenuBGM = new GameObject("BGM");
+                AudioSource audioSource = MenuBGM.AddComponent<AudioSource>();
+                audioSource.volume = 0.05f;
+                audioSource.spatialBlend = 0.8f;
+                audioSource.loop = true;                            
+                Object.DontDestroyOnLoad(MenuBGM.gameObject);
+               
+            }
+            AudioSource audiosrc = MenuBGM.gameObject.GetComponent<AudioSource>();
+            audiosrc.clip = GetAudioClip(sound);
+            audiosrc.Play();
+            fightMode = fightOn;
+        }              
+    }
+
+    public static void DestroyMusic() {
+        Object.Destroy(MenuBGM);
     }
 
     public static void PlayOneShot(SFX sound) {
