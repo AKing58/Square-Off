@@ -15,9 +15,11 @@ public class StageSelectManager : MonoBehaviour
     void Start()
     {
         //backgroundImg = gameObject.GetComponent<Image>();
-        spriteList.Add("The Grid", Resources.Load<Sprite>("Images/TheGrid"));
+        //spriteList.Add("The Grid", Resources.Load<Sprite>("Images/TheGrid"));
         spriteList.Add("The Round", Resources.Load<Sprite>("Images/TheRound"));
-
+        spriteList.Add("The Flame", Resources.Load<Sprite>("Images/TheFlame"));
+        spriteList.Add("The Button", Resources.Load<Sprite>("Images/TheButton"));
+        spriteList.Add("Squareagon", Resources.Load<Sprite>("Images/Squareagon"));
         
     } 
 

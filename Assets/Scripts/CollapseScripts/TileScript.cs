@@ -34,9 +34,10 @@ public class TileScript : MonoBehaviour
 
     IEnumerator DropMe()
     {
-        GetComponent<BoxCollider>().isTrigger = true;
+        
         dropPrepped = true;
         yield return new WaitForSeconds(dropTime);
+        GetComponent<BoxCollider>().isTrigger = true;
         GetComponent<Rigidbody>().isKinematic = false;
     }
 }

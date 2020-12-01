@@ -85,10 +85,18 @@ public class RedComet : PlayerHandler
     }
     override protected void AbilityC() 
     {
-        if (InValidAnim(new string[] { "Walk", "Idle" }) && superAvailable)
+        if (InValidAnim(new string[] { "Walk", "Idle" }))
         {
-            anim.SetTrigger("SuperStartParam");
-            ResetSuper();
+            if (superAvailable)
+            {
+                anim.SetTrigger("SuperStartParam");
+                ResetSuper();
+            }
+            else
+            {
+                anim.SetTrigger("GrabStartParam");
+            }
+            
         }
     }
 
