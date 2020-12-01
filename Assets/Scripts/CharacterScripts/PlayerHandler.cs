@@ -469,7 +469,7 @@ public class PlayerHandler : MonoBehaviour
     }
 
     public void PlayDizzy() {
-        SoundManager.PlayOneShot(SoundManager.SFX.Dizzy);
+        SoundManager.PlayOneShot(SoundManager.SFX.Dizzy, 0.20f);
     }
 
    
