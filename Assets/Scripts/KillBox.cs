@@ -11,4 +11,12 @@ public class KillBox : MonoBehaviour
             collision.gameObject.GetComponent<PlayerHandler>().StageKillMe();
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Tile"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
 }
