@@ -62,6 +62,7 @@ public class PlayerHandler : MonoBehaviour
     private bool abilityCInput;
     private bool abilityDInput;
 
+    [SerializeField]
     protected bool superAvailable = false;
     private Color colorStart;
     private Color colorEnd;
@@ -173,7 +174,7 @@ public class PlayerHandler : MonoBehaviour
             
             if(energy >= maxEnergy)
             {
-                if (!superAvailable)
+                if (!superAvailable && maxEnergy != 0)
                 {
                     superAvailable = true;
                     applySuperShader();
