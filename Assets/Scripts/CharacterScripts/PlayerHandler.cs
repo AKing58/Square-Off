@@ -70,6 +70,8 @@ public class PlayerHandler : MonoBehaviour
     private float lerpControl = 0;
     private float colorRate = 2;
 
+    Color teamColor;
+
     protected bool AbilityAInput
     {
         get
@@ -284,7 +286,6 @@ public class PlayerHandler : MonoBehaviour
 
         CurrentMove = null;
     }
-
     public void InitPlayer(PlayerConfiguration pc)
     {
         PlayerInfoPanel.transform.Find("PlayerName").GetComponent<Text>().text = PlayerName;
@@ -321,6 +322,8 @@ public class PlayerHandler : MonoBehaviour
              myMaterial = Resources.Load<Material>("Materials/Yellow");
              transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0, 0.6f);
         }
+
+        teamColor = myMaterial.color;
 
         for (int i = 0; i < bodyPieces.Length; i++)
         {
@@ -458,7 +461,11 @@ public class PlayerHandler : MonoBehaviour
     {
         Shader superShader = Resources.Load<Shader>("Materials/SuperShader");
         for (int i = 0; i < bodyPieces.Length; i++)
+        {
             bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.shader = superShader;
+            bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.color = teamColor;
+        }
+            
     }
 
     void applyDefaultShader()
