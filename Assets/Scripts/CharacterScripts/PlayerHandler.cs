@@ -140,6 +140,7 @@ public class PlayerHandler : MonoBehaviour
             
             if (health <= 0)
             {
+                StartCoroutine(KillDelay());
                 anim.SetBool("DeadParam", true);
                 transform.Find("WorldSpaceUI/Canvas").gameObject.SetActive(false);
                 Stun = 0;
@@ -422,6 +423,14 @@ public class PlayerHandler : MonoBehaviour
     public void printstuff()
     {
         Debug.Log("Going into stance");
+    }
+
+    public IEnumerator KillDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        GM.Players.Remove(gameObject);
+        GM.MainCam.gameObject.GetComponent<CameraScript>().targets.Remove(transform);
+        GetComponent<CapsuleCollider>().isTrigger = true;
     }
 
     public void HandleCurrentMove()
