@@ -84,7 +84,7 @@ public class BlueMoon : PlayerHandler
 
     override protected void AbilityD() 
     {
-        if (InValidAnim(new string[] { "Walk", "Idle"}))
+        if (InValidAnim(new string[] { "Walk", "Idle", "GetUp" }))
         {
             anim.SetTrigger("DodgeParam");
             if (targetVec == new Vector3())

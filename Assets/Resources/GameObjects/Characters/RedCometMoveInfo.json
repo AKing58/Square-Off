@@ -19,7 +19,7 @@
             "Stun": 15,
             "ActiveFrames": [ 7, 9 ],
             "HitboxName": "Rekka1Hitbox",
-            "MovementFrames": [5, 12],
+            "MovementFrames": [0, 12],
             "MovementAmount": 1,
             "TotalFrames": 12
         },

@@ -94,7 +94,7 @@ public class RedComet : PlayerHandler
 
     override protected void AbilityD() 
     {
-        if (InValidAnim(new string[] { "Walk", "Idle", "Stance" }))
+        if (InValidAnim(new string[] { "Walk", "Idle", "Stance", "GetUp" }))
         {
             anim.SetTrigger("DodgeParam");
             if (targetVec == new Vector3())
