@@ -61,7 +61,9 @@ public class PlayerHandler : MonoBehaviour
     private bool abilityBInput;
     private bool abilityCInput;
     private bool abilityDInput;
+    private bool abilityStartInput;
 
+    [SerializeField]
     protected bool superAvailable = false;
     private Color colorStart;
     private Color colorEnd;
@@ -140,6 +142,7 @@ public class PlayerHandler : MonoBehaviour
             
             if (health <= 0)
             {
+                StartCoroutine(KillDelay());
                 anim.SetBool("DeadParam", true);
                 transform.Find("WorldSpaceUI/Canvas").gameObject.SetActive(false);
                 Stun = 0;
@@ -172,7 +175,7 @@ public class PlayerHandler : MonoBehaviour
             
             if(energy >= maxEnergy)
             {
-                if (!superAvailable)
+                if (!superAvailable && maxEnergy != 0)
                 {
                     superAvailable = true;
                     applySuperShader();
@@ -240,6 +243,10 @@ public class PlayerHandler : MonoBehaviour
         if (obj.action.name == controls.Gameplay.D.name)
         {
             OnD(obj);
+        }
+        if (obj.action.name == controls.Gameplay.Start.name)
+        {
+            GameObject.Find("GameManager").GetComponent<GameManager>().PauseMenu();
         }
     }
 
@@ -464,6 +471,14 @@ public class PlayerHandler : MonoBehaviour
     public void printstuff()
     {
         Debug.Log("Going into stance");
+    }
+
+    public IEnumerator KillDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        GM.Players.Remove(gameObject);
+        GM.MainCam.gameObject.GetComponent<CameraScript>().targets.Remove(transform);
+        GetComponent<CapsuleCollider>().isTrigger = true;
     }
 
     public void HandleCurrentMove()
@@ -980,6 +995,7 @@ public class PlayerHandler : MonoBehaviour
     public void ActivateInputB() { abilityBInput = true; }
     public void ActivateInputC() { abilityCInput = true; }
     public void ActivateInputD() { abilityDInput = true; }
+    public void ActivateInputStart() { abilityStartInput = true; }
 
     public void setTargetVec(Vector3 target)
     {
@@ -995,5 +1011,7 @@ public class PlayerHandler : MonoBehaviour
     public void OnC(InputAction.CallbackContext ctx) => abilityCInput = ctx.ReadValueAsButton();
 
     public void OnD(InputAction.CallbackContext ctx) => abilityDInput = ctx.ReadValueAsButton();
+
+    public void OnStart(InputAction.CallbackContext ctx) => abilityStartInput = ctx.ReadValueAsButton();
 
 }

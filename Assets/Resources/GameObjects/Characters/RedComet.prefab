@@ -509,7 +509,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 0.5, z: 0.5}
+  m_Size: {x: 0.9, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8065355967749324551
 MonoBehaviour:
@@ -2554,6 +2554,7 @@ MonoBehaviour:
   speed: 1.5
   gravMod: 2.5
   controllable: 0
+  IsAI: 0
   targetVec: {x: 0, y: 0, z: 0}
   PlayerInfoPanel: {fileID: 0}
   CharacterName: 
@@ -2602,6 +2603,7 @@ MonoBehaviour:
     Knockback: 0
     CurFrame: 0
     GrabDelayFrames: 0
+  superAvailable: 0
   maxHealth: 0
   health: 0
   maxEnergy: 0

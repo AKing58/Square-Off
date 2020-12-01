@@ -6,11 +6,11 @@
             "Type": "Grab",
             "Damage": 15,
             "Stun": 25,
-            "ActiveFrames": [ 18, 22 ],
-            "GrabInvulnFrames": [ 8,22 ],
+            "ActiveFrames": [ 6, 8 ],
+            "GrabInvulnFrames": [ 0, 6 ],
             "HitboxName": "GrabHitbox",
             "GrabDelayFrames": 19,
-            "TotalFrames": 46
+            "TotalFrames": 16
         },
         {
             "Name": "Rekka1",

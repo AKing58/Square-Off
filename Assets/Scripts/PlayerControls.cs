@@ -57,6 +57,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""b55ca5b0-e80a-4ebf-9f5b-528b018478ac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -389,6 +397,50 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""D"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d0cd904-82f1-4879-9d9a-ea3c249b2ceb"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23971474-409f-40d5-be40-444d5b73d2d2"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""edce46a8-4689-4786-948d-a0d7f8e90ae3"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox"",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e2c54c71-b6f8-410d-acc3-d686e1cd3d25"",
+                    ""path"": ""<DualShockGamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PS4"",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -458,6 +510,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_B = m_Gameplay.FindAction("B", throwIfNotFound: true);
         m_Gameplay_C = m_Gameplay.FindAction("C", throwIfNotFound: true);
         m_Gameplay_D = m_Gameplay.FindAction("D", throwIfNotFound: true);
+        m_Gameplay_Start = m_Gameplay.FindAction("Start", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -512,6 +565,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_B;
     private readonly InputAction m_Gameplay_C;
     private readonly InputAction m_Gameplay_D;
+    private readonly InputAction m_Gameplay_Start;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -521,6 +575,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @B => m_Wrapper.m_Gameplay_B;
         public InputAction @C => m_Wrapper.m_Gameplay_C;
         public InputAction @D => m_Wrapper.m_Gameplay_D;
+        public InputAction @Start => m_Wrapper.m_Gameplay_Start;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -545,6 +600,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @D.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnD;
                 @D.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnD;
                 @D.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnD;
+                @Start.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStart;
+                @Start.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStart;
+                @Start.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStart;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -564,6 +622,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @D.started += instance.OnD;
                 @D.performed += instance.OnD;
                 @D.canceled += instance.OnD;
+                @Start.started += instance.OnStart;
+                @Start.performed += instance.OnStart;
+                @Start.canceled += instance.OnStart;
             }
         }
     }
@@ -620,5 +681,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnB(InputAction.CallbackContext context);
         void OnC(InputAction.CallbackContext context);
         void OnD(InputAction.CallbackContext context);
+        void OnStart(InputAction.CallbackContext context);
     }
 }

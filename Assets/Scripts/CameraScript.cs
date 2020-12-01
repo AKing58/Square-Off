@@ -10,14 +10,14 @@ public class CameraScript : MonoBehaviour
 
     public List<Transform> targets;
     private Vector3 offset;
-    public float smoothTime = 0.5f;
+    public float smoothTime = 0.25f;
 
     private Vector3 velocity;
 
     // Start is called before the first frame update
     public void InitCam()
     {
-        offset = new Vector3(0, 5f, -5f);
+        offset = new Vector3(0, 5f, -7.5f);
         thisCam = GetComponent<Camera>();
         foreach(GameObject go in gm.Players)
         {
@@ -27,7 +27,7 @@ public class CameraScript : MonoBehaviour
 
     void LateUpdate()
     {
-        //Debug.Log("count" + gm.Players.Count);
+        Debug.Log("count" + gm.Players.Count);
         if (targets.Count == 0)
             return;
         move();
