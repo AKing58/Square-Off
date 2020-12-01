@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RedCometAI : StateMachine
 {
-	
+	bool StayInStance = false;
 
 	public void InitializeAI(GameManager gmInput)
     {
@@ -127,9 +127,32 @@ public class RedCometAI : StateMachine
     {
         if (parent.InValidAnim("Stance"))
         {
-			parent.ActivateInputD();
-        }
-		parent.setTargetVec((opponentRef.transform.position - parent.transform.position).normalized);
+			if(StayInStance)
+				parent.setTargetVec((opponentRef.transform.position - parent.transform.position).normalized);
+			else
+				parent.ActivateInputD();
+		}
+
+		int attackChance = Random.Range(0, 100);
+
+		if(attackChance <= 95)
+			parent.setTargetVec((opponentRef.transform.position - parent.transform.position).normalized);
+        else
+        {
+			parent.ActivateInputB();
+			StartCoroutine(StanceDelay());
+		}
+			
+
+		
+    }
+
+	
+	IEnumerator StanceDelay()
+    {
+		StayInStance = true;
+		yield return new WaitForSeconds(2f);
+		StayInStance = false;
     }
 
 	bool shouldAttack()
@@ -197,7 +220,7 @@ public class RedCometAI : StateMachine
         }
         else
         {
-			Debug.Log("No Attack Available");
+			//Debug.Log("No Attack Available");
         }
 		/*
 		int attackID = Random.Range(0, 2);
