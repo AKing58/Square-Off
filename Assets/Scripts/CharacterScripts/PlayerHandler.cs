@@ -416,7 +416,7 @@ public class PlayerHandler : MonoBehaviour
 
     public void PlaySuperSlam() {
         Debug.Log("Played Super Slam Sound");
-        SoundManager.PlayOneShot(SoundManager.SFX.SuperSlam, 0.90f);
+        SoundManager.PlayOneShot(SoundManager.SFX.SuperSlam, playerConfig.PlayerIndex, transform.position, 0.50f);
     }
 
     public void PlayHit() {
@@ -428,13 +428,13 @@ public class PlayerHandler : MonoBehaviour
         
         switch (soundIndex) {
             case 0:
-                SoundManager.PlayOneShot(SoundManager.SFX.Hit);             
+                SoundManager.PlayOneShot(SoundManager.SFX.Hit, playerConfig.PlayerIndex, transform.position);             
                 break;
             case 1:
-                SoundManager.PlayOneShot(SoundManager.SFX.Hit2);
+                SoundManager.PlayOneShot(SoundManager.SFX.Hit2, playerConfig.PlayerIndex, transform.position);
                 break;
             case 2:
-                SoundManager.PlayOneShot(SoundManager.SFX.Hit3);
+                SoundManager.PlayOneShot(SoundManager.SFX.Hit3, playerConfig.PlayerIndex, transform.position);
                 break;
             default:
             Debug.LogError("not 0, 1 or 2");
@@ -453,13 +453,13 @@ public class PlayerHandler : MonoBehaviour
         }
         switch (soundIndex) {
             case 0:
-                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit);
+                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit, playerConfig.PlayerIndex, transform.position);
                 break;
             case 1:
-                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit2);
+                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit2, playerConfig.PlayerIndex, transform.position);
                 break;
             case 2:
-                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit3);
+                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit3, playerConfig.PlayerIndex, transform.position);
                 break;
             default:
                 Debug.LogError("not 0, 1 or 2");
@@ -469,7 +469,7 @@ public class PlayerHandler : MonoBehaviour
     }
 
     public void PlayDizzy() {
-        SoundManager.PlayOneShot(SoundManager.SFX.Dizzy, 0.20f);
+        SoundManager.PlayOneShot(SoundManager.SFX.Dizzy, playerConfig.PlayerIndex, transform.position, 0.20f);
     }
 
    

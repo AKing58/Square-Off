@@ -27,6 +27,9 @@ public static class SoundManager
 
     private static GameObject oneShotGameObject;
     private static AudioSource oneShotAudioSource;
+    private static GameObject[] oneShotGameObjects;
+    private static AudioSource[] oneShotAudioSources;
+
     private static GameObject MenuBGM;
     private static bool fightMode = false;
 
@@ -57,15 +60,37 @@ public static class SoundManager
         Object.Destroy(MenuBGM);
     }
 
-    public static void PlayOneShot(SFX sound, float volume=0.05f) {
-        if (oneShotGameObject == null) {
+    public static void PlayOneShotUI(SFX sound, float volume = 0.05f)
+    {
+        if (oneShotGameObject == null)
+        {
             oneShotGameObject = new GameObject("Sound");
             oneShotAudioSource = oneShotGameObject.AddComponent<AudioSource>();
             oneShotAudioSource.volume = volume;
             oneShotAudioSource.spatialBlend = 0.8f;
         }
-              
+
         oneShotAudioSource.PlayOneShot(GetAudioClip(sound));
+    }
+
+    public static void PlayOneShot(SFX sound, int playerIndex, Vector3 position, float volume = 0.05f) {
+        if (oneShotAudioSources == null) {
+            oneShotAudioSources = new AudioSource[4];
+        }
+
+        if (oneShotGameObjects == null)
+        {
+            oneShotGameObjects = new GameObject[4];
+        }
+        if (oneShotGameObjects[playerIndex] == null) {
+            
+            oneShotGameObjects[playerIndex] = new GameObject("Sound" + playerIndex);
+            oneShotAudioSources[playerIndex] = oneShotGameObjects[playerIndex].AddComponent<AudioSource>();
+            oneShotAudioSources[playerIndex].spatialBlend = 0.8f;
+        }
+        oneShotAudioSources[playerIndex].volume = volume;
+        oneShotGameObjects[playerIndex].transform.position = position;
+        oneShotAudioSources[playerIndex].PlayOneShot(GetAudioClip(sound));
     }
 
     private static AudioClip GetAudioClip(SFX sound)

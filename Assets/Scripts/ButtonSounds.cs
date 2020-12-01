@@ -9,15 +9,15 @@ public class ButtonSounds : MonoBehaviour, ISelectHandler
 {
     public void OnSelect(BaseEventData eventData)
     {
-        SoundManager.PlayOneShot(SoundManager.SFX.UISelect);
+        SoundManager.PlayOneShotUI(SoundManager.SFX.UISelect);
     }
 
     public void OnClick() {
-        SoundManager.PlayOneShot(SoundManager.SFX.UIConfirm);
+        SoundManager.PlayOneShotUI(SoundManager.SFX.UIConfirm);
     }
 
     public void OnCancel() {
-        SoundManager.PlayOneShot(SoundManager.SFX.UICancel);
+        SoundManager.PlayOneShotUI(SoundManager.SFX.UICancel);
     }
 
 }
