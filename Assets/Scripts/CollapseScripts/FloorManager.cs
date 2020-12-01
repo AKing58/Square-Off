@@ -26,7 +26,7 @@ public class FloorManager : MonoBehaviour
     IEnumerator TileDrop()
     {
         tileDropTimer = true;
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(5f);
         DropTile();
         tileDropTimer = false;
     }
