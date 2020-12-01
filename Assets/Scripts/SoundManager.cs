@@ -22,6 +22,7 @@ public static class SoundManager
         HeavyHit,
         HeavyHit2,
         HeavyHit3,
+        Dizzy
     }
 
     private static GameObject oneShotGameObject;

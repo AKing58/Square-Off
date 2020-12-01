@@ -70,6 +70,9 @@ public class PlayerHandler : MonoBehaviour
     private float lerpControl = 0;
     private float colorRate = 2;
 
+    private int lastHit;
+    private int lastHeavyHit;
+
     protected bool AbilityAInput
     {
         get
@@ -413,9 +416,14 @@ public class PlayerHandler : MonoBehaviour
 
     public void PlayHit() {
         Debug.Log("Played Hit sound!");
-        switch (UnityEngine.Random.Range(0, 3)) {
+        int soundIndex = UnityEngine.Random.Range(0, 3);
+        while (soundIndex == lastHit) {
+            soundIndex = UnityEngine.Random.Range(0, 3);
+        }
+        
+        switch (soundIndex) {
             case 0:
-                SoundManager.PlayOneShot(SoundManager.SFX.Hit);
+                SoundManager.PlayOneShot(SoundManager.SFX.Hit);             
                 break;
             case 1:
                 SoundManager.PlayOneShot(SoundManager.SFX.Hit2);
@@ -427,11 +435,18 @@ public class PlayerHandler : MonoBehaviour
             Debug.LogError("not 0, 1 or 2");
                 break;
         }
+        lastHit = soundIndex;
     }
 
     public void PlayHeavyHit() {
         Debug.Log("Played Heavy Hit sound!");
-        switch (UnityEngine.Random.Range(0, 3)) {
+
+        int soundIndex = UnityEngine.Random.Range(0, 3);
+        while (soundIndex == lastHeavyHit)
+        {
+            soundIndex = UnityEngine.Random.Range(0, 3);
+        }
+        switch (soundIndex) {
             case 0:
                 SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit);
                 break;
@@ -445,6 +460,11 @@ public class PlayerHandler : MonoBehaviour
                 Debug.LogError("not 0, 1 or 2");
                 break;
         }
+        lastHeavyHit = soundIndex;
+    }
+
+    public void PlayDizzy() {
+        SoundManager.PlayOneShot(SoundManager.SFX.Dizzy);
     }
 
    

@@ -661,7 +661,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.88144326
-        functionName: PlayKnockdown
+        functionName: PlayHeavyHit
         data: 
         objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
           type: 3}
