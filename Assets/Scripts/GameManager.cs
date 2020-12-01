@@ -279,6 +279,7 @@ public class GameManager : MonoBehaviour
     {
         //Application.LoadLevel(Application.loadedLevel);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1.0f;
     }
 
     public void LoadScene(string scn) {
@@ -289,6 +290,7 @@ public class GameManager : MonoBehaviour
             SoundManager.PlayMusic(SoundManager.Music.MainMenus, false);
         }
         SceneManager.LoadScene(scn);
+        Time.timeScale = 1.0f;
     }
 
     public List<PlayerHandler> ReturnPlayerCharacters()
@@ -299,5 +301,25 @@ public class GameManager : MonoBehaviour
             outputList.Add(go.GetComponent<PlayerHandler>());
         }
         return outputList;
+    }
+
+    /// <summary>
+    /// Resumes the scene while setting the menu inactive
+    /// </summary>
+    public void ResumeScene()
+    {
+        Time.timeScale = 1.0f;
+        VictoryScreen.transform.GetChild(0).GetChild(4).gameObject.SetActive(false);
+        VictoryScreen.SetActive(false);
+    }
+
+    /// <summary>
+    /// Brings up the menu while pausing the game
+    /// </summary>
+    public void PauseMenu()
+    {
+        Time.timeScale = 0f;
+        VictoryScreen.SetActive(true);
+        VictoryScreen.transform.GetChild(0).GetChild(4).gameObject.SetActive(true);
     }
 }
