@@ -61,6 +61,7 @@ public class PlayerHandler : MonoBehaviour
     private bool abilityBInput;
     private bool abilityCInput;
     private bool abilityDInput;
+    private bool abilityStartInput;
 
     [SerializeField]
     protected bool superAvailable = false;
@@ -243,6 +244,10 @@ public class PlayerHandler : MonoBehaviour
         {
             OnD(obj);
         }
+        if (obj.action.name == controls.Gameplay.Start.name)
+        {
+            GameObject.Find("GameManager").GetComponent<GameManager>().PauseMenu();
+        }
     }
 
     protected void Start()
@@ -401,9 +406,51 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+    public void PlaySuperSlam() {
+        Debug.Log("Played Super Slam Sound");
+        SoundManager.PlayOneShot(SoundManager.SFX.SuperSlam, 0.90f);
+    }
+
+    public void PlayHit() {
+        Debug.Log("Played Hit sound!");
+        switch (UnityEngine.Random.Range(0, 3)) {
+            case 0:
+                SoundManager.PlayOneShot(SoundManager.SFX.Hit);
+                break;
+            case 1:
+                SoundManager.PlayOneShot(SoundManager.SFX.Hit2);
+                break;
+            case 2:
+                SoundManager.PlayOneShot(SoundManager.SFX.Hit3);
+                break;
+            default:
+            Debug.LogError("not 0, 1 or 2");
+                break;
+        }
+    }
+
+    public void PlayHeavyHit() {
+        Debug.Log("Played Heavy Hit sound!");
+        switch (UnityEngine.Random.Range(0, 3)) {
+            case 0:
+                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit);
+                break;
+            case 1:
+                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit2);
+                break;
+            case 2:
+                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit3);
+                break;
+            default:
+                Debug.LogError("not 0, 1 or 2");
+                break;
+        }
+    }
+
+   
+
     private Color GetRandomLightColor()
     {
-
         return new Color(UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f));
     }
 
@@ -757,7 +804,7 @@ public class PlayerHandler : MonoBehaviour
     {
         RotTowards(pusher.transform.position);
         Rigidbody rg = GetComponent<Rigidbody>();
-        rg.AddForce(transform.forward * -knockback, ForceMode.Impulse);
+        rg.AddForce(pusher.transform.forward * knockback, ForceMode.Impulse);
     }
 
     public void StopHitboxes()
@@ -948,6 +995,7 @@ public class PlayerHandler : MonoBehaviour
     public void ActivateInputB() { abilityBInput = true; }
     public void ActivateInputC() { abilityCInput = true; }
     public void ActivateInputD() { abilityDInput = true; }
+    public void ActivateInputStart() { abilityStartInput = true; }
 
     public void setTargetVec(Vector3 target)
     {
@@ -963,5 +1011,7 @@ public class PlayerHandler : MonoBehaviour
     public void OnC(InputAction.CallbackContext ctx) => abilityCInput = ctx.ReadValueAsButton();
 
     public void OnD(InputAction.CallbackContext ctx) => abilityDInput = ctx.ReadValueAsButton();
+
+    public void OnStart(InputAction.CallbackContext ctx) => abilityStartInput = ctx.ReadValueAsButton();
 
 }

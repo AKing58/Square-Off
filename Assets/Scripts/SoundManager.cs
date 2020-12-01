@@ -14,7 +14,14 @@ public static class SoundManager
     public enum SFX { 
         UISelect,
         UIConfirm,
-        UICancel
+        UICancel,
+        SuperSlam,
+        Hit,
+        Hit2,
+        Hit3,
+        HeavyHit,
+        HeavyHit2,
+        HeavyHit3,
     }
 
     private static GameObject oneShotGameObject;
@@ -49,11 +56,11 @@ public static class SoundManager
         Object.Destroy(MenuBGM);
     }
 
-    public static void PlayOneShot(SFX sound) {
+    public static void PlayOneShot(SFX sound, float volume=0.05f) {
         if (oneShotGameObject == null) {
             oneShotGameObject = new GameObject("Sound");
             oneShotAudioSource = oneShotGameObject.AddComponent<AudioSource>();
-            oneShotAudioSource.volume = 0.05f;
+            oneShotAudioSource.volume = volume;
             oneShotAudioSource.spatialBlend = 0.8f;
         }
               

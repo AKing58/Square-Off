@@ -271,7 +271,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.6185567
+        functionName: PlayHeavyHit
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -358,7 +366,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: PlayHit
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -532,7 +548,23 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.814433
+        functionName: PlayHeavyHit
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.030927835
+        functionName: PlayHeavyHit
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -590,7 +622,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.879111
+        functionName: PlayHeavyHit
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -619,7 +659,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.88144326
+        functionName: PlayKnockdown
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -648,7 +696,55 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.010309278
+        functionName: PlayHeavyHit
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.2371134
+        functionName: PlayHeavyHit
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.34513268
+        functionName: PlayHeavyHit
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.42478454
+        functionName: PlayHeavyHit
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.74484533
+        functionName: PlayHeavyHit
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8505155
+        functionName: PlayKnockdown
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -735,7 +831,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: PlaySuperSlam
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
