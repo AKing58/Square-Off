@@ -61,6 +61,7 @@ public class PlayerHandler : MonoBehaviour
     private bool abilityBInput;
     private bool abilityCInput;
     private bool abilityDInput;
+    private bool abilityStartInput;
 
     [SerializeField]
     protected bool superAvailable = false;
@@ -242,6 +243,10 @@ public class PlayerHandler : MonoBehaviour
         if (obj.action.name == controls.Gameplay.D.name)
         {
             OnD(obj);
+        }
+        if (obj.action.name == controls.Gameplay.Start.name)
+        {
+            GameObject.Find("GameManager").GetComponent<GameManager>().PauseMenu();
         }
     }
 
@@ -948,6 +953,7 @@ public class PlayerHandler : MonoBehaviour
     public void ActivateInputB() { abilityBInput = true; }
     public void ActivateInputC() { abilityCInput = true; }
     public void ActivateInputD() { abilityDInput = true; }
+    public void ActivateInputStart() { abilityStartInput = true; }
 
     public void setTargetVec(Vector3 target)
     {
@@ -963,5 +969,7 @@ public class PlayerHandler : MonoBehaviour
     public void OnC(InputAction.CallbackContext ctx) => abilityCInput = ctx.ReadValueAsButton();
 
     public void OnD(InputAction.CallbackContext ctx) => abilityDInput = ctx.ReadValueAsButton();
+
+    public void OnStart(InputAction.CallbackContext ctx) => abilityStartInput = ctx.ReadValueAsButton();
 
 }
