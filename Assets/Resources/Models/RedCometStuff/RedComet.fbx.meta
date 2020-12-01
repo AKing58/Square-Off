@@ -552,7 +552,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.814433
+      - time: 0.030927835
         functionName: PlayHeavyHit
         data: 
         objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
@@ -560,7 +560,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.030927835
+      - time: 0.6603346
         functionName: PlayHeavyHit
         data: 
         objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
