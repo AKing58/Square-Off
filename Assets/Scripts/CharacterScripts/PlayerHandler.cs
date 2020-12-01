@@ -762,7 +762,7 @@ public class PlayerHandler : MonoBehaviour
     {
         RotTowards(pusher.transform.position);
         Rigidbody rg = GetComponent<Rigidbody>();
-        rg.AddForce(transform.forward * -knockback, ForceMode.Impulse);
+        rg.AddForce(pusher.transform.forward * knockback, ForceMode.Impulse);
     }
 
     public void StopHitboxes()
