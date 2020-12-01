@@ -15,18 +15,19 @@ public class CameraScript : MonoBehaviour
     private Vector3 velocity;
 
     // Start is called before the first frame update
-    void Start()
+    public void InitCam()
     {
-        offset = new Vector3(0, 5f, -7.5f);
+        offset = new Vector3(0, 5f, -5f);
         thisCam = GetComponent<Camera>();
         foreach(GameObject go in gm.Players)
         {
-            targets.Add(go.transform.Find("Head"));
+            targets.Add(go.transform);
         }
     }
 
     void LateUpdate()
     {
+        Debug.Log("count" + gm.Players.Count);
         if (targets.Count == 0)
             return;
         move();
@@ -49,7 +50,7 @@ public class CameraScript : MonoBehaviour
         var bounds = new Bounds(targets[0].position, Vector3.zero);
         for(int i = 0; i < targets.Count; i++)
         {
-            if(targets[i].parent.gameObject.GetComponent<PlayerHandler>().Health >= 0)
+            if(targets[i].GetComponent<PlayerHandler>().Health >= 0)
                 bounds.Encapsulate(targets[i].position);
         }
         return bounds.center;

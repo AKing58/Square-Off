@@ -95,6 +95,7 @@ public class GameManager : MonoBehaviour
             Players[Players.Count - 1].GetComponent<PlayerHandler>().RotTowards(Vector3.zero);
         }
         RemoveExtraPlayerPanels();
+        MainCam.gameObject.GetComponent<CameraScript>().InitCam();
 
         switch(Random.Range(0,2))
         {
