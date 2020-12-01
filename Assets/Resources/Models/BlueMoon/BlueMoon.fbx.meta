@@ -412,7 +412,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.8280547
+        functionName: PlayBMSuperEnd
+        data: 
+        objectReferenceParameter: {fileID: 5532773804299280165, guid: b18aef4b13b5c5545b36fbde5a3c5c41,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -574,14 +582,6 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.0077319583
-        functionName: PlayHeavyHit
-        data: 
-        objectReferenceParameter: {fileID: 5532773804299280165, guid: b18aef4b13b5c5545b36fbde5a3c5c41,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       - time: 0.23195876
         functionName: PlayHeavyHit
         data: 
@@ -608,6 +608,22 @@ ModelImporter:
         messageOptions: 0
       - time: 0.73688525
         functionName: PlayHeavyHit
+        data: 
+        objectReferenceParameter: {fileID: 5532773804299280165, guid: b18aef4b13b5c5545b36fbde5a3c5c41,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8453608
+        functionName: PlayHeavyHit
+        data: 
+        objectReferenceParameter: {fileID: 5532773804299280165, guid: b18aef4b13b5c5545b36fbde5a3c5c41,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8582474
+        functionName: PlaySuperSlam
         data: 
         objectReferenceParameter: {fileID: 5532773804299280165, guid: b18aef4b13b5c5545b36fbde5a3c5c41,
           type: 3}
@@ -671,7 +687,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: PlayBMSuperActivate
+        data: 
+        objectReferenceParameter: {fileID: 5532773804299280165, guid: b18aef4b13b5c5545b36fbde5a3c5c41,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

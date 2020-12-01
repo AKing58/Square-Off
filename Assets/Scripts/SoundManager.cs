@@ -22,7 +22,16 @@ public static class SoundManager
         HeavyHit,
         HeavyHit2,
         HeavyHit3,
-        Dizzy
+        Dizzy,
+        SuperZoop,
+        Brakes,
+        Crash,
+        Vroom,
+        Vroom2,
+        BMSuperActivate,
+        BMSuperEnd,
+        RCSuperActivate,
+        RCSuperEnd
     }
 
     private static GameObject oneShotGameObject;
@@ -91,6 +100,12 @@ public static class SoundManager
         oneShotAudioSources[playerIndex].volume = volume;
         oneShotGameObjects[playerIndex].transform.position = position;
         oneShotAudioSources[playerIndex].PlayOneShot(GetAudioClip(sound));
+    }
+
+    public static void StopSFX(int playerIndex) {
+        if (oneShotGameObjects[playerIndex] != null && oneShotAudioSources[playerIndex] !=null) {
+            oneShotAudioSources[playerIndex].Stop();
+        }
     }
 
     private static AudioClip GetAudioClip(SFX sound)
