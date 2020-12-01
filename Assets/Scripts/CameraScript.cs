@@ -27,7 +27,6 @@ public class CameraScript : MonoBehaviour
 
     void LateUpdate()
     {
-        Debug.Log("count" + gm.Players.Count);
         if (targets.Count == 0)
             return;
         move();
