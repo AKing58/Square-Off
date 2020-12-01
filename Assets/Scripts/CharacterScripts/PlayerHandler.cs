@@ -399,9 +399,51 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+    public void PlaySuperSlam() {
+        Debug.Log("Played Super Slam Sound");
+        SoundManager.PlayOneShot(SoundManager.SFX.SuperSlam, 0.90f);
+    }
+
+    public void PlayHit() {
+        Debug.Log("Played Hit sound!");
+        switch (UnityEngine.Random.Range(0, 3)) {
+            case 0:
+                SoundManager.PlayOneShot(SoundManager.SFX.Hit);
+                break;
+            case 1:
+                SoundManager.PlayOneShot(SoundManager.SFX.Hit2);
+                break;
+            case 2:
+                SoundManager.PlayOneShot(SoundManager.SFX.Hit3);
+                break;
+            default:
+            Debug.LogError("not 0, 1 or 2");
+                break;
+        }
+    }
+
+    public void PlayHeavyHit() {
+        Debug.Log("Played Heavy Hit sound!");
+        switch (UnityEngine.Random.Range(0, 3)) {
+            case 0:
+                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit);
+                break;
+            case 1:
+                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit2);
+                break;
+            case 2:
+                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit3);
+                break;
+            default:
+                Debug.LogError("not 0, 1 or 2");
+                break;
+        }
+    }
+
+   
+
     private Color GetRandomLightColor()
     {
-
         return new Color(UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f));
     }
 
