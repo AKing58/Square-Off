@@ -111,7 +111,7 @@ public static class SoundManager
         }
     }
 
-    private static AudioClip GetAudioClip(SFX sound)
+    public static AudioClip GetAudioClip(SFX sound)
     {
         foreach (GameAssets.SFXAudioClip soundAudioClip in GameAssets.i.sfxAudioClips)
         {
