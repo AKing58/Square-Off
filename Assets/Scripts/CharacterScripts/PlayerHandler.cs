@@ -807,6 +807,13 @@ public class PlayerHandler : MonoBehaviour
         return true;
     }
 
+    protected IEnumerator PauseTime(float time)
+    {
+        Time.timeScale = 0.01f;
+        yield return new WaitForSeconds(time);
+        Time.timeScale = 1f;
+    }
+
     public bool AttackOther(PlayerHandler target, string moveName)
     {
         if (MoveList[moveName].Type == "Grab" && target.CanBeGrabbed())
