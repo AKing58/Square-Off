@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     public Camera MainCam;
     public bool roundEnd = false;
+    private bool winnerFound = false;
    
 
     void Awake()
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        winnerFound = false;
         roundEnd = false;
         MainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
         Players = new List<GameObject>();
@@ -78,6 +81,7 @@ public class GameManager : MonoBehaviour
         }
         if(playerConfigs.Length == 1)
         {
+            GameAssets.Initialize();
             GameObject AIChar = Instantiate(Characters["RedComet"], playerSpawns[1].position, playerSpawns[1].rotation, gameObject.transform);
             AIChar.AddComponent<RedCometAI>();
             AIChar.GetComponent<RedCometAI>().InitializeAI(this);
@@ -128,7 +132,13 @@ public class GameManager : MonoBehaviour
                 }
                 if (deadPlayers >= Players.Count - 1)
                 {
-
+                    if (PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray().Length == 1) {
+                        PlayerHandler ph = Players[0].GetComponent<PlayerHandler>();
+                        if (ph.Health > 0) {
+                            GameAssets.UpdateScore(true, ph.CharacterName);
+                            
+                        }
+                    }
                     roundEnd = true;
                     SoundManager.PlayOneShotUI(SoundManager.SFX.RoundEnd, 0.20f);
                     StartCoroutine(EndMatch());
@@ -140,8 +150,31 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EndMatch() {
         yield return new WaitForSeconds(2.0f);
+
         PlayerInfoPanels.SetActive(false);
         VictoryScreen.SetActive(true);
+        if (PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray().Length == 1)
+        {
+            PlayerHandler ph = Players[0].GetComponent<PlayerHandler>();
+            string winText = ph.CharacterName + " Wins: ";
+            winText += GameAssets.GetScore(ph.CharacterName);
+            Debug.Log("Win Text is: " + winText);
+            VictoryScreen.transform.Find("Panel/Wins").GetComponent<Text>().text = winText;
+            //Debug.Log("Score for this char is: " + GameAssets.GetScore(ph.CharacterName));
+            //Debug.Log("Text is" + VictoryScreen.transform.Find("Panel/Wins").GetComponent<Text>().text);
+        }
+        else {
+            foreach (GameObject player in Players) {
+                if (player.GetComponent<PlayerHandler>().Health > 0) {
+                    VictoryScreen.transform.Find("Panel/Wins").GetComponent<Text>().text = player.GetComponent<PlayerHandler>().PlayerName + " Wins!";
+                    winnerFound = true;
+                }
+            }
+            if (!winnerFound) {
+                VictoryScreen.transform.Find("Panel/Wins").GetComponent<Text>().text = "Squared Off!";
+            }
+            //VictoryScreen.transform.Find("Panel/Wins").GetComponent<Text>().text = winText;
+        }
     }
 
     private void RemoveExtraPlayerPanels() {
@@ -318,7 +351,12 @@ public class GameManager : MonoBehaviour
     public void ResumeScene()
     {
         Time.timeScale = 1.0f;
+        if (PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray().Length == 1)
+        {
+            VictoryScreen.transform.Find("Panel/Wins").gameObject.SetActive(false);
+        }
         VictoryScreen.transform.GetChild(0).GetChild(4).gameObject.SetActive(false);
+       
         VictoryScreen.SetActive(false);
     }
 
@@ -328,6 +366,14 @@ public class GameManager : MonoBehaviour
     public void PauseMenu()
     {
         Time.timeScale = 0f;
+        if (PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray().Length == 1)
+        {
+            VictoryScreen.transform.Find("Panel/Wins").gameObject.SetActive(true);
+        }
+        else {
+            VictoryScreen.transform.Find("Panel/Wins").gameObject.SetActive(false);
+        }
+       
         VictoryScreen.SetActive(true);
         VictoryScreen.transform.GetChild(0).GetChild(4).gameObject.SetActive(true);
     }
