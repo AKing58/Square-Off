@@ -40,7 +40,7 @@ public class Obstacles : MonoBehaviour
         endPosition3 = GameObject.Find("EndLoc3").transform.position;
         endPosition4 = GameObject.Find("EndLoc4").transform.position;
 
-        button.GetComponent<Renderer>().material.color = Color.red;
+        button.GetComponent<Renderer>().material.color = Color.green;
     }
 
     void Update()
@@ -52,7 +52,7 @@ public class Obstacles : MonoBehaviour
             eastObs.transform.position = Vector3.MoveTowards(eastObs.transform.position, endPosition2, moveSpeed * Time.deltaTime);
             southObs.transform.position = Vector3.MoveTowards(southObs.transform.position, endPosition3, moveSpeed * Time.deltaTime);
             northObs.transform.position = Vector3.MoveTowards(northObs.transform.position, endPosition4, moveSpeed * Time.deltaTime);
-            button.GetComponent<Renderer>().material.color = Color.green;
+            
         }
 
         if (active && !buttonOn)
@@ -61,7 +61,7 @@ public class Obstacles : MonoBehaviour
             eastObs.transform.position = Vector3.MoveTowards(eastObs.transform.position, startPosition2, moveSpeed * Time.deltaTime);
             southObs.transform.position = Vector3.MoveTowards(southObs.transform.position, startPosition3, moveSpeed * Time.deltaTime);
             northObs.transform.position = Vector3.MoveTowards(northObs.transform.position, startPosition4, moveSpeed * Time.deltaTime);
-            button.GetComponent<Renderer>().material.color = Color.red;
+           
         }
 
     }
@@ -73,6 +73,7 @@ public class Obstacles : MonoBehaviour
             if (active) return;
             active = true;
             buttonOn = !buttonOn;
+            button.GetComponent<Renderer>().material.color = Color.red;
 
             StartCoroutine(Reset());
         }
@@ -82,5 +83,6 @@ public class Obstacles : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         active = false;
+        button.GetComponent<Renderer>().material.color = Color.green;
     }
 }
