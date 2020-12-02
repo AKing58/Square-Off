@@ -89,6 +89,8 @@ public class RedComet : PlayerHandler
         {
             if (superAvailable)
             {
+                StartCoroutine(PauseTime(0.005f));
+                transform.Find("ParticleSystem").GetComponent<ParticleSystem>().Play();
                 anim.SetTrigger("SuperStartParam");
                 ResetSuper();
             }
