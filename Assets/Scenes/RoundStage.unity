@@ -247,7 +247,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 30
+  m_Intensity: 40
   m_Range: 100
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3528,7 +3528,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0.9658306, b: 0.8726415, a: 1}
-  m_Intensity: 25
+  m_Intensity: 5
   m_Range: 100
   m_SpotAngle: 110.34239
   m_InnerSpotAngle: 83.32249
@@ -3724,6 +3724,7 @@ MonoBehaviour:
   - {fileID: 1680579826}
   - {fileID: 1415232118}
   MainCam: {fileID: 0}
+  roundEnd: 0
 --- !u!4 &1603817174
 Transform:
   m_ObjectHideFlags: 0

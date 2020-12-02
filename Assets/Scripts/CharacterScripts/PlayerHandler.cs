@@ -556,7 +556,7 @@ public class PlayerHandler : MonoBehaviour
 
     public IEnumerator KillDelay()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         GM.Players.Remove(gameObject);
         GM.MainCam.gameObject.GetComponent<CameraScript>().targets.Remove(transform);
         GetComponent<CapsuleCollider>().isTrigger = true;
