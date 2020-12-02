@@ -31,7 +31,9 @@ public static class SoundManager
         BMSuperActivate,
         BMSuperEnd,
         RCSuperActivate,
-        RCSuperEnd
+        RCSuperEnd,
+        Flamethrower,
+        RoundEnd
     }
 
     private static GameObject oneShotGameObject;
@@ -58,31 +60,32 @@ public static class SoundManager
                 Object.DontDestroyOnLoad(MenuBGM.gameObject);
                
             }
-            AudioSource audiosrc = MenuBGM.gameObject.GetComponent<AudioSource>();
-            audiosrc.clip = GetAudioClip(sound);
-            audiosrc.Play();
+            AudioSource audioSrc = MenuBGM.gameObject.GetComponent<AudioSource>();
+            audioSrc.clip = GetAudioClip(sound);
+            audioSrc.Play();
             fightMode = fightOn;
         }              
     }
 
-    public static void DestroyMusic() {
-        Object.Destroy(MenuBGM);
+    public static void StopMusic() {
+        AudioSource audiosrc = MenuBGM.gameObject.GetComponent<AudioSource>();
+        audiosrc.Stop();      
     }
 
-    public static void PlayOneShotUI(SFX sound, float volume = 0.05f)
+    public static void PlayOneShotUI(SFX sound, float volume = 0.10f)
     {
         if (oneShotGameObject == null)
         {
             oneShotGameObject = new GameObject("Sound");
             oneShotAudioSource = oneShotGameObject.AddComponent<AudioSource>();
             oneShotAudioSource.volume = volume;
-            oneShotAudioSource.spatialBlend = 0.8f;
+            oneShotAudioSource.spatialBlend = 0f;
         }
 
         oneShotAudioSource.PlayOneShot(GetAudioClip(sound));
     }
 
-    public static void PlayOneShot(SFX sound, int playerIndex, Vector3 position, float volume = 0.05f) {
+    public static void PlayOneShot(SFX sound, int playerIndex, Vector3 position, float volume = 0.10f) {
         if (oneShotAudioSources == null) {
             oneShotAudioSources = new AudioSource[4];
         }
