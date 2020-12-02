@@ -562,7 +562,7 @@ public class PlayerHandler : MonoBehaviour
         for (int i = 0; i < bodyPieces.Length; i++)
         {
             bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.shader = superShader;
-            bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.SetColor("Color_2DDD77A3", teamColor);
+            //bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.SetColor("Color_2DDD77A3", teamColor);
         }
             
     }
