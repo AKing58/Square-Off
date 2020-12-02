@@ -77,7 +77,7 @@ public class PlayerHandler : MonoBehaviour
     private float lastTimePlayedSuperSound = 0;
 
     Color teamColor;
-
+    Shader BaseShader;
 
     protected bool AbilityAInput
     {
@@ -291,6 +291,8 @@ public class PlayerHandler : MonoBehaviour
             bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material = myMaterial;
         }
 
+        BaseShader = myMaterial.shader;
+        teamColor = myMaterial.GetColor("Color_2DDD77A3");
         CurrentMove = null;
     }
     public void InitPlayer(PlayerConfiguration pc)
@@ -329,8 +331,8 @@ public class PlayerHandler : MonoBehaviour
              myMaterial = Resources.Load<Material>("Materials/Yellow");
              transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0, 0.6f);
         }
-
-        teamColor = myMaterial.color;
+        BaseShader = myMaterial.shader;
+        teamColor = myMaterial.GetColor("Color_2DDD77A3");
 
         for (int i = 0; i < bodyPieces.Length; i++)
         {
@@ -560,16 +562,19 @@ public class PlayerHandler : MonoBehaviour
         for (int i = 0; i < bodyPieces.Length; i++)
         {
             bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.shader = superShader;
-            bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.color = teamColor;
+            //bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.SetColor("Color_2DDD77A3", teamColor);
         }
             
     }
 
     void applyDefaultShader()
     {
-        Shader defaultShader = Shader.Find("Universal Render Pipeline/Lit");
         for (int i = 0; i < bodyPieces.Length; i++)
-            bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.shader = defaultShader;
+        {
+            bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.shader = BaseShader;
+            bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.SetColor("Color_2DDD77A3", teamColor);
+        }
+            
     }
 
     public void printstuff()

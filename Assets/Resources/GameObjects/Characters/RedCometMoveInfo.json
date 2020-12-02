@@ -39,8 +39,8 @@
             "Type": "SuperGrab",
             "Damage": 100,
             "ActiveFrames": [ 6, 8 ],
-            "GrabInvulnFrames": [ 0, 6 ],
-            "StrikeInvulnFrames": [ 0, 6 ],
+            "GrabInvulnFrames": [ 0, 10 ],
+            "StrikeInvulnFrames": [ 0, 10 ],
             "HitboxName": "SuperHitbox",
             "GrabDelayFrames": 102,
             "TotalFrames": 46
@@ -63,8 +63,8 @@
         {
             "Name": "StanceDive",
             "Type": "Grab",
-            "ActiveFrames": [ 3, 13 ],
-            "GrabInvulnFrames": [ 0, 13 ],
+            "ActiveFrames": [ 6, 11 ],
+            "GrabInvulnFrames": [ 0, 11 ],
             "HitboxName": "GrabHitbox",
             "MovementFrames": [0, 13],
             "MovementAmount": 2,

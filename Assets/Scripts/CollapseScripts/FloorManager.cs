@@ -26,14 +26,14 @@ public class FloorManager : MonoBehaviour
     IEnumerator TileDrop()
     {
         tileDropTimer = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         DropTile();
         tileDropTimer = false;
     }
 
     void DropTile()
     {
-        int count = 3;
+        int count = 4;
         while(count-- > 0)
         {
             int randTile = Random.Range(0, Tiles.Count);

@@ -153,7 +153,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 1}
-  m_Intensity: 15
+  m_Intensity: 5
   m_Range: 100
   m_SpotAngle: 90
   m_InnerSpotAngle: 0
@@ -210,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558705}
   m_LocalRotation: {x: 0.46193978, y: 0.33141357, z: -0.19134171, w: 0.8001032}
-  m_LocalPosition: {x: -4, y: 5, z: -4}
+  m_LocalPosition: {x: -5, y: 5, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1705250449}
@@ -8336,7 +8336,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20
+  m_Intensity: 40
   m_Range: 1000
   m_SpotAngle: 71.94052
   m_InnerSpotAngle: 21.80208
@@ -9428,7 +9428,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1466402402}
   m_LocalRotation: {x: -0.19134164, y: 0.80010325, z: -0.46193984, w: -0.33141345}
-  m_LocalPosition: {x: 4, y: 5, z: 4}
+  m_LocalPosition: {x: 5, y: 5, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1705250449}
@@ -9459,7 +9459,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 1}
-  m_Intensity: 15
+  m_Intensity: 5
   m_Range: 100
   m_SpotAngle: 90
   m_InnerSpotAngle: 0
@@ -12112,7 +12112,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1738464344}
   m_LocalRotation: {x: 0.19134171, y: 0.8001032, z: -0.46193978, w: 0.33141357}
-  m_LocalPosition: {x: -4, y: 5, z: 4}
+  m_LocalPosition: {x: -5, y: 5, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1705250449}
@@ -12143,7 +12143,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 1}
-  m_Intensity: 15
+  m_Intensity: 5
   m_Range: 100
   m_SpotAngle: 90
   m_InnerSpotAngle: 0
@@ -13512,7 +13512,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2056446385}
   m_LocalRotation: {x: -0.46193975, y: 0.33141372, z: -0.19134182, w: -0.80010307}
-  m_LocalPosition: {x: 4, y: 5, z: -4}
+  m_LocalPosition: {x: 5, y: 5, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1705250449}
@@ -13543,7 +13543,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 1}
-  m_Intensity: 15
+  m_Intensity: 5
   m_Range: 100
   m_SpotAngle: 90
   m_InnerSpotAngle: 0
