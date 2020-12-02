@@ -19,7 +19,7 @@ public class StageSelectManager : MonoBehaviour
         spriteList.Add("The Round", Resources.Load<Sprite>("GameObjects/UI/Images/TheRound"));
         spriteList.Add("The Flame", Resources.Load<Sprite>("GameObjects/UI/Images/TheFlame"));
         spriteList.Add("The Button", Resources.Load<Sprite>("GameObjects/UI/Images/TheButton"));
-        spriteList.Add("Squareagon", Resources.Load<Sprite>("GameObjects/UI/Images/Squareagon"));
+        spriteList.Add("Squareagone", Resources.Load<Sprite>("GameObjects/UI/Images/Squareagone"));
         
     } 
 
