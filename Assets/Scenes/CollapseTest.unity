@@ -10611,6 +10611,7 @@ MonoBehaviour:
   - {fileID: 1680579826}
   - {fileID: 1415232118}
   MainCam: {fileID: 662662624}
+  roundEnd: 0
 --- !u!4 &1603817174
 Transform:
   m_ObjectHideFlags: 0
@@ -14021,7 +14022,7 @@ PrefabInstance:
     - target: {fileID: 4351501755421937889, guid: 7ad389eba21986746b0237abbe1d671a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4351501755703642338, guid: 7ad389eba21986746b0237abbe1d671a,
         type: 3}
