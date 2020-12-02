@@ -770,7 +770,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Squareagon
+  m_text: Squareagone
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 58e9d7a9df0868d4093ba05b719042bc, type: 2}
   m_sharedMaterial: {fileID: 3785323022718363855, guid: 58e9d7a9df0868d4093ba05b719042bc,
