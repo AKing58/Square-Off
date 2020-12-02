@@ -424,7 +424,8 @@ public class PlayerHandler : MonoBehaviour
 
     public void PlaySuperSlam() {
         //Debug.Log("Played Super Slam Sound");
-        SoundManager.PlayOneShot(SoundManager.SFX.SuperSlam, playerConfig.PlayerIndex, transform.position, 0.50f);
+        GetAudioSource(0.5f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.SuperSlam));
+        //SoundManager.PlayOneShot(SoundManager.SFX.SuperSlam, playerConfig.PlayerIndex, transform.position, 0.50f);
     }
 
     public void PlayHit() {
@@ -433,16 +434,16 @@ public class PlayerHandler : MonoBehaviour
         while (soundIndex == lastHit) {
             soundIndex = UnityEngine.Random.Range(0, 3);
         }
-        
+        AudioSource audioSrc = GetAudioSource(0.10f);
         switch (soundIndex) {
             case 0:
-                SoundManager.PlayOneShot(SoundManager.SFX.Hit, playerConfig.PlayerIndex, transform.position);             
+                audioSrc.PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.Hit));        
                 break;
             case 1:
-                SoundManager.PlayOneShot(SoundManager.SFX.Hit2, playerConfig.PlayerIndex, transform.position);
+                audioSrc.PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.Hit2));
                 break;
             case 2:
-                SoundManager.PlayOneShot(SoundManager.SFX.Hit3, playerConfig.PlayerIndex, transform.position);
+                audioSrc.PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.Hit3));
                 break;
             default:
             Debug.LogError("not 0, 1 or 2");
@@ -459,15 +460,16 @@ public class PlayerHandler : MonoBehaviour
         {
             soundIndex = UnityEngine.Random.Range(0, 3);
         }
+        AudioSource audioSrc = GetAudioSource(0.10f);
         switch (soundIndex) {
             case 0:
-                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit, playerConfig.PlayerIndex, transform.position);
+                audioSrc.PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.HeavyHit));
                 break;
             case 1:
-                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit2, playerConfig.PlayerIndex, transform.position);
+                audioSrc.PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.HeavyHit2));
                 break;
             case 2:
-                SoundManager.PlayOneShot(SoundManager.SFX.HeavyHit3, playerConfig.PlayerIndex, transform.position);
+                audioSrc.PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.HeavyHit3));
                 break;
             default:
                 Debug.LogError("not 0, 1 or 2");
@@ -477,31 +479,41 @@ public class PlayerHandler : MonoBehaviour
     }
 
     public void PlayDizzy() {
-        SoundManager.PlayOneShot(SoundManager.SFX.Dizzy, playerConfig.PlayerIndex, transform.position, 0.20f);
+        //SoundManager.PlayOneShot(SoundManager.SFX.Dizzy, playerConfig.PlayerIndex, transform.position, 0.20f);
+        GetAudioSource(0.2f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.Dizzy));
     }
 
     public void PlaySuperZoop() {
-        SoundManager.PlayOneShot(SoundManager.SFX.SuperZoop, playerConfig.PlayerIndex, transform.position, 0.20f);
+        //SoundManager.PlayOneShot(SoundManager.SFX.SuperZoop, playerConfig.PlayerIndex, transform.position, 0.20f);
+        GetAudioSource(0.2f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.SuperZoop));
     }
 
     public void PlayCrash() {
-        SoundManager.PlayOneShot(SoundManager.SFX.Crash, playerConfig.PlayerIndex, transform.position, 0.20f);
+        //SoundManager.PlayOneShot(SoundManager.SFX.Crash, playerConfig.PlayerIndex, transform.position, 0.20f);
+        GetAudioSource(0.2f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.Crash));
     }
 
     public void PlayBrakes() {
-        SoundManager.StopSFX(playerConfig.PlayerIndex);
-        SoundManager.PlayOneShot(SoundManager.SFX.Brakes, playerConfig.PlayerIndex, transform.position, 0.10f);
+        //SoundManager.StopSFX(playerConfig.PlayerIndex);
+        //SoundManager.PlayOneShot(SoundManager.SFX.Brakes, playerConfig.PlayerIndex, transform.position, 0.10f);
+        AudioSource audioSrc = GetAudioSource(0.1f);
+        audioSrc.Stop();
+        audioSrc.PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.Brakes));
+
     }
 
     public void PlayVroom() {
         int soundIndex = UnityEngine.Random.Range(0, 2);
+        AudioSource audioSrc = GetAudioSource(0.10f);
         switch (soundIndex)
         {
             case 0:
-                SoundManager.PlayOneShot(SoundManager.SFX.Vroom, playerConfig.PlayerIndex, transform.position);
+                //SoundManager.PlayOneShot(SoundManager.SFX.Vroom, playerConfig.PlayerIndex, transform.position);
+                audioSrc.PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.Vroom));
                 break;
             case 1:
-                SoundManager.PlayOneShot(SoundManager.SFX.Vroom2, playerConfig.PlayerIndex, transform.position);
+                //SoundManager.PlayOneShot(SoundManager.SFX.Vroom2, playerConfig.PlayerIndex, transform.position);
+                audioSrc.PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.Vroom2));
                 break;
             default:
                 Debug.LogError("not 0, 1 or 2");
@@ -512,23 +524,34 @@ public class PlayerHandler : MonoBehaviour
 
     public void PlayBMSuperActivate() {
         Debug.Log("BM Super Activate");
-        SoundManager.PlayOneShot(SoundManager.SFX.BMSuperActivate, playerConfig.PlayerIndex, transform.position, 0.50f);
+        //SoundManager.PlayOneShot(SoundManager.SFX.BMSuperActivate, playerConfig.PlayerIndex, transform.position, 0.50f);
+        GetAudioSource(0.5f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.BMSuperActivate));
     }
 
     public void PlayBMSuperEnd() {
-        SoundManager.PlayOneShot(SoundManager.SFX.BMSuperEnd, playerConfig.PlayerIndex, transform.position, 0.50f);
+        //SoundManager.PlayOneShot(SoundManager.SFX.BMSuperEnd, playerConfig.PlayerIndex, transform.position, 0.50f);
+        GetAudioSource(0.5f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.BMSuperEnd));
     }
 
     public void PlayRCSuperActivate() {
-        SoundManager.PlayOneShot(SoundManager.SFX.RCSuperActivate, playerConfig.PlayerIndex, transform.position, 0.50f);
+        //SoundManager.PlayOneShot(SoundManager.SFX.RCSuperActivate, playerConfig.PlayerIndex, transform.position, 0.50f);
+        GetAudioSource(0.5f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.RCSuperActivate));
     }
 
     public void PlayRCSuperEnd() {
-        SoundManager.PlayOneShot(SoundManager.SFX.RCSuperEnd, playerConfig.PlayerIndex, transform.position, 0.50f);
+        //SoundManager.PlayOneShot(SoundManager.SFX.RCSuperEnd, playerConfig.PlayerIndex, transform.position, 0.50f);
+        GetAudioSource(0.5f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.RCSuperEnd));
     }
     private Color GetRandomLightColor()
     {
         return new Color(UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f));
+    }
+
+    private AudioSource GetAudioSource(float volume, float spatialBlend=0.8f) {
+        AudioSource audioSrc = gameObject.GetComponent<AudioSource>();
+        audioSrc.spatialBlend = 0.8f;
+        audioSrc.volume = volume;
+        return audioSrc;
     }
 
     void applySuperShader()
