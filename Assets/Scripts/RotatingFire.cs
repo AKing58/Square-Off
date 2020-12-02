@@ -12,15 +12,23 @@ public class RotatingFire : MonoBehaviour
 
     public float rotSpeed = 20f;
 
+    private float fireSoundCooldown = 6.0f;
+    private float lastTimePlayedFire = 1;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        lastTimePlayedFire = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Time.time - lastTimePlayedFire > fireSoundCooldown) {
+            Debug.Log("Playing fire sound");
+            SoundManager.PlayOneShotUI(SoundManager.SFX.Flamethrower, 0.30f);
+            lastTimePlayedFire = Time.time;
+        }
         fire1.transform.RotateAround(pillar.transform.position, Vector3.up, rotSpeed * Time.deltaTime);
         fire2.transform.RotateAround(pillar.transform.position, Vector3.up, rotSpeed * Time.deltaTime);
         fire3.transform.RotateAround(pillar.transform.position, Vector3.up, rotSpeed * Time.deltaTime);

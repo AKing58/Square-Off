@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     private Transform[] playerSpawns = null;
 
     public Camera MainCam;
+    public bool roundEnd = false;
    
 
     void Awake()
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        roundEnd = false;
         MainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
         Players = new List<GameObject>();
 
@@ -112,21 +114,28 @@ public class GameManager : MonoBehaviour
     }
 
     void Update() {
-        if (Players.Count > 1) {
-            int deadPlayers = 0;
-
-            foreach (GameObject player in Players)
+        if (!roundEnd) {
+            if (Players.Count > 1)
             {
-                if (player.GetComponent<PlayerHandler>().Health <= 0)
+                int deadPlayers = 0;
+
+                foreach (GameObject player in Players)
                 {
-                    deadPlayers++;
+                    if (player.GetComponent<PlayerHandler>().Health <= 0)
+                    {
+                        deadPlayers++;
+                    }
+                }
+                if (deadPlayers >= Players.Count - 1)
+                {
+
+                    roundEnd = true;
+                    SoundManager.PlayOneShotUI(SoundManager.SFX.RoundEnd, 0.20f);
+                    StartCoroutine(EndMatch());
                 }
             }
-            if (deadPlayers == Players.Count - 1)
-            {
-                StartCoroutine(EndMatch());       
-            }
-        }      
+        }
+          
     }
 
     private IEnumerator EndMatch() {

@@ -522,7 +522,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: PlayRCSuperActivate
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -560,8 +568,24 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6603346
-        functionName: PlayHeavyHit
+      - time: 0.5002619
+        functionName: PlayRCSuperEnd
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6741001
+        functionName: PlaySuperSlam
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6856008
+        functionName: PlaySuperSlam
         data: 
         objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
           type: 3}
@@ -741,7 +765,15 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 0.8505155
-        functionName: PlayKnockdown
+        functionName: PlayHeavyHit
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.86831164
+        functionName: PlaySuperSlam
         data: 
         objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
           type: 3}
@@ -836,7 +868,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: PlaySuperSlam
+        functionName: PlayVroom
         data: 
         objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
           type: 3}
@@ -871,7 +903,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: PlayBrakes
+        data: 
+        objectReferenceParameter: {fileID: 6036014263987503654, guid: 134aab634e5a91543a915ae51ea41ff5,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

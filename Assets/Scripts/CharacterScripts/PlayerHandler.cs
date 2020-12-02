@@ -73,6 +73,8 @@ public class PlayerHandler : MonoBehaviour
 
     private int lastHit;
     private int lastHeavyHit;
+    private float superSoundCooldown = 5.0f;
+    private float lastTimePlayedSuperSound = 0;
 
     Color teamColor;
 
@@ -378,6 +380,12 @@ public class PlayerHandler : MonoBehaviour
         HandleStun();
 
         if (superAvailable) {
+            if (Time.time - lastTimePlayedSuperSound >= superSoundCooldown && Health > 0)
+            {
+
+                PlaySuperZoop();
+                lastTimePlayedSuperSound = Time.time;
+            }
             DetermineSuperBarColor();         
         }
 
@@ -415,12 +423,12 @@ public class PlayerHandler : MonoBehaviour
     }
 
     public void PlaySuperSlam() {
-        Debug.Log("Played Super Slam Sound");
+        //Debug.Log("Played Super Slam Sound");
         SoundManager.PlayOneShot(SoundManager.SFX.SuperSlam, playerConfig.PlayerIndex, transform.position, 0.50f);
     }
 
     public void PlayHit() {
-        Debug.Log("Played Hit sound!");
+        //Debug.Log("Played Hit sound!");
         int soundIndex = UnityEngine.Random.Range(0, 3);
         while (soundIndex == lastHit) {
             soundIndex = UnityEngine.Random.Range(0, 3);
@@ -444,7 +452,7 @@ public class PlayerHandler : MonoBehaviour
     }
 
     public void PlayHeavyHit() {
-        Debug.Log("Played Heavy Hit sound!");
+        //Debug.Log("Played Heavy Hit sound!");
 
         int soundIndex = UnityEngine.Random.Range(0, 3);
         while (soundIndex == lastHeavyHit)
@@ -472,8 +480,52 @@ public class PlayerHandler : MonoBehaviour
         SoundManager.PlayOneShot(SoundManager.SFX.Dizzy, playerConfig.PlayerIndex, transform.position, 0.20f);
     }
 
-   
+    public void PlaySuperZoop() {
+        SoundManager.PlayOneShot(SoundManager.SFX.SuperZoop, playerConfig.PlayerIndex, transform.position, 0.20f);
+    }
 
+    public void PlayCrash() {
+        SoundManager.PlayOneShot(SoundManager.SFX.Crash, playerConfig.PlayerIndex, transform.position, 0.20f);
+    }
+
+    public void PlayBrakes() {
+        SoundManager.StopSFX(playerConfig.PlayerIndex);
+        SoundManager.PlayOneShot(SoundManager.SFX.Brakes, playerConfig.PlayerIndex, transform.position, 0.10f);
+    }
+
+    public void PlayVroom() {
+        int soundIndex = UnityEngine.Random.Range(0, 2);
+        switch (soundIndex)
+        {
+            case 0:
+                SoundManager.PlayOneShot(SoundManager.SFX.Vroom, playerConfig.PlayerIndex, transform.position);
+                break;
+            case 1:
+                SoundManager.PlayOneShot(SoundManager.SFX.Vroom2, playerConfig.PlayerIndex, transform.position);
+                break;
+            default:
+                Debug.LogError("not 0, 1 or 2");
+                break;
+        }
+          
+    }
+
+    public void PlayBMSuperActivate() {
+        Debug.Log("BM Super Activate");
+        SoundManager.PlayOneShot(SoundManager.SFX.BMSuperActivate, playerConfig.PlayerIndex, transform.position, 0.50f);
+    }
+
+    public void PlayBMSuperEnd() {
+        SoundManager.PlayOneShot(SoundManager.SFX.BMSuperEnd, playerConfig.PlayerIndex, transform.position, 0.50f);
+    }
+
+    public void PlayRCSuperActivate() {
+        SoundManager.PlayOneShot(SoundManager.SFX.RCSuperActivate, playerConfig.PlayerIndex, transform.position, 0.50f);
+    }
+
+    public void PlayRCSuperEnd() {
+        SoundManager.PlayOneShot(SoundManager.SFX.RCSuperEnd, playerConfig.PlayerIndex, transform.position, 0.50f);
+    }
     private Color GetRandomLightColor()
     {
         return new Color(UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f));
@@ -783,6 +835,9 @@ public class PlayerHandler : MonoBehaviour
             {
                 target.gameObject.transform.position = gameObject.transform.position + transform.forward;
                 target.KnockbackMe(this, MoveList[moveName].Knockback);
+                Debug.Log("Play Crash Sound");
+                PlayCrash();
+                
             }
         }
         else
