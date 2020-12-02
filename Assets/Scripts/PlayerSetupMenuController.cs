@@ -23,6 +23,12 @@ public class PlayerSetupMenuController : MonoBehaviour
 
     private bool inputEnabled;
 
+    public GameObject charNameText;
+    public GameObject charTypeText;
+    public GameObject charStats;
+    public GameObject characterBox;
+
+
     public void SetPlayerIndex(int pi) 
     {
         PlayerIndex = pi;
@@ -38,11 +44,26 @@ public class PlayerSetupMenuController : MonoBehaviour
         }
     }
 
+    public void ChangeCharacterStats(string charName) {
+        charNameText.GetComponent<TMP_Text>().text = charName;
+        if (charName == "Comet")
+        {
+            charTypeText.GetComponent<TMP_Text>().text = "Type: Grabber";
+            charStats.GetComponent<Image>().sprite = Resources.Load<Sprite>("GameObjects/UI/Images/CometStats");
+        }
+        else {
+            charTypeText.GetComponent<TMP_Text>().text = "Type: Pusher";
+            charStats.GetComponent<Image>().sprite = Resources.Load<Sprite>("GameObjects/UI/Images/MoonStats");
+        }
+    }
+
     public void SetCharacter(string charName)
     {
         if (!inputEnabled) { return; }
 
         PlayerConfigurationManager.Instance.SetPlayerCharacter(PlayerIndex, charName);
+
+        characterBox.SetActive(false);
         readyPanel.SetActive(true);
         readyButton.Select();
         menuPanel.SetActive(false);
@@ -58,6 +79,7 @@ public class PlayerSetupMenuController : MonoBehaviour
     public void ReturnToCharacterSelect() {
         readyPanel.SetActive(false);
         menuPanel.SetActive(true);
+        characterBox.SetActive(true);
         defaultCharacter.Select();
     }
 }
