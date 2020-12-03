@@ -332,7 +332,7 @@ public class PlayerHandler : MonoBehaviour
              transform.Find("WorldSpaceUI/Canvas/DirIndicator").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0, 0.6f);
         }
         BaseShader = myMaterial.shader;
-        teamColor = myMaterial.GetColor("Color_2DDD77A3");
+        teamColor = myMaterial.color;
 
         for (int i = 0; i < bodyPieces.Length; i++)
         {
