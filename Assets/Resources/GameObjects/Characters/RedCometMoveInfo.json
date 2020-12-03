@@ -63,7 +63,7 @@
         {
             "Name": "StanceDive",
             "Type": "Grab",
-            "ActiveFrames": [ 6, 11 ],
+            "ActiveFrames": [ 3, 11 ],
             "GrabInvulnFrames": [ 0, 11 ],
             "HitboxName": "GrabHitbox",
             "MovementFrames": [0, 13],
