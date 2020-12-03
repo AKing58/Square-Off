@@ -592,7 +592,7 @@ public class PlayerHandler : MonoBehaviour
 
     public void HandleCurrentMove()
     {
-        CurrentMove.CurFrame += 1f * anim.GetCurrentAnimatorStateInfo(0).speed;
+        CurrentMove.CurFrame += 1f * anim.GetCurrentAnimatorStateInfo(0).speed * Time.timeScale;
 
         if(CurrentMove.CurFrame >= CurrentMove.MovementFrames[0] && CurrentMove.CurFrame <= CurrentMove.MovementFrames[1])
         {
