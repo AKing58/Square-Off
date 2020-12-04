@@ -15,8 +15,6 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public static PlayerConfigurationManager Instance { get; private set; }
 
-    //private int playerReadyCount = 0;
-
     private void Awake()
     {
         if (Instance != null && this != Instance)
@@ -47,15 +45,6 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public void ReadyPlayer(int index) {
         playerConfigs[index].IsReady = true;
-
-        //debugging for checking number of players
-        //playerReadyCount = 0;
-        //for (int i = 0; i < playerConfigs.Count; i++) {
-        //    if (playerConfigs[i].IsReady) {
-        //        playerReadyCount++;
-        //    }
-        //}
-        //Debug.Log("Max players:" + MaxPlayers + " Number of players ready: " + playerReadyCount);
 
         if (playerConfigs.Count != MaxPlayers) 
         {
@@ -115,5 +104,4 @@ public class PlayerConfiguration
 
     public string CharacterName;
 
-    //public Material PlayerMaterial { get; set; }
 }

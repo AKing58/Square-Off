@@ -27,7 +27,6 @@ public class GameAssets : MonoBehaviour
     public static void LoadScore() {      
         RCWins = PlayerPrefs.GetInt("RCWins");
         BMWins = PlayerPrefs.GetInt("BMWins");
-        //Debug.Log("Current Scores are: " + RCWins + " and BlueMoon: " + BMWins);
     }
 
     public static void SaveScore(string charName) {    
@@ -36,7 +35,6 @@ public class GameAssets : MonoBehaviour
     }
 
     public static void UpdateScore(bool win, string charName) {
-        //Debug.Log("Char Name is" + charName);
         if (win) {
             if (charName == "RedComet")
             {
