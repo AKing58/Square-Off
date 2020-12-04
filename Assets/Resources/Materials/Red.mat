@@ -8,14 +8,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Red
-  m_Shader: {fileID: -6465566751694194690, guid: 5e668ad9d48935246b1a725fed011e7f,
-    type: 3}
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 2
+  m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -95,7 +95,7 @@ Material:
     m_Colors:
     - Color_2DDD77A3: {r: 0.9254902, g: 0.24705882, b: 0.2901961, a: 0}
     - Color_3607F7EE: {r: 1, g: 0, b: 0, a: 0}
-    - Color_C8508D39: {r: 0, g: 0, b: 0, a: 1}
+    - Color_C8508D39: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 0.9245283, g: 0.24857596, b: 0.2882486, a: 1}
     - _Color: {r: 0.9245283, g: 0.24857599, b: 0.28824866, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
