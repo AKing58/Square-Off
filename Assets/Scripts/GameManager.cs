@@ -158,10 +158,7 @@ public class GameManager : MonoBehaviour
             PlayerHandler ph = Players[0].GetComponent<PlayerHandler>();
             string winText = ph.CharacterName + " Wins: ";
             winText += GameAssets.GetScore(ph.CharacterName);
-            Debug.Log("Win Text is: " + winText);
             VictoryScreen.transform.Find("Panel/Wins").GetComponent<Text>().text = winText;
-            //Debug.Log("Score for this char is: " + GameAssets.GetScore(ph.CharacterName));
-            //Debug.Log("Text is" + VictoryScreen.transform.Find("Panel/Wins").GetComponent<Text>().text);
         }
         else {
             foreach (GameObject player in Players) {
@@ -173,7 +170,6 @@ public class GameManager : MonoBehaviour
             if (!winnerFound) {
                 VictoryScreen.transform.Find("Panel/Wins").GetComponent<Text>().text = "Squared Off!";
             }
-            //VictoryScreen.transform.Find("Panel/Wins").GetComponent<Text>().text = winText;
         }
     }
 

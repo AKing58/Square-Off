@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+//changes displayed character stats when character button is selected
 [RequireComponent(typeof(Button))]
 public class CharButtonSelected : MonoBehaviour, ISelectHandler
 {

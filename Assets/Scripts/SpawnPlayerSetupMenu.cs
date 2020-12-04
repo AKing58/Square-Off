@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
+/*
+    SpawnPlayerSetupMenu spawns player setupmenu when the player is joins the character selection menu.
+ */
 public class SpawnPlayerSetupMenu : MonoBehaviour
 {
     public GameObject playerSetupMenuPrefab;
@@ -14,6 +17,7 @@ public class SpawnPlayerSetupMenu : MonoBehaviour
         if (rootMenu != null)
         {
             var menu = Instantiate(playerSetupMenuPrefab, rootMenu.transform);
+            //set the uiinputmodule of the player to the players menu
             input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
             menu.GetComponent<PlayerSetupMenuController>().SetPlayerIndex(input.playerIndex);
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Contains functions for loading scenes on the Title Screen
 public class TitleManager : MonoBehaviour
 {
 

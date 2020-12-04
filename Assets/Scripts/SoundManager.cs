@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+ * Sound Manager handles playing music and SFX. Players play from their own audiosource while other 
+ * sources play from the audiosources defined here.
+ */
 public static class SoundManager
 {
+    //list of music able to be chosen
     public enum Music { 
         MainMenus,
         GridStage,
         RoundStage
     }
 
+    //list of SFX able to be chosen
     public enum SFX { 
         UISelect,
         UIConfirm,
@@ -38,12 +44,14 @@ public static class SoundManager
 
     private static GameObject oneShotGameObject;
     private static AudioSource oneShotAudioSource;
-    private static GameObject[] oneShotGameObjects;
-    private static AudioSource[] oneShotAudioSources;
 
+    //game object holding the audiosource of background music of every scene
     private static GameObject MenuBGM;
+
+    //tells the sound manager when the scene is battle scene to handle when to replay music 
     private static bool fightMode = false;
 
+    //play background music
     public static void PlayMusic(Music sound, bool fightOn=false) {
         if (!fightOn) {
             fightMode = fightOn;
@@ -72,6 +80,7 @@ public static class SoundManager
         audiosrc.Stop();      
     }
 
+    //play sfx from UI
     public static void PlayOneShotUI(SFX sound, float volume = 0.10f)
     {
         if (oneShotGameObject == null)
@@ -83,32 +92,6 @@ public static class SoundManager
         }
 
         oneShotAudioSource.PlayOneShot(GetAudioClip(sound));
-    }
-
-    public static void PlayOneShot(SFX sound, int playerIndex, Vector3 position, float volume = 0.10f) {
-        if (oneShotAudioSources == null) {
-            oneShotAudioSources = new AudioSource[4];
-        }
-
-        if (oneShotGameObjects == null)
-        {
-            oneShotGameObjects = new GameObject[4];
-        }
-        if (oneShotGameObjects[playerIndex] == null) {
-            
-            oneShotGameObjects[playerIndex] = new GameObject("Sound" + playerIndex);
-            oneShotAudioSources[playerIndex] = oneShotGameObjects[playerIndex].AddComponent<AudioSource>();
-            oneShotAudioSources[playerIndex].spatialBlend = 0.8f;
-        }
-        oneShotAudioSources[playerIndex].volume = volume;
-        oneShotGameObjects[playerIndex].transform.position = position;
-        oneShotAudioSources[playerIndex].PlayOneShot(GetAudioClip(sound));
-    }
-
-    public static void StopSFX(int playerIndex) {
-        if (oneShotGameObjects[playerIndex] != null && oneShotAudioSources[playerIndex] !=null) {
-            oneShotAudioSources[playerIndex].Stop();
-        }
     }
 
     public static AudioClip GetAudioClip(SFX sound)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//a custom layout group class used to auto handle the layout of children
 public class FlexibleGridLayout : LayoutGroup
 {
     public enum FitType

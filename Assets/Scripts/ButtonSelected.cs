@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/*
+    Sets the background of the scene when selecting a stage
+ */
 public class ButtonSelected : MonoBehaviour, ISelectHandler
 {   
     

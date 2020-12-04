@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ This class is used to store reference audio clips and keep track of scores
+ */
 public class GameAssets : MonoBehaviour
 {
     private static GameAssets _i;
@@ -16,7 +19,9 @@ public class GameAssets : MonoBehaviour
         }
     }
 
+    //store red comet wins
     private static int RCWins;
+    //blue moon wins
     private static int BMWins;
 
 
@@ -30,7 +35,7 @@ public class GameAssets : MonoBehaviour
     }
 
     public static void SaveScore(string charName) {    
-            PlayerPrefs.SetInt("RCWins", RCWins);
+        PlayerPrefs.SetInt("RCWins", RCWins);
         PlayerPrefs.SetInt("BMWins", BMWins);
     }
 
@@ -51,7 +56,6 @@ public class GameAssets : MonoBehaviour
     }
 
     public static int GetScore(string charName) {
-        //Debug.Log("Run Get Score");
         if (charName == "RedComet")
         {
             return RCWins;

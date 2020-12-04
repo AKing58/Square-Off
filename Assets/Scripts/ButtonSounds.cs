@@ -4,9 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/*
+    Plays SFX when selecting, confirming or canceling from a button
+ */
 [RequireComponent(typeof(Button))]
 public class ButtonSounds : MonoBehaviour, ISelectHandler
 {
+    
     public void OnSelect(BaseEventData eventData)
     {
         SoundManager.PlayOneShotUI(SoundManager.SFX.UISelect);

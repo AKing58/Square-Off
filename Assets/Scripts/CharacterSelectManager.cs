@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//contains functions for displaying text on the Character Select Scene
 public class CharacterSelectManager : MonoBehaviour
 {
     public Text joinText;
@@ -15,6 +16,7 @@ public class CharacterSelectManager : MonoBehaviour
        
     }
 
+    //Toggles join text on Character Select Scene
     public void showJoinText() {
         if (PlayerConfigurationManager.Instance.GetPlayerConfigs().Count == 0)
         {

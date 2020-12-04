@@ -18,17 +18,21 @@ public class PlayerSetupMenuController : MonoBehaviour
 
     [SerializeField]
     private Button defaultCharacter = null;
-
+    //amount of time to ignore input from the player
     private float ignoreInputTime = 0.5f;
-
+    //enables input for the player
     private bool inputEnabled;
 
+    //GameObject holding text for name of the player
     public GameObject charNameText;
+    //Gameobject holding text for type of player
     public GameObject charTypeText;
+    //Gameobject holding text for stats of the character
     public GameObject charStats;
+    //GameObject for character stats box.
     public GameObject characterBox;
 
-
+    
     public void SetPlayerIndex(int pi) 
     {
         PlayerIndex = pi;
@@ -36,6 +40,7 @@ public class PlayerSetupMenuController : MonoBehaviour
         ignoreInputTime = Time.time + ignoreInputTime;
     }
 
+    //ignores inputs to avoid too fast selection
     private void Update()
     {
         if (Time.time > ignoreInputTime)
@@ -44,6 +49,10 @@ public class PlayerSetupMenuController : MonoBehaviour
         }
     }
 
+    /*
+        Handles all the character stat box changing
+        Changes Name, Type and Stats(via image)
+     */
     public void ChangeCharacterStats(string charName) {
         charNameText.GetComponent<TMP_Text>().text = charName;
         if (charName == "Comet")
@@ -57,6 +66,7 @@ public class PlayerSetupMenuController : MonoBehaviour
         }
     }
 
+    //sets the character of the player and displays next UI
     public void SetCharacter(string charName)
     {
         if (!inputEnabled) { return; }
@@ -69,6 +79,7 @@ public class PlayerSetupMenuController : MonoBehaviour
         menuPanel.SetActive(false);
     }
 
+    //Readies the player and disables the ready button
     public void ReadyPlayer()
     {
         if (!inputEnabled) { return; }
@@ -76,6 +87,7 @@ public class PlayerSetupMenuController : MonoBehaviour
         readyButton.gameObject.SetActive(false);
     }
 
+    //When player presses cancel from the ready up button
     public void ReturnToCharacterSelect() {
         readyPanel.SetActive(false);
         menuPanel.SetActive(true);
