@@ -22,10 +22,12 @@ public class RotatingFire : MonoBehaviour
     }
 
     // Update is called once per frame
+    /// <summary>
+    /// Plays sound effect on cooldown and rotates the fireorbs around the pillar.
+    /// </summary>
     void Update()
     {
         if (Time.time - lastTimePlayedFire > fireSoundCooldown) {
-            Debug.Log("Playing fire sound");
             SoundManager.PlayOneShotUI(SoundManager.SFX.Flamethrower, 0.30f);
             lastTimePlayedFire = Time.time;
         }

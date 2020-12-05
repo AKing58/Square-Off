@@ -28,6 +28,9 @@ public class Obstacles : MonoBehaviour
 
 
     // Start is called before the first frame update
+    /// <summary>
+    /// Sets locations where the obstacles will move between and button starting colour
+    /// </summary>
     void Start()
     {
         startPosition1 = GameObject.Find("StartLoc1").transform.position;
@@ -43,6 +46,9 @@ public class Obstacles : MonoBehaviour
         button.GetComponent<Renderer>().material.color = Color.green;
     }
 
+    /// <summary>
+    /// Moves obstacles towards locations if active
+    /// </summary>
     void Update()
     {
         if (active && buttonOn)
@@ -66,6 +72,10 @@ public class Obstacles : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// When a player enters the area, enables button
+    /// </summary>
+    /// <param name="other"></param>
     void OnTriggerEnter (Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -79,6 +89,10 @@ public class Obstacles : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Adds wait time between button presses
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Reset()
     {
         yield return new WaitForSeconds(3);

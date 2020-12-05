@@ -6,18 +6,10 @@ public class FireDamage : MonoBehaviour
 {
     public float fireDamage = 10;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// When player enters area, deals strike damage to them or kills them if they don't have enough health
+    /// </summary>
+    /// <param name="other"></param>
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player" && other.gameObject.GetComponent<PlayerHandler>().CanBeStriked())
