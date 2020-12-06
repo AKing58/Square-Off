@@ -593,7 +593,10 @@ public class PlayerHandler : MonoBehaviour
         GetComponent<CapsuleCollider>().isTrigger = true;
     }
 
-    //Handles the frame incrementation and forward movement of the current ability
+    /// <summary>
+    /// Handles the frame incrementation and forward movement of the current ability
+    /// If the grab indicators are enabled on the gameobject, will show when the character is grab or strike immune
+    /// </summary>
     public void HandleCurrentMove()
     {
         CurrentMove.CurFrame += 1f * anim.GetCurrentAnimatorStateInfo(0).speed * Time.timeScale;
