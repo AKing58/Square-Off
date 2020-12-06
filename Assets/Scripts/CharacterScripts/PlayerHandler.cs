@@ -846,7 +846,7 @@ public class PlayerHandler : MonoBehaviour
     {
         if (Health <= 0)
             return false;
-        if ((CurrentMove == null || CurrentMove.Name == ""))
+        if ((CurrentMove == null || CurrentMove.Name == "") && Health >= 0)
             return true;
         if (CurrentMove.StrikeInvulnFrames[1] == 999)
             if (InValidAnim(CurrentMove.Name))
