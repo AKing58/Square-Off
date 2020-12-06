@@ -23,6 +23,7 @@ public class FloorManager : MonoBehaviour
             StartCoroutine(TileDrop());
     }
 
+    //Drops tiles every 3 seconds
     IEnumerator TileDrop()
     {
         tileDropTimer = true;
@@ -31,6 +32,7 @@ public class FloorManager : MonoBehaviour
         tileDropTimer = false;
     }
 
+    //Preps dropping 4 tiles
     void DropTile()
     {
         int count = 4;

@@ -32,6 +32,7 @@ public class CameraScript : MonoBehaviour
         move();
     }
 
+    //Moves the camera to the center point between all characters
     void move()
     {
         Vector3 center = GetCenterPoint();
@@ -39,6 +40,7 @@ public class CameraScript : MonoBehaviour
         transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
     }
     
+    //Returns the center point between all characters
     Vector3 GetCenterPoint()
     {
         if (targets.Count == 1)

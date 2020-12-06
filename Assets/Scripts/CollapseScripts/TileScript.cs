@@ -10,6 +10,8 @@ public class TileScript : MonoBehaviour
     float shaderTimer = -1f;
 
     float dropTime;
+
+    //Preps dropping this tile by changing the tile shader and starting the timer for dropping
     public void PrepDrop(float dropDelay)
     {
         GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/DiscoTile");
@@ -32,9 +34,9 @@ public class TileScript : MonoBehaviour
         }
     }
 
+    //Drops the tile after a certain amount of time
     IEnumerator DropMe()
     {
-        
         dropPrepped = true;
         yield return new WaitForSeconds(dropTime);
         GetComponent<BoxCollider>().isTrigger = true;

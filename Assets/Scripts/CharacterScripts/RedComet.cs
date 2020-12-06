@@ -33,29 +33,11 @@ public class RedComet : PlayerHandler
         }
     }
 
-    private void setupSuperEvent()
-    {
-        AnimationClip animClip = null;
-        foreach (AnimationClip tempClip in anim.runtimeAnimatorController.animationClips)
-        {
-            if (tempClip.name == "SuperConnect")
-            {
-                animClip = tempClip;
-            }
-        }
-        if (animClip == null)
-        {
-            Debug.LogError("Error: Could not find animation clip to bind active frames to");
-            return;
-        }
-        AnimationEvent animEventStart = new AnimationEvent();
-        animEventStart.intParameter = 1;
-        animEventStart.time = 68 * (1.0f / Constants.ANIMATION_FRAME_RATE);
-        animEventStart.functionName = "SuperLaunch";
-
-        animClip.AddEvent(animEventStart);
-    }
-
+    /// <summary>
+    /// Light attack
+    /// Rekka style attack, allows you to do two in a row.
+    /// Can cancel into Ability B after doing the second punch.
+    /// </summary>
     override protected void AbilityA()
     {
         float rekkaForce = 20.0f;
@@ -69,6 +51,12 @@ public class RedComet : PlayerHandler
         if (InValidAnim("Stance"))
             anim.SetTrigger("RekkaParam");
     }
+
+    /// <summary>
+    /// Stance move.
+    /// Performs a long range lunging grab when Ability B is performed in this stance.
+    /// Can Ability A or Ability D out of this stance.
+    /// </summary>
     override protected void AbilityB() 
     {
         if (InValidAnim(new string[] { "Walk", "Idle", "Rekka2" }))
@@ -80,9 +68,12 @@ public class RedComet : PlayerHandler
             anim.SetTrigger("StanceDiveParam");
             //CurrentForce = transform.forward * 50f;
         }
-
-            
     }
+
+    /// <summary>
+    /// Grab move.
+    /// Performs the super move instead when sufficient energy is held.
+    /// </summary>
     override protected void AbilityC() 
     {
         if (InValidAnim(new string[] { "Walk", "Idle" }))
@@ -102,6 +93,11 @@ public class RedComet : PlayerHandler
         }
     }
 
+    /// <summary>
+    /// Dodge move.
+    /// Has invulnerability on startup so can avoid attacks.
+    /// Can dodge out of the getup animation to avoid meaty attacks (attacks that are timed to hit an opponent right as they get up from being knocked down).
+    /// </summary>
     override protected void AbilityD() 
     {
         if (InValidAnim(new string[] { "Walk", "Idle", "Stance", "GetUp" }))

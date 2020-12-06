@@ -90,20 +90,21 @@ public class RedCometAI : StateMachine
 
     }
 
+	//Determines when the ai should sleep
 	bool shouldSleep()
     {
-		//Debug.Log("s Sleep");
 		return opponentRef == null;
     }
 
+	//Determines when the ai should seek
 	bool shouldSeek()
 	{
-		//Debug.Log("s seek");
 		return opponentRef == null;
 	}
+
+	//Determines when the ai should approach
 	bool shouldApproach()
 	{
-		//Debug.Log("s approach");
 		if (
 			opponentRef != null &&
 			parent.GetComponent<PlayerHandler>().InValidAnim(new string[] { "Walk", "Idle"}) &&
@@ -123,6 +124,7 @@ public class RedCometAI : StateMachine
 			return false;
 	}
 
+	//Logic for what to do when trying to approach the target
 	void approach()
     {
         if (parent.InValidAnim("Stance"))
@@ -142,12 +144,9 @@ public class RedCometAI : StateMachine
 			parent.ActivateInputB();
 			StartCoroutine(StanceDelay());
 		}
-			
-
-		
     }
 
-	
+	//Makes the AI stay in stance for at least 2 seconds
 	IEnumerator StanceDelay()
     {
 		StayInStance = true;
@@ -155,6 +154,7 @@ public class RedCometAI : StateMachine
 		StayInStance = false;
     }
 
+	//Determines if the ai should attack the player
 	bool shouldAttack()
 	{
 		//Debug.Log("s attack");
@@ -178,11 +178,13 @@ public class RedCometAI : StateMachine
 			return false;
 	}
 
+	//Determines if the player is in front of the ai
 	bool isFacing(Transform target)
     {
 		return Vector3.Dot((target.position - transform.position).normalized, transform.forward) > 0.9f;
     }
 
+	//Logic for attacking
 	void attack()
 	{
 		if (parent.InValidAnim("Rekka1"))
@@ -222,29 +224,10 @@ public class RedCometAI : StateMachine
         {
 			//Debug.Log("No Attack Available");
         }
-		/*
-		int attackID = Random.Range(0, 2);
-		switch (attackID)
-		{
-			case 0:
-				parent.ActivateInputA();
-				break;
-			case 1:
-				parent.ActivateInputB();
-				break;
-			default:
-				break;
-		}
-		*/
 	}
 
-	bool hasAttacked()
-    {
-		return parent.GetComponent<PlayerHandler>().InValidAnim(new string[] { "Grab", "Rekka1" });
-    }
-
 	
-
+	//Used to change targets if the current player has died
 	void seekOpponent()
     {
 		Debug.Log("seeking");

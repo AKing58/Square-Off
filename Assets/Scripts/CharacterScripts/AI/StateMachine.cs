@@ -35,16 +35,19 @@ public class StateMachine : MonoBehaviour
 		}
 	}
 
-	//# Performs a voidtion if the current state should constantly perform a funciton
+	// Performs a voidtion if the current state should constantly perform a funciton
 	virtual protected void StateLogic() { }
 
-	//# Determine the next state that the state machine should transition into, given certain conditions are met
+	// Determine the next state that the state machine should transition into, given certain conditions are met
 	virtual protected AIState GetTransition() => AIState.SPAWNEDIN;
 
+	//Logic for when entering states from another
 	virtual protected void EnterState(AIState newState, AIState oldState) { }
 
+	//Logic for when exiting states
 	virtual protected void ExitState(AIState oldState, AIState newState) { }
 
+	//Runs the enter and exit state functions when changing states
 	protected void SetState(AIState newState) {
 		prevState = curState;
 		curState = newState;
@@ -54,11 +57,4 @@ public class StateMachine : MonoBehaviour
 		if (newState != null)
 			EnterState(newState, prevState);
 	}
-
-	//protected void AddState(string stateName)
- //   {
-	//	states.Add(stateName);
-	//}
-		
-
 }

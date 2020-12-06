@@ -23,41 +23,10 @@ public class BlueMoon : PlayerHandler
         //setupSuperEvent();
     }
 
-    private void setupSuperEvent()
-    {
-        AnimationClip animClip = null;
-        foreach (AnimationClip tempClip in anim.runtimeAnimatorController.animationClips)
-        {
-            if (tempClip.name == "SuperConnect")
-            {
-                animClip = tempClip;
-            }
-        }
-        if (animClip == null)
-        {
-            Debug.LogError("Error: Could not find animation clip to bind active frames to");
-            return;
-        }
-        AnimationEvent animEventStart = new AnimationEvent();
-        animEventStart.intParameter = 1;
-        animEventStart.time = 68 * (1.0f / Constants.ANIMATION_FRAME_RATE);
-        animEventStart.functionName = "SuperLaunch";
-
-        animClip.AddEvent(animEventStart);
-    }
-
-    /*
-    protected void SuperLaunch()
-    {
-        float launchForce = 15f;
-        print("launching " + transform.Find("Hitboxes/GrabHitbox").GetChild(0).name);
-        PlayerHandler opponent = transform.Find("Hitboxes/GrabHitbox").GetChild(0).GetComponent<PlayerHandler>();
-        Launch(transform.up, launchForce);
-        opponent.Launch(transform.up, launchForce);
-
-    }
-    */
-
+    /// <summary>
+    /// Light attack.
+    /// Rekka style attack that can be done 3 times in a row.
+    /// </summary>
     override protected void AbilityA() 
     {
         if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1", "Rekka1 0" }))
@@ -66,6 +35,11 @@ public class BlueMoon : PlayerHandler
 
         }
     }
+
+    /// <summary>
+    /// Forward moving forward kick.
+    /// Knocks the enemy backwards upon being hit.
+    /// </summary>
     override protected void AbilityB() 
     {
         if (InValidAnim(new string[] { "Walk", "Idle", "Rekka1 0" }))
@@ -73,6 +47,11 @@ public class BlueMoon : PlayerHandler
             anim.SetTrigger("BootParam");
         }
     }
+
+    /// <summary>
+    /// Grab move.
+    /// Performs the super move instead when sufficient energy is held.
+    /// </summary>
     override protected void AbilityC() 
     {
         if (InValidAnim(new string[] { "Walk", "Idle" }))
@@ -91,6 +70,11 @@ public class BlueMoon : PlayerHandler
         }
     }
 
+    /// <summary>
+    /// Dodge move.
+    /// Has invulnerability on startup so can avoid attacks.
+    /// Can dodge out of the getup animation to avoid meaty attacks (attacks that are timed to hit an opponent right as they get up from being knocked down).
+    /// </summary>
     override protected void AbilityD() 
     {
         if (InValidAnim(new string[] { "Walk", "Idle", "GetUp" }))

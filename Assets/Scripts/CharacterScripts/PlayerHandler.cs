@@ -55,6 +55,7 @@ public class PlayerHandler : MonoBehaviour
 
     public enum PlayerState { GRABINVULN, STRIKEINVULN, CANCELABLE }
 
+    //Controller
     protected Vector2 movementInput;
 
     private bool abilityAInput;
@@ -63,6 +64,7 @@ public class PlayerHandler : MonoBehaviour
     private bool abilityDInput;
     private bool abilityStartInput;
 
+    //Super bar 
     [SerializeField]
     protected bool superAvailable = false;
     private Color colorStart;
@@ -70,15 +72,17 @@ public class PlayerHandler : MonoBehaviour
     private float lerpControl = 0;
     private float colorRate = 2;
 
-
+    //Sounds
     private int lastHit;
     private int lastHeavyHit;
     private float superSoundCooldown = 5.0f;
     private float lastTimePlayedSuperSound = 0;
 
+    //Shaders
     Color teamColor;
     Shader BaseShader;
 
+    //Controller input "trigger" booleans
     protected bool AbilityAInput
     {
         get
@@ -128,6 +132,7 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+    //Properties
     [SerializeField]
     private float maxHealth;
     public float MaxHealth
@@ -232,6 +237,7 @@ public class PlayerHandler : MonoBehaviour
         controls = new PlayerControls();
     }
 
+    //Used for controls 
     private void Input_onActionTriggered(InputAction.CallbackContext obj)
     {
         if (obj.action.name == controls.Gameplay.Move.name)
@@ -271,6 +277,8 @@ public class PlayerHandler : MonoBehaviour
         colorEnd = GetRandomLightColor();
     }
     
+
+    //Initializes an AI character
     public void InitAI()
     {
         PlayerInfoPanel.transform.Find("PlayerName").GetComponent<Text>().text = PlayerName;
@@ -292,9 +300,11 @@ public class PlayerHandler : MonoBehaviour
         }
 
         BaseShader = myMaterial.shader;
-        teamColor = myMaterial.GetColor("Color_2DDD77A3");
+        teamColor = myMaterial.color;
         CurrentMove = null;
     }
+
+    //Initializes a player character
     public void InitPlayer(PlayerConfiguration pc)
     {
         PlayerInfoPanel.transform.Find("PlayerName").GetComponent<Text>().text = PlayerName;
@@ -404,6 +414,7 @@ public class PlayerHandler : MonoBehaviour
             HandleCurrentMove();
     }
 
+    //Determines what color the super bar will be in relation to the amount it is filled
     private void DetermineSuperBarColor() {
         lerpControl += Time.deltaTime * colorRate;
 
@@ -424,14 +435,13 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+    //Plays a specific sound for the final hit of a super move
     public void PlaySuperSlam() {
-        //Debug.Log("Played Super Slam Sound");
         GetAudioSource(0.5f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.SuperSlam));
-        //SoundManager.PlayOneShot(SoundManager.SFX.SuperSlam, playerConfig.PlayerIndex, transform.position, 0.50f);
     }
 
+    //Plays a random hit sound
     public void PlayHit() {
-        //Debug.Log("Played Hit sound!");
         int soundIndex = UnityEngine.Random.Range(0, 3);
         while (soundIndex == lastHit) {
             soundIndex = UnityEngine.Random.Range(0, 3);
@@ -454,9 +464,8 @@ public class PlayerHandler : MonoBehaviour
         lastHit = soundIndex;
     }
 
+    //Plays a random heavy hit sound
     public void PlayHeavyHit() {
-        //Debug.Log("Played Heavy Hit sound!");
-
         int soundIndex = UnityEngine.Random.Range(0, 3);
         while (soundIndex == lastHeavyHit)
         {
@@ -480,30 +489,30 @@ public class PlayerHandler : MonoBehaviour
         lastHeavyHit = soundIndex;
     }
 
+    //Plays the dizzy sound
     public void PlayDizzy() {
-        //SoundManager.PlayOneShot(SoundManager.SFX.Dizzy, playerConfig.PlayerIndex, transform.position, 0.20f);
         GetAudioSource(0.2f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.Dizzy));
     }
 
+    //Plays a zoop noise
     public void PlaySuperZoop() {
-        //SoundManager.PlayOneShot(SoundManager.SFX.SuperZoop, playerConfig.PlayerIndex, transform.position, 0.20f);
         GetAudioSource(0.2f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.SuperZoop));
     }
 
+    //Plays a crash noise
     public void PlayCrash() {
-        //SoundManager.PlayOneShot(SoundManager.SFX.Crash, playerConfig.PlayerIndex, transform.position, 0.20f);
         GetAudioSource(0.2f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.Crash));
     }
 
+    //Plays a brake noise
     public void PlayBrakes() {
-        //SoundManager.StopSFX(playerConfig.PlayerIndex);
-        //SoundManager.PlayOneShot(SoundManager.SFX.Brakes, playerConfig.PlayerIndex, transform.position, 0.10f);
         AudioSource audioSrc = GetAudioSource(0.1f);
         audioSrc.Stop();
         audioSrc.PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.Brakes));
 
     }
 
+    //Play an engine noise
     public void PlayVroom() {
         int soundIndex = UnityEngine.Random.Range(0, 2);
         AudioSource audioSrc = GetAudioSource(0.10f);
@@ -525,30 +534,28 @@ public class PlayerHandler : MonoBehaviour
     }
 
     public void PlayBMSuperActivate() {
-        Debug.Log("BM Super Activate");
-        //SoundManager.PlayOneShot(SoundManager.SFX.BMSuperActivate, playerConfig.PlayerIndex, transform.position, 0.50f);
         GetAudioSource(0.5f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.BMSuperActivate));
     }
 
     public void PlayBMSuperEnd() {
-        //SoundManager.PlayOneShot(SoundManager.SFX.BMSuperEnd, playerConfig.PlayerIndex, transform.position, 0.50f);
         GetAudioSource(0.5f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.BMSuperEnd));
     }
 
     public void PlayRCSuperActivate() {
-        //SoundManager.PlayOneShot(SoundManager.SFX.RCSuperActivate, playerConfig.PlayerIndex, transform.position, 0.50f);
         GetAudioSource(0.5f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.RCSuperActivate));
     }
 
     public void PlayRCSuperEnd() {
-        //SoundManager.PlayOneShot(SoundManager.SFX.RCSuperEnd, playerConfig.PlayerIndex, transform.position, 0.50f);
         GetAudioSource(0.5f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.RCSuperEnd));
     }
+
+    //Used for the super move
     private Color GetRandomLightColor()
     {
         return new Color(UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f));
     }
 
+    //Gets an audio source and configues it
     private AudioSource GetAudioSource(float volume, float spatialBlend=0.8f) {
         AudioSource audioSrc = gameObject.GetComponent<AudioSource>();
         audioSrc.spatialBlend = 0.8f;
@@ -556,17 +563,18 @@ public class PlayerHandler : MonoBehaviour
         return audioSrc;
     }
 
+    //Attaches a shader to the materials of a character
     void applySuperShader()
     {
         Shader superShader = Resources.Load<Shader>("Materials/SuperShader");
         for (int i = 0; i < bodyPieces.Length; i++)
         {
             bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.shader = superShader;
-            //bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.SetColor("Color_2DDD77A3", teamColor);
         }
             
     }
 
+    //Removes the super shader and applys the default shader
     void applyDefaultShader()
     {
         for (int i = 0; i < bodyPieces.Length; i++)
@@ -574,14 +582,9 @@ public class PlayerHandler : MonoBehaviour
             bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.shader = BaseShader;
             bodyPieces[i].GetComponent<SkinnedMeshRenderer>().material.SetColor("Color_2DDD77A3", teamColor);
         }
-            
     }
 
-    public void printstuff()
-    {
-        Debug.Log("Going into stance");
-    }
-
+    //Delay before a player is removed from the game after being killed
     public IEnumerator KillDelay()
     {
         yield return new WaitForSeconds(2f);
@@ -590,6 +593,7 @@ public class PlayerHandler : MonoBehaviour
         GetComponent<CapsuleCollider>().isTrigger = true;
     }
 
+    //Handles the frame incrementation and forward movement of the current ability
     public void HandleCurrentMove()
     {
         CurrentMove.CurFrame += 1f * anim.GetCurrentAnimatorStateInfo(0).speed * Time.timeScale;
@@ -622,6 +626,7 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+    //Resets the status of the current move
     public void ResetCurrentMove()
     {
         if(CurrentMove != null)
@@ -631,6 +636,7 @@ public class PlayerHandler : MonoBehaviour
         CurrentMove = null;
     }
 
+    //Handles the stun of the character
     public void HandleStun()
     {
         if (Stun > 0 && Time.time > LastTimeHit + 5f && LastTimeStunned == 0)
@@ -643,23 +649,27 @@ public class PlayerHandler : MonoBehaviour
             TurnStunOff();
     }
 
+    //Sets a trigger parameter of the animator, meant to be used on non playerhandler scripts interacting with playerhandler scripts
     public void SetAnimParam(string input)
     {
         anim.SetTrigger(input);
     }
 
+    //Enables kinematics of this character
     private void enableKinematics()
     {
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Rigidbody>().detectCollisions = false;
     }
 
+    //Disables kinematics of this character
     private void disableKinematics()
     {
         GetComponent<Rigidbody>().isKinematic = false;
         GetComponent<Rigidbody>().detectCollisions = true;
     }
 
+    //Activates an input if it had been activated via the player input system
     protected void HandleAbilityInputs()
     {
         if (AbilityAInput)
@@ -671,6 +681,8 @@ public class PlayerHandler : MonoBehaviour
         else if (AbilityDInput)
             AbilityD();
     }
+
+    //Determines the direction that the player is trying to move towards
     protected void HandleMovementInputs()
     {
         float h = movementInput.x;
@@ -706,12 +718,14 @@ public class PlayerHandler : MonoBehaviour
         return output;
     }
 
+    //Used to kill the character if they touch the killbox
     public void StageKillMe()
     {
         Health = 0;
         anim.CrossFade("LayOnGround", 1f, -1, 0, 0.5f);
     }
 
+    //Used to disable the stunned effect when the stun timer completes
     public void TurnStunOff()
     {
         LastTimeStunned = 0;
@@ -724,7 +738,8 @@ public class PlayerHandler : MonoBehaviour
     {
         return InValidAnim(new string[] { arg });
     }
-    //Multi Argument
+
+    //Multi Argument to determine if the character is in any one of a list of animations
     public bool InValidAnim(string[] args)
     {
         bool output = false;
@@ -735,6 +750,7 @@ public class PlayerHandler : MonoBehaviour
         return output;
     }
 
+   //Makes a hitbox turn on and off if the current move is at a certain frame
     protected void SetActiveFrames(string moveName, string hitboxName, int startTime, int endTime)
     {
         AnimationClip animClip = null;
@@ -766,6 +782,7 @@ public class PlayerHandler : MonoBehaviour
         animClip.AddEvent(animEventEnd);
     }
 
+    //Sets an animation to set the current move when that animation starts
     protected void SetMoveFirstFrame(string moveName)
     {
         AnimationClip animClip = null;
@@ -789,23 +806,27 @@ public class PlayerHandler : MonoBehaviour
         animClip.AddEvent(animEventStart);
     }
 
+    //Sets the current move
     public void SetMove(string moveName)
     {
         CurrentMove = MoveList[moveName];
         CurrentMove.CurFrame = 0;
     }
 
+    //Turns on or off a hitbox
     public void SetHitbox(AnimationEvent ae)
     {
         gameObject.transform.Find("Hitboxes/" + ae.stringParameter).GetComponent<BoxCollider>().enabled = ae.intParameter == 1;
     }
 
+    //Triggered when a grab connects
     public void GrabConnected()
     {
         anim.SetTrigger("GrabConnectParam");
         StopHitboxes();
     }
 
+    //Determines if this character can be grabbed
     public bool CanBeGrabbed()
     {
         if (Health <= 0)
@@ -820,6 +841,7 @@ public class PlayerHandler : MonoBehaviour
         return true;
     }
 
+    //Determines if this character can be striked
     public bool CanBeStriked()
     {
         if (Health <= 0)
@@ -835,6 +857,7 @@ public class PlayerHandler : MonoBehaviour
         return true;
     }
 
+    //Makes time slow down to a near stand still for an amount of time
     protected IEnumerator PauseTime(float time)
     {
         Time.timeScale = 0.01f;
@@ -842,6 +865,7 @@ public class PlayerHandler : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    //Attempts an attack against another character
     public bool AttackOther(PlayerHandler target, string moveName)
     {
         if (MoveList[moveName].Type == "Grab" && target.CanBeGrabbed())
@@ -880,6 +904,7 @@ public class PlayerHandler : MonoBehaviour
         return true;
     }
 
+    //Temporarily changes the main camera to the one attached to this character
     public IEnumerator TempCameraControl(float time)
     {
         ThisCam.enabled = true;
@@ -889,36 +914,31 @@ public class PlayerHandler : MonoBehaviour
         GM.MainCam.enabled = true;
     }
 
+    //Sets up getting grabbed by another character
     public void GrabMe(PlayerHandler grabber)
     {
         Vector3 grabLoc = Vector3.MoveTowards(transform.position, grabber.transform.position, 100.0f);
-        //transform.position = new Vector3(grabLoc.x, transform.position.y, grabLoc.z);
         RotTowards(grabber.transform.position);
         anim.SetTrigger(Constants.CharacterInitials[grabber.CharacterName] + "GrabbedParam");
     }
 
+    //Sets up gettin super grabbed by another character
     public void SuperMe(PlayerHandler grabber)
     {
         Vector3 grabLoc = Vector3.MoveTowards(transform.position, grabber.transform.position, 100.0f);
-        //transform.position = new Vector3(grabLoc.x, transform.position.y, grabLoc.z);
         RotTowards(grabber.transform.position);
         anim.SetTrigger(Constants.CharacterInitials[grabber.CharacterName] + "SuperedParam");
         GameObject.Find("GameManager").GetComponent<GameManager>().TempDisableControls();
     }
 
-    public void GrabMe()
-    {
-        anim.SetTrigger("GrabbedParam");
-        StopHitboxes();
-    }
-
+    //Strikes this character
     public void StrikeMe()
     {
         anim.SetTrigger("StrikedFrontParam");
-        //anim.ResetTrigger("GrabConnected");
         StopHitboxes();
     }
 
+    //Applies a knockback to this character
     public void KnockbackMe(PlayerHandler pusher, float knockback)
     {
         RotTowards(pusher.transform.position);
@@ -926,6 +946,7 @@ public class PlayerHandler : MonoBehaviour
         rg.AddForce(pusher.transform.forward * knockback, ForceMode.Impulse);
     }
 
+    //Turns off all hitboxes on this character
     public void StopHitboxes()
     {
         foreach (Transform t in gameObject.transform.Find("Hitboxes").transform)
@@ -934,6 +955,7 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+    //Rotates a character towards a vector 3 target location
     public void RotTowards(Vector3 target)
     {
         Vector3 targetDirection = target - transform.position;
@@ -1024,6 +1046,7 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+    //Used to deserialize the movelist json
     [Serializable]
     public class Abilities
     {
@@ -1031,6 +1054,7 @@ public class PlayerHandler : MonoBehaviour
         public List<Move> InvulnStates;
     }
 
+    //Populates this character's move list based on the corresponding movelist json
     public void PopulateMoveList()
     {
         foreach(Move m in AbilityData.Moves)
@@ -1064,15 +1088,16 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+    //Sets the moves that have active frames
     protected void SetupActiveMoves()
     {
         foreach(Move m in AbilityData.Moves)
         {
-            //Debug.Log("Setup move named: " + m.Name + ", " + m.HitboxName + " :"+ MoveList[m.Name].ActiveFrames[0] + ", " + MoveList[m.Name].ActiveFrames[1]);
             SetActiveFrames(m.Name, m.HitboxName, MoveList[m.Name].ActiveFrames[0], MoveList[m.Name].ActiveFrames[1]);
         }
     }
 
+    //Sets the first frame of each move in the movelist
     protected void SetupMoveStarts()
     {
         foreach (Move m in AbilityData.Moves)
@@ -1085,11 +1110,13 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+    //Resets the super properties once it has been performed
     protected void ResetSuper() {
         Energy = 0;
         superAvailable = false;
     }
 
+    //Used to delay the damage dealt by grabs
     protected IEnumerator DamageDelay(PlayerHandler target, float delay, float damage, float stun, float knockback) 
     {
         yield return new WaitForSeconds(delay);

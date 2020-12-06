@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class KillBox : MonoBehaviour
 {
+    //Kills the player when they touch the killbox
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<PlayerHandler>())
@@ -12,6 +13,7 @@ public class KillBox : MonoBehaviour
         }
     }
 
+    //Used to destroy the tiles in squareagone
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Tile"))

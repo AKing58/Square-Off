@@ -11,7 +11,7 @@ public class HitBoxScript : MonoBehaviour
         Physics.IgnoreCollision(GetComponent<Collider>(), transform.GetComponent<Collider>());
     }
 
-
+    //Runs logic for when a hitbox overlaps with the collider of a player
     void OnTriggerStay(Collider collider)
     {
         if(parentGO.GetComponent<PlayerHandler>().CurrentMove == null)
