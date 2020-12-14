@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -83,8 +84,11 @@ public class GameManager : MonoBehaviour
         }
         RemoveExtraPlayerPanels();
         MainCam.gameObject.GetComponent<CameraScript>().InitCam();
+        PlayRandomMusic();
+    }
 
-        switch(Random.Range(0,2))
+    void PlayRandomMusic() {
+        switch (Random.Range(0, 2))
         {
             case 0:
                 SoundManager.PlayMusic(SoundManager.Music.GridStage, true);
@@ -132,7 +136,8 @@ public class GameManager : MonoBehaviour
     //Used to end the match after the second to last character is killed
     private IEnumerator EndMatch() {
         yield return new WaitForSeconds(2.0f);
-
+        //VictoryScreen.GetComponentInChildren<MultiplayerEventSystem>().firstSelectedGameObject = VictoryScreen.transform.Find("Panel/Restart").gameObject;
+    
         PlayerInfoPanels.SetActive(false);
         VictoryScreen.SetActive(true);
         if (PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray().Length == 1)
@@ -153,6 +158,12 @@ public class GameManager : MonoBehaviour
                 VictoryScreen.transform.Find("Panel/Wins").GetComponent<Text>().text = "Squared Off!";
             }
         }
+        VictoryScreen.transform.Find("Panel/Restart").gameObject.GetComponent<Button>().Select();
+        VictoryScreen.transform.Find("Panel/Restart").gameObject.GetComponent<Button>().OnSelect(null);
+
+        var ph2 = Players[0].gameObject.GetComponent<PlayerHandler>();
+        ph2.SetUIInput(VictoryScreen.GetComponentInChildren<InputSystemUIInputModule>());
+        pausePlayers(true);
     }
     
     //Removes the player panels of any player not in the game
@@ -218,13 +229,16 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ResumeScene()
     {
+        //unpause all player inputs
+        pausePlayers(false);
+
         Time.timeScale = 1.0f;
         if (PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray().Length == 1)
         {
             VictoryScreen.transform.Find("Panel/Wins").gameObject.SetActive(false);
-        }
-        VictoryScreen.transform.GetChild(0).GetChild(4).gameObject.SetActive(false);
-       
+        }      
+
+        VictoryScreen.transform.GetChild(0).GetChild(4).gameObject.SetActive(false);      
         VictoryScreen.SetActive(false);
     }
 
@@ -234,6 +248,10 @@ public class GameManager : MonoBehaviour
     public void PauseMenu()
     {
         Time.timeScale = 0f;
+
+        //pause all player inputs
+        pausePlayers(true);
+
         if (PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray().Length == 1)
         {
             VictoryScreen.transform.Find("Panel/Wins").gameObject.SetActive(true);
@@ -241,8 +259,25 @@ public class GameManager : MonoBehaviour
         else {
             VictoryScreen.transform.Find("Panel/Wins").gameObject.SetActive(false);
         }
+
+        //give of the ui to the player
+        var ph = Players[0].gameObject.GetComponent<PlayerHandler>();
+        ph.SetUIInput(VictoryScreen.GetComponentInChildren<InputSystemUIInputModule>());
+
+        //set first selected button
        
         VictoryScreen.SetActive(true);
         VictoryScreen.transform.GetChild(0).GetChild(4).gameObject.SetActive(true);
+        VictoryScreen.transform.Find("Panel/Resume").gameObject.GetComponent<Button>().Select();
+        VictoryScreen.transform.Find("Panel/Resume").gameObject.GetComponent<Button>().OnSelect(null);
+
+
+    }
+
+    private void pausePlayers(bool pause) {
+        foreach (GameObject player in Players)
+        {
+            player.GetComponent<PlayerHandler>().Paused = pause;
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.InputSystem.UI;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -62,7 +63,6 @@ public class PlayerHandler : MonoBehaviour
     private bool abilityBInput;
     private bool abilityCInput;
     private bool abilityDInput;
-    private bool abilityStartInput;
 
     //Super bar 
     [SerializeField]
@@ -81,6 +81,15 @@ public class PlayerHandler : MonoBehaviour
     //Shaders
     Color teamColor;
     Shader BaseShader;
+
+    private bool paused = false;
+
+    public bool Paused
+    {
+        get { return paused; }
+        set { paused = value; }
+    
+    }
 
     //Controller input "trigger" booleans
     protected bool AbilityAInput
@@ -240,29 +249,32 @@ public class PlayerHandler : MonoBehaviour
     //Used for controls 
     private void Input_onActionTriggered(InputAction.CallbackContext obj)
     {
-        if (obj.action.name == controls.Gameplay.Move.name)
-        {
-            OnMove(obj);    
-        }
-        if (obj.action.name == controls.Gameplay.A.name) {
-            OnA(obj);
-        }
-        if (obj.action.name == controls.Gameplay.B.name)
-        {
-            OnB(obj);
-        }
-        if (obj.action.name == controls.Gameplay.C.name)
-        {
-            OnC(obj);
-        }
-        if (obj.action.name == controls.Gameplay.D.name)
-        {
-            OnD(obj);
-        }
-        if (obj.action.name == controls.Gameplay.Start.name)
-        {
-            GameObject.Find("GameManager").GetComponent<GameManager>().PauseMenu();
-        }
+        if (!Paused) {
+            if (obj.action.name == controls.Gameplay.Move.name)
+            {
+                OnMove(obj);
+            }
+            if (obj.action.name == controls.Gameplay.A.name)
+            {
+                OnA(obj);
+            }
+            if (obj.action.name == controls.Gameplay.B.name)
+            {
+                OnB(obj);
+            }
+            if (obj.action.name == controls.Gameplay.C.name)
+            {
+                OnC(obj);
+            }
+            if (obj.action.name == controls.Gameplay.D.name)
+            {
+                OnD(obj);
+            }
+            if (obj.action.name == controls.Gameplay.Start.name)
+            {
+                GameObject.Find("GameManager").GetComponent<GameManager>().PauseMenu();
+            }
+        }     
     }
 
     protected void Start()
@@ -549,10 +561,16 @@ public class PlayerHandler : MonoBehaviour
         GetAudioSource(0.5f).PlayOneShot(SoundManager.GetAudioClip(SoundManager.SFX.RCSuperEnd));
     }
 
+
+
     //Used for the super move
     private Color GetRandomLightColor()
     {
         return new Color(UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f), UnityEngine.Random.Range(0.4f, 1.0f));
+    }
+
+    public void SetUIInput(InputSystemUIInputModule module) {
+        playerConfig.Input.uiInputModule = module;
     }
 
     //Gets an audio source and configues it
@@ -1143,8 +1161,7 @@ public class PlayerHandler : MonoBehaviour
     public void ActivateInputA() { abilityAInput = true; }
     public void ActivateInputB() { abilityBInput = true; }
     public void ActivateInputC() { abilityCInput = true; }
-    public void ActivateInputD() { abilityDInput = true; }
-    public void ActivateInputStart() { abilityStartInput = true; }
+    public void ActivateInputD() { abilityDInput = true; }   
 
     public void setTargetVec(Vector3 target)
     {
@@ -1160,7 +1177,5 @@ public class PlayerHandler : MonoBehaviour
     public void OnC(InputAction.CallbackContext ctx) => abilityCInput = ctx.ReadValueAsButton();
 
     public void OnD(InputAction.CallbackContext ctx) => abilityDInput = ctx.ReadValueAsButton();
-
-    public void OnStart(InputAction.CallbackContext ctx) => abilityStartInput = ctx.ReadValueAsButton();
 
 }
