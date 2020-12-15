@@ -162,6 +162,7 @@ public class GameManager : MonoBehaviour
         VictoryScreen.transform.Find("Panel/Restart").gameObject.GetComponent<Button>().OnSelect(null);
 
         var ph2 = Players[0].gameObject.GetComponent<PlayerHandler>();
+        VictoryScreen.transform.Find("Panel/PlayerControl").gameObject.GetComponent<Text>().text = ph2.PlayerName + " may choose the next round!";
         ph2.SetUIInput(VictoryScreen.GetComponentInChildren<InputSystemUIInputModule>());
         pausePlayers(true);
     }
